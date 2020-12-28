@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root 'peges#home'
+  root 'pages#home'
   get  '/signup',  to: 'users#new'
 end
