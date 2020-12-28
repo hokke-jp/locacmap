@@ -1,9 +1,9 @@
 <header class="p-2 h-14 flex justify-between">
-  <%= link_to image_tag("4.png", alt: "applogo", width: "40px", class: "rounded-lg"),root_url%>
+  <%= link_to image_tag("4.png", alt: "applogo", width: "40px", class: "rounded-lg"),root_path%>
   
   <div class="w-56 h-2 table text-xs">
     <li class="list-none w-2/5 text-center table-cell cursor-pointer text-green-600 hover:text-green-900"><%= link_to "簡単ログイン", '#', {class: "align-middle  leading-10"} %></li>
     <li class="list-none w-3/10 text-center table-cell cursor-pointer text-green-600 hover:text-green-900"><%= link_to "ログイン", '#', {class: "align-middle  leading-10"} %></li>
-    <li class="list-none w-3/10 text-center table-cell cursor-pointer text-white hover:text-gray-700 bg-green-400 hover:bg-green-500 rounded-md"><%= link_to "新規登録", '#', {class: "align-middle  leading-10"} %></li>
+    <li class="list-none w-3/10 text-center table-cell cursor-pointer text-white hover:text-gray-700 bg-green-400 hover:bg-green-500 rounded-md"><%= link_to "新規登録", signup_path, {class: "align-middle  leading-10"} %></li>
  </div>
 </header>
