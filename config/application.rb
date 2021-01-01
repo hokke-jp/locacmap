@@ -18,5 +18,8 @@ module Localmap
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    config.i18n.default_locale = :ja
+    config.load_defaults 5.2
   end
 end

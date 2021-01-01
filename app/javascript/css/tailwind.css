@@ -1,3 +1,11 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.label {
+  @apply block;
+}
+
+.field {
+  @apply block border w-full rounded;
+}

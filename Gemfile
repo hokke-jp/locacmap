@@ -8,6 +8,7 @@ gem 'rails', '~> 6.1.0'
 # Use mysql as the database for Active Record
 gem 'bcrypt', '3.1.13'
 gem 'mysql2', '~> 0.5'
+gem 'rails-i18n'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
