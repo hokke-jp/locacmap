@@ -5,8 +5,9 @@
     <div class="w-56 h-2 table text-xs">
       <% if logged_in? %>
         <li><%= link_to "Profile", current_user %></li>
-        <li><%= link_to "記事投稿", '#' %></li>
-        <li><%= link_to "Log out", logout_path, method: :delete %></li>
+        <li><%= link_to "記事投稿", users_path %></li>
+        <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+        <li><%= link_to "Settings", edit_user_path(current_user) %></li>
       <% else %>
         <li class="list-none w-2/5 text-center table-cell cursor-pointer text-green-600 hover:text-green-900"><%= link_to "簡単ログイン", '#', {class: "leading-10 block"} %></li>
         <li class="list-none w-3/10 text-center table-cell cursor-pointer text-green-600 hover:text-green-900"><%= link_to "ログイン", login_path, {class: "leading-10 block"} %></li>
