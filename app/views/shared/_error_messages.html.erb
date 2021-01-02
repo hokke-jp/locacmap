@@ -1,11 +1,11 @@
 <% if @user.errors.any? %>
-  <div class="text-gray-600 opacity-50 mb-5">
-    <div class="h-6">
+  <div id="error_explanation" class="text-gray-600 opacity-50 mb-5">
+    <div class="h-7 leading-7">
       登録を完了できませんでした
     </div>
     <ul>
     <% @user.errors.full_messages.each do |msg| %>
-      <li class="text-sm h-5"><%= msg %></li>
+      <li class="text-sm leading-5"><%= msg %></li>
     <% end %>
     </ul>
   </div>
