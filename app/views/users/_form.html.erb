@@ -1,5 +1,5 @@
 <%= form_with(model: @user, local: true, class: "flex flex-col" ) do |f| %>
-  <%= render 'shared/error_messages' %>
+  <%= render 'shared/error_messages', object: f.object %>
 
   <div class="mb-5">
     <%= f.label :name, "ユーザー名", class: "label" %>

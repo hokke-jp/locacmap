@@ -4,12 +4,12 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
 
   def index
-    @users = User.all.page(params[:page])
+    @users = User.all.page(params[:page]).paginate(page: params[:page], per_page: 10)
   end
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -55,14 +55,6 @@ class UsersController < ApplicationController
 
 
     # beforeアクション
-
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "ログインしてください"
-        redirect_to login_url
-      end
-    end
 
     def correct_user
       @user = User.find(params[:id])
