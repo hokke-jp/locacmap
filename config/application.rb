@@ -21,5 +21,6 @@ module Localmap
     
     config.i18n.default_locale = :ja
     config.load_defaults 5.2
+    config.time_zone = 'Asia/Tokyo'
   end
 end

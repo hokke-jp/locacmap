@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :logged_in_user, only: [:profile, :index, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:profile, :edit, :update]
   before_action :admin_user,     only: :destroy
 
   def index
@@ -25,6 +25,10 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def profile
+    @user = User.find(params[:id])
   end
 
   def edit

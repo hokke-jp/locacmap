@@ -1,4 +1,4 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, "Profile") %>
 
 <div>
   <div class="text-center mt-5 mb-8">
@@ -29,26 +29,22 @@
     </div>
   </div>
 
+  <div>
+    <ul class="text-gray-600">
+      <li>
+        <a href="#">
+          お気に入りの記事
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          登録変更
+        </a>
+      </li>
+      <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+    </ul>
+  </div>
 
 
-</div>
 
-
-<%= @user.name %>, <%= @user.email %>
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
-</h1>
-
-<li><%= link_to "ユーザー一覧", users_path %></li>
-<li><%= link_to "ログアウト", logout_path, method: :delete %></li>
-
-<div class="col-md-8">
-  <% if @user.microposts.any? %>
-    <h3>Microposts (<%= @user.microposts.count %>)</h3>
-    <ol class="microposts">
-      <%= render @microposts %>
-    </ol>
-    <%= will_paginate @microposts %>
-  <% end %>
 </div>

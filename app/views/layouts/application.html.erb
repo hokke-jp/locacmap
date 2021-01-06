@@ -5,28 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all','data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= render 'layouts/shim' %>
-
-    <style type="text/css">
-      *, *::before, *::after {box-sizing: inherit;}
-      .debug_dump {
-        clear: both;
-        float: left;
-        white-space: pre-wrap ;
-        word-break:break-all;
-        width: 100%;
-        margin-top: 45px;
-        -moz-box-sizing:    border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing:         border-box;
-        }
-    </style>
   </head>
 
-  <body>
+  <body class="text-gray-800">
     <%= render 'layouts/header' %>
     <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message, class: "text-center my-5 text-sm text-red-800 text-opacity-75") %>
@@ -34,6 +18,5 @@
     <div class="leading-4">
     <%= yield %>
     </div>
-    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

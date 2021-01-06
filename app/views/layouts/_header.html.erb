@@ -1,20 +1,32 @@
-<header class="p-2 h-14 flex justify-between">
-  <%= link_to image_tag("4.png", alt: "applogo", width: "40px", class: "rounded-lg"),root_path%>
-  
+<header class="py-2 px-5 h-14 flex justify-between shadow-md mb-2">
   <nav>
-    <div class="w-56 h-2 table text-xs">
-      <% if logged_in? %>
-        <li><%= link_to "Profile", current_user %></li>
-        <li><%= link_to "ユーザー一覧", users_path %></li>
-        <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
-        <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-        <li><%= link_to "記事投稿", new_micropost_path %></li>
-        <li><%= link_to "記事一覧", microposts_path %></li>
-      <% else %>
-        <li class="list-none w-2/5 text-center table-cell cursor-pointer text-green-600 hover:text-green-900"><%= link_to "簡単ログイン", '#', {class: "leading-10 block"} %></li>
-        <li class="list-none w-3/10 text-center table-cell cursor-pointer text-green-600 hover:text-green-900"><%= link_to "ログイン", login_path, {class: "leading-10 block"} %></li>
-        <li class="list-none w-3/10 text-center table-cell cursor-pointer text-white hover:text-gray-700 bg-green-400 hover:bg-green-500 rounded-md"><%= link_to "新規登録", signup_path, {class: "leading-10 block"} %></li>
-      <% end %>
-    </div>
+    <%= link_to image_tag("4.png", alt: "applogo", width: "40px", class: "rounded-lg"),root_path%>
   </nav>
+  
+  <% if logged_in? %>
+  <nav class="h-full w-24 mr-4 flex justify-end justify-between">
+    <li class="list-none">
+      <%= link_to image_tag("post_icon.svg", alt: "post_icon", width: "35px", class: ""), new_micropost_path, {class: "h-full flex content-center rounded-md hover:bg-gray-500 hover:bg-opacity-50"} %>
+    </li>
+
+    <li class="list-none">
+      <%= link_to image_tag("account_icon.svg", alt: "account_icon", width: "35px", class: ""), profile_user_path(current_user), {class: "h-full flex content-center rounded-md hover:bg-gray-500 hover:bg-opacity-50"} %>
+    </li>
+  </nav>
+
+  <% else %>
+  <nav class="w-56 h-2 table text-xs">
+    <li class="list-none w-2/5 text-center table-cell cursor-pointer text-green-600 hover:text-green-900">
+      <%= link_to "簡単ログイン", easylogin_path, {class: "leading-10 block"} %>
+    </li>
+
+    <li class="list-none w-3/10 text-center table-cell cursor-pointer text-green-600 hover:text-green-900">
+      <%= link_to "ログイン", login_path, {class: "leading-10 block"} %>
+    </li>
+    
+    <li class="list-none w-3/10 text-center table-cell cursor-pointer text-white hover:text-gray-700 bg-green-400 hover:bg-green-500 rounded-md">
+      <%= link_to "新規登録", signup_path, {class: "leading-10 block"} %>
+    </li>
+  </nav>
+  <% end %>
 </header>
