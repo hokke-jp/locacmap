@@ -13,8 +13,8 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: localmap
+  password: burihokke
   socket: /tmp/mysql.sock
 
 development:
@@ -23,9 +23,10 @@ development:
   reconnect: false
   database: localmap_development
   pool: 5
-  username: root
-  password: KK0896buho
+  username: localmap
+  password: burihokke
   host: localhost
+  socket: /tmp/mysql.sock
 
 test:
   adapter: mysql2
@@ -33,9 +34,10 @@ test:
   reconnect: false
   database: localmap_test
   pool: 5
-  username: root
-  password: KK0896buho
+  username: localmap
+  password: burihokke
   host: localhost
+  socket: /tmp/mysql.sock
 
 production:
   adapter: mysql2
@@ -43,6 +45,7 @@ production:
   reconnect: false
   database: localmap_production
   pool: 5
-  username: root
-  password: KK0896buho
+  username: localmap
+  password: burihokke
   host: localhost
+  socket: /tmp/mysql.sock
