@@ -4,14 +4,12 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user&.authenticate(params[:session][:password])
-      if user.activated?
-        log_in user
-        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-        redirect_back_or user
+      if @user.activated?
+        log_in @user
+        params[:session][:remember_me] == '1' ? remember(user) : forget(@user)
+        redirect_back_or @user
       else
-        message  = "アカウントの確認が取れませんでした"
-        message += "ご登録のメールアドレスを確認してください"
-        flash[:warning] = message
+        error_message_text
         redirect_to root_url
       end
     else
@@ -30,4 +28,12 @@ class SessionsController < ApplicationController
     log_in @user
     redirect_back_or root_url
   end
+end
+
+private
+
+def error_message_text
+  message  = 'アカウントの確認が取れませんでした。'
+  message += 'ご登録のメールアドレスを確認してください。'
+  flash[:warning] = message
 end

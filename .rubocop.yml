@@ -81,3 +81,4 @@ Metrics/MethodLength:
 Rails/SkipsModelValidations:
   Whitelist:
     - update_attribute
+    - update_columns
