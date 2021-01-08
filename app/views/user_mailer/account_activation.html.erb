@@ -1,0 +1,14 @@
+<h1>歴史地図</h1>
+
+<p>ユーザー名：'<%= @user.name %>'</p>
+
+<p>
+歴史地図にご登録いただきありがとうございます。
+</p>
+
+<p>
+下のリンクからユーザー登録を完了できます。
+</p>
+
+<%= link_to "歴史地図", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>

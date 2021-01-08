@@ -1,0 +1,6 @@
+ユーザー名：'<%= @user.name %>'
+歴史地図にご登録いただきありがとうございます。
+
+下のリンクからユーザー登録を完了できます。
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
