@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :users do
     get 'profile', on: :member
   end
-  resources :microposts, only: [:index, :new, :create, :destroy]
+  resources :microposts, only: %i[index new create destroy]
 end

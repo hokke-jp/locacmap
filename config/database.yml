@@ -15,36 +15,19 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: localmap
   password: burihokke
+  host: localhost
 
 development:
-  adapter: mysql2
-  encoding: utf8
+  <<: *default
   reconnect: false
   database: localmap_development
-  pool: 5
-  username: localmap
-  password: burihokke
-  host: localhost
-  socket: /tmp/mysql.sock
 
 test:
-  adapter: mysql2
-  encoding: utf8
+  <<: *default
   reconnect: false
   database: localmap_test
-  pool: 5
-  username: localmap
-  password: burihokke
-  host: localhost
-  socket: /tmp/mysql.sock
 
 production:
-  adapter: mysql2
-  encoding: utf8
+  <<: *default
   reconnect: false
   database: localmap_production
-  pool: 5
-  username: localmap
-  password: burihokke
-  host: localhost
-
