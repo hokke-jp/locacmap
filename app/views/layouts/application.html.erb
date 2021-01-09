@@ -2,7 +2,7 @@
 <html lang="ja" class="box-border">
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= favicon_link_tag '4.png'%>
+    <%= favicon_link_tag 'applogo.png'%>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,11 +13,18 @@
 
   <body class="text-gray-800">
     <%= render 'layouts/header' %>
-    <% flash.each do |message_type, message| %>
-      <%= content_tag(:div, message, class: "text-center my-5 text-sm text-red-800 text-opacity-75") %>
-    <% end %>
-    <div class="leading-4">
-      <%= yield %>
-    </div>
+    <main>
+      <div class="sm:w-full lg:w-11/12 mx-auto bg-gray-300">
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+        <%= yield %>
+      </div>
+
+      <nav>
+      </nav>
+
+    </main>
+    <%= render 'layouts/footer' %>
   </body>
 </html>

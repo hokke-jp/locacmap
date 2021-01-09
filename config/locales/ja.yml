@@ -2,12 +2,10 @@ ja:
   activerecord:
     attributes:
       user:
-        name: 名前
+        name: ユーザー名
         email: メールアドレス
         password: パスワード
-        password_confirmation: 確認用のパスワード
-  
-ja:
+        password_confirmation: 確認用パスワード
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"

@@ -9,3 +9,11 @@
 .field {
   @apply block border w-full rounded;
 }
+
+.alert {
+  @apply border;
+}
+
+.btn {
+  @apply text-white bg-green-400 rounded-md;
+}
