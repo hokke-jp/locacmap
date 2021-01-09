@@ -12,19 +12,31 @@
   </head>
 
   <body class="text-gray-800">
-    <%= render 'layouts/header' %>
-    <main>
-      <div class="sm:w-full lg:w-11/12 mx-auto bg-gray-300">
-        <% flash.each do |message_type, message| %>
-          <div class="alert alert-<%= message_type %>"><%= message %></div>
-        <% end %>
-        <%= yield %>
-      </div>
 
-      <nav>
+    <%= render 'layouts/header' %>
+
+    <div class="lg:max-w-5xl mx-auto mb-16 flex">
+
+      <nav class="hidden sm:block sticky top-0 bg-gray-500 w-48">
+        <div class="sticky top-0 bg-blue-400">
+          <p>hi</p>
+          <p>hello</p>
+          <p>こんにちは</p>
+        </div>
       </nav>
 
-    </main>
+      <div class="bg-gray-300 w-64 flex-grow">
+        <main class="">
+          <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>"><%= message %></div>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+
+    </div>
+
     <%= render 'layouts/footer' %>
+
   </body>
 </html>
