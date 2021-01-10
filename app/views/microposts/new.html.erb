@@ -1,9 +1,7 @@
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-    </section>
-    <section class="micropost_form">
-      <%= render 'shared/micropost_form' %>
-    </section>
-  </aside>
+<% provide(:title, "投稿する") %>
+
+<div class="w-4/5 mx-auto my-10">
+  <div class="max-w-sm mx-auto">
+    <%= render 'shared/micropost_form' %>
+  </div>
 </div>

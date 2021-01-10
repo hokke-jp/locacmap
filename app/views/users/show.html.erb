@@ -1,21 +1,19 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @person.name) %>
 
 <div>
   <div class="text-center mt-5 mb-8">
     <div class="inline-block text-center">
-      <%= gravatar_for(@user,size: "100") %>
+      <%= gravatar_for(@person,size: "100") %>
     </div>
     <p class="mt-2 text-xl">
-      <%= @user.name %>
+      <%= @person.name %>
     </p>
   </div>
 
   <div class="">
     <div class="flex flex-col text-center">
       <div class="mb-2">
-        <a href="#" class="text-2xl rounded-md text-indigo-500 hover:text-indigo-800 hover:bg-indigo-200">
-          <%= @user.microposts.count %>
-        </a>
+        <%= link_to @person.microposts.count, micropost_path(person: params[:id]), {class: "text-2xl rounded-md text-indigo-500 hover:text-indigo-800 hover:bg-indigo-200"} %>
       </div>
       <p class="text-sm text-gray-600  bg-tw-gray">投稿数</p>
     </div>
@@ -23,32 +21,14 @@
 
   <div class="w-4/5 flex flex-col text-right mx-auto my-5">
     <p class="text-sm text-gray-600 ">
-      アカウント作成日：<%= l @user.created_at, format: :y_m_d %>
+      アカウント作成日：<%= l @person.created_at, format: :y_m_d %>
     </p>
     <div class="w-full border mx-auto">
     </div>
   </div>
 
-
-
 </div>
 
 
-<%= @user.name %>, <%= @user.email %>
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
-</h1>
 
 <li><%= link_to "ユーザー一覧", users_path %></li>
-<li><%= link_to "ログアウト", logout_path, method: :delete %></li>
-
-<div class="col-md-8">
-  <% if @user.microposts.any? %>
-    <h3>Microposts (<%= @user.microposts.count %>)</h3>
-    <ol class="microposts">
-      <%= render @microposts %>
-    </ol>
-    <%= will_paginate @microposts %>
-  <% end %>
-</div>

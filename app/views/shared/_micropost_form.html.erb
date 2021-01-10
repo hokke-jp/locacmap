@@ -1,20 +1,21 @@
 <%= form_with(model: @micropost, local: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
+  <div class="">
     <%= f.text_area :content, placeholder: "Compose new micropost..." %>
   </div>
-  <%= f.submit "Post", class: "btn btn-primary" %>
-  <span class="image">
+  <%= f.submit "Post", class: "" %>
+  <span class="">
     <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
   </span>
 <% end %>
 
 <script type="text/javascript">
-  $("#micropost_image").bind("change", function() {
-    var size_in_megabytes = this.files[0].size/1024/1024;
+  const micropost_image = document.getElementById("micropost_image")
+  micropost_image.addEventListener("change", () => {
+    const size_in_megabytes = micropost_image.files[0].size/1024/1024;
     if (size_in_megabytes > 5) {
-      alert("Maximum file size is 5MB. Please choose a smaller file.");
-      $("#micropost_image").val("");
+      alert("5MB以下のファイルを選択してください。");
+      micropost_image.value = "";
     }
   });
 </script>
