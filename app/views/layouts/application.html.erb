@@ -15,11 +15,11 @@
 
     <%= render 'layouts/header' %>
 
-    <div class="lg:max-w-5xl mx-auto mb-16 flex">
+    <div class="lg:max-w-5xl mx-auto flex">
 
       <%= render 'layouts/sidebar' %>
 
-      <div class="w-64 flex-grow">
+      <div class="w-64 flex-grow relative">
         <main class="">
           <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>"><%= message %></div>
@@ -31,6 +31,5 @@
     </div>
 
     <%= render 'layouts/footer' %>
-
   </body>
 </html>

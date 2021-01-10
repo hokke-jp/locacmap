@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  root 'pages#home'
   get 'password_resets/new'
   get 'password_resets/edit'
-  root 'pages#home'
+  get '/password_resets', to: 'password_resets#new'
   get '/signup', to: 'users#new'
   get '/login', to: 'sessions#new'
   get '/easylogin', to: 'sessions#easy'

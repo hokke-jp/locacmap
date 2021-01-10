@@ -13,16 +13,14 @@
     <nav>
       <ul class="list-none w-36 flex justify-between">
         <li class="w-32">
-          <a href="#" class="w-4/5 h-full flex items-center justify-center btn hover:text-gray-700 hover:bg-green-500">
-            <div class="flex">
-              <%= image_tag("post.svg", alt: "post_icon", width: "20px", class: "") %>
-              投稿する
-            </div>
+          <a href="#" class="w-4/5 h-full btn flex justify-center items-center">
+              <%= image_tag("post.svg", alt: "post", width: "20px", class: "inline-block") %>
+              <p class="inline-block">投稿する</p>
           </a>
         </li>
 
         <li class="">
-          <%= link_to gravatar_for(@user,size: "36"), profile_user_path(current_user), {class: "h-full flex content-center rounded-full hover:bg-gray-500 hover:bg-opacity-50"} %>
+          <%= link_to gravatar_for(@user,size: "36"), profile_user_path(current_user), {class: ""} %>
         </li>
       </ul>
     </nav>

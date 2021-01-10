@@ -1,14 +1,17 @@
 <% provide(:title, "パスワードを忘れた") %>
-<h1>パスワードを忘れた</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_with(url: password_resets_path, scope: :password_reset,
-                    local: true) do |f| %>
-      <%= f.label :email, "メールアドレス", class: "label" %>
-      <%= f.email_field :email, class: 'field' %>
+<div class="w-4/5 mx-auto my-10">
+  <div class="max-w-sm mx-auto">
+    <h1 class="text-2xl text-center mb-5">パスワードを忘れた</h1>
 
-      <%= f.submit "送信", class: "btn btn-primary" %>
+    <%= form_with(url: password_resets_path, scope: :password_reset, local: true, class: "flex flex-col") do |f| %>
+
+      <div class="mb-12">
+        <%= f.label :email, "メールアドレス", class: "label" %>
+        <%= f.email_field :email, class: 'field' %>
+      </div>
+
+      <%= f.submit "送信", class: "h-10 btn" %>
     <% end %>
   </div>
 </div>

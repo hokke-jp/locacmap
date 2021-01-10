@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[profile index edit update destroy]
-  before_action :correct_user,   only: %i[profile edit update]
-  before_action :admin_user,     only: :destroy
+  before_action :logged_in_user,    only: %i[profile index edit update destroy]
+  before_action :correct_user,      only: %i[profile edit update]
+  before_action :admin_user,        only: :destroy
+  before_action :already_logged_in?, only: :create
 
   def index
     @user = current_user
@@ -16,7 +17,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    if @user = current_user
+    if current_user
+      @user = current_user
       log_in @user
       flash[:info] = '既にログインしています'
       redirect_to root_url
@@ -26,18 +28,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    if logged_in?
-      flash[:info] = '既にログインしています'
+    @user = User.new(user_params)
+    if @user.save
+      @user.send_activation_email
+      flash[:info] = '確認メールを送信しました'
       redirect_to root_url
     else
-      @user = User.new(user_params)
-      if @user.save
-        @user.send_activation_email
-        flash[:info] = '確認メールを送信しました'
-        redirect_to root_url
-      else
-        render 'new'
-      end
+      render 'new'
     end
   end
 

@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
-  <div class="text-red-800 text-opacity-75">
+  <div class="text-red-800 text-opacity-75 mb-3">
     <div id="error_messages" class="h-7 leading-7">
-      <%= object.errors.count %>つの入力エラー
+      <p><%= object.errors.count %>つの入力エラー</p>
     </div>
     <ul>
     <% object.errors.full_messages.each do |msg| %>
