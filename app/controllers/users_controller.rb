@@ -16,17 +16,28 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    if @user = current_user
+      log_in @user
+      flash[:info] = '既にログインしています'
+      redirect_to root_url
+    else
+      @user = User.new
+    end
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      @user.send_activation_email
-      flash[:info] = '確認メールを送信しました'
+    if logged_in?
+      flash[:info] = '既にログインしています'
       redirect_to root_url
     else
-      render 'new'
+      @user = User.new(user_params)
+      if @user.save
+        @user.send_activation_email
+        flash[:info] = '確認メールを送信しました'
+        redirect_to root_url
+      else
+        render 'new'
+      end
     end
   end
 

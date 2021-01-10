@@ -3,17 +3,22 @@
 @import "tailwindcss/utilities";
 
 .label {
-  @apply block;
+  @apply inline-block;
 }
 
 .field {
-  @apply block border w-full rounded;
+  @apply block border w-full h-8 rounded;
 }
 
 .alert {
-  @apply border;
+  position: sticky;
+  top: 10px;
 }
 
 .btn {
-  @apply text-white bg-green-400 rounded-md;
+  @apply text-center text-white bg-green-400 rounded-md;
+}
+
+.btn:hover {
+  @apply text-gray-700 bg-green-500;
 }

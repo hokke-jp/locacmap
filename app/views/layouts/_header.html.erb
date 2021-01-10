@@ -11,7 +11,7 @@
     <% if logged_in? %>
 
     <nav>
-      <ul class="list-none h-full w-36 flex justify-between">
+      <ul class="list-none w-36 flex justify-between">
         <li class="w-32">
           <a href="#" class="w-4/5 h-full flex items-center justify-center btn hover:text-gray-700 hover:bg-green-500">
             <div class="flex">
@@ -31,15 +31,15 @@
 
     <nav>
       <ul class="list-none w-56 text-xs flex justify-between">
-        <li class="w-20 text-center text-green-600 hover:text-green-900">
+        <li class="w-20 text-center text-green-600 hover:text-green-900 hover:underline">
           <%= link_to "簡単ログイン", easylogin_path, {class: "leading-10 block"} %>
         </li>
 
-        <li class="w-16 text-center text-green-600 hover:text-green-900">
+        <li class="w-16 text-center text-green-600 hover:text-green-900 hover:underline">
           <%= link_to "ログイン", login_path, {class: "leading-10 block"} %>
         </li>
         
-        <li class="w-16 text-center btn hover:text-gray-700 hover:bg-green-500 rounded-md">
+        <li class="w-16 btn">
           <%= link_to "新規登録", signup_path, {class: "leading-10 block"} %>
         </li>
       </ul>

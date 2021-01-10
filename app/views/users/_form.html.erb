@@ -1,5 +1,8 @@
 <%= form_with(model: @user, local: true, class: "flex flex-col" ) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+  <div class="mb-3">
+    <%= render 'shared/error_messages', object: f.object %>
+  </div>
+
 
   <div class="mb-5">
     <%= f.label :name, "ユーザー名", class: "label" %>
@@ -16,10 +19,10 @@
     <%= f.password_field :password, class: "field" %>
   </div>
 
-  <div class="mb-5">
+  <div class="mb-12">
     <%= f.label :password_confirmation, "パスワード（確認）", class: "label" %>
     <%= f.password_field :password_confirmation, class: "field" %>
   </div>
 
-  <%= f.submit yield(:button_text), class: "block h-10 mt-8 rounded-md text-white hover:text-gray-700 bg-green-400 hover:bg-green-500" %>
+  <%= f.submit yield(:button_text), class: "h-10 btn" %>
 <% end %>
