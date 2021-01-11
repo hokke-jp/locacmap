@@ -23,5 +23,8 @@ module Localmap
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
     config.load_defaults 5.2
     config.time_zone = 'Asia/Tokyo'
+
+    # 認証トークンをremoteフォームに埋め込む
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end

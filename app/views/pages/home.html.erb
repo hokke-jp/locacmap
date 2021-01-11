@@ -10,3 +10,9 @@
     </div>
   </div>
 </div>
+
+<% if logged_in? %>
+<section class="stats">
+  <%= render 'shared/stats' %>
+</section>
+<% end %>
