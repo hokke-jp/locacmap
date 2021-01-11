@@ -21,6 +21,9 @@ gem 'will_paginate', '3.1.8'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails', '~> 4.0.2'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -34,7 +37,6 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
-  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
