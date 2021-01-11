@@ -2,12 +2,6 @@ class SessionsController < ApplicationController
   before_action :already_logged_in?, only: :create
 
   def new
-    return unless current_user
-
-    @user = current_user
-    log_in @user
-    flash[:info] = '既にログインしています'
-    redirect_to root_url
   end
 
   def create
@@ -33,8 +27,8 @@ class SessionsController < ApplicationController
   end
 
   def easy
-    @user = User.find(1)
-    log_in @user
+    guest = User.find(1)
+    log_in guest
     redirect_back_or root_url
   end
 end

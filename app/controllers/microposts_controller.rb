@@ -3,23 +3,19 @@ class MicropostsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def index
-    @user = current_user
     @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10) if logged_in?
   end
 
   def show
-    @user = current_user
-    @person = User.find(params[:id])
-    @microposts = @person.microposts.paginate(page: params[:page], per_page: 10)
+    person = User.find(params[:id])
+    @microposts = person.microposts.paginate(page: params[:page], per_page: 10)
   end
 
   def new
-    @user = current_user
     @micropost = current_user.microposts.build if logged_in?
   end
 
   def create
-    @user = current_user
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.image.attach(params[:micropost][:image])
     if @micropost.save
