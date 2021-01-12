@@ -16,6 +16,7 @@ default: &default
   username: localmap
   password: burihokke
   host: localhost
+  socket: '/tmp/mysql.sock'
 
 development:
   <<: *default
