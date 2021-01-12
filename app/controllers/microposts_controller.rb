@@ -7,6 +7,7 @@ class MicropostsController < ApplicationController
   end
 
   def show
+    @user = current_user
     @person = User.find(params[:id])
     @microposts = @person.microposts.paginate(page: params[:page], per_page: 10)
   end
@@ -19,7 +20,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.image.attach(params[:micropost][:image])
     if @micropost.save
-      flash[:success] = '投稿しました！'
+      flash[:success] = '投稿しました'
       redirect_to microposts_url
     else
       render 'microposts/new'
@@ -28,7 +29,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    flash[:success] = 'Micropost deleted'
+    flash[:success] = '投稿を削除しました'
     redirect_back(fallback_location: root_url)
   end
 

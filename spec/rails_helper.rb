@@ -3,7 +3,7 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -66,14 +66,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  #2021/01/12/9:00追加(参照：https://qiita.com/aokyo17/items/356b7628194937851848)
+  # 2021/01/12/9:00追加(参照：https://qiita.com/aokyo17/items/356b7628194937851848)
   config.before(:each) do |example|
-    if example.metadata[:type] == :system
-      driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
-    end
+    driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400] if example.metadata[:type] == :system
   end
 
-  #2021/01/12/13:00追加(gem 'database_rewinder')
+  # 2021/01/12/13:00追加(gem 'database_rewinder')
   config.before(:suite) do
     DatabaseRewinder.clean_all
   end

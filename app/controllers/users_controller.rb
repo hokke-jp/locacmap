@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
   before_action :logged_in_user,    only: %i[profile index edit update destroy following followers]
-  before_action :correct_user,      only: %i[profile edit update]
+  before_action :correct_user,      only: %i[edit update]
   before_action :admin_user,        only: :destroy
 
   def index
-    @user = current_user
     @users = User.where(activated: true).paginate(page: params[:page], per_page: 10)
   end
 
@@ -30,16 +29,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def profile
-    @user = User.find(params[:id])
-  end
+  def profile; end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = '更新しました'
       redirect_to @user
@@ -55,14 +49,14 @@ class UsersController < ApplicationController
   end
 
   def following
-    @title = "Following"
+    @title = 'Following'
     @user  = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
+    @title = 'Followers'
     @user  = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
