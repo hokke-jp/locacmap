@@ -1,5 +1,5 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user, only: %i[new create destroy]
+  before_action :logged_in_user, only: %i[index new create destroy]
   before_action :correct_user,   only: :destroy
 
   def index
@@ -7,12 +7,12 @@ class MicropostsController < ApplicationController
   end
 
   def show
-    person = User.find(params[:id])
-    @microposts = person.microposts.paginate(page: params[:page], per_page: 10)
+    @person = User.find(params[:id])
+    @microposts = @person.microposts.paginate(page: params[:page], per_page: 10)
   end
 
   def new
-    @micropost = current_user.microposts.build if logged_in?
+    @micropost = current_user.microposts.build
   end
 
   def create
