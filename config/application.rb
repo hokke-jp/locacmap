@@ -26,5 +26,8 @@ module Localmap
 
     # 認証トークンをremoteフォームに埋め込む
     config.action_view.embed_authenticity_token_in_remote_forms = true
+
+    #参照（https://qiita.com/grca3/items/ae0a582c662b21d5f456）
+    config.assets.initialize_on_precompile = true
   end
 end
