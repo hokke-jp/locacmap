@@ -31,3 +31,5 @@ test:
 production:
     <<: *default
   database: localmap_production
+  adapter: postgresql
+  encoding: unicode
