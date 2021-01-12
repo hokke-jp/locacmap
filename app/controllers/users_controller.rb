@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :logged_in_user,    only: %i[profile index edit update destroy following followers]
   before_action :correct_user,      only: %i[profile edit update]
   before_action :admin_user,        only: :destroy
-  before_action :already_logged_in?, only: :create
 
   def index
     @user = current_user
@@ -17,14 +16,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    if current_user
-      @user = current_user
-      log_in @user
-      flash[:info] = '既にログインしています'
-      redirect_to root_url
-    else
-      @user = User.new
-    end
+    @user = User.new
   end
 
   def create

@@ -2,15 +2,8 @@ class PasswordResetsController < ApplicationController
   before_action :get_user,            only: %i[edit update]
   before_action :valid_user,          only: %i[edit update]
   before_action :check_expiration,    only: %i[edit update]
-  before_action :already_logged_in?,  only: :create
 
   def new
-    return unless current_user
-
-    @user = current_user
-    log_in @user
-    flash[:info] = '既にログインしています'
-    redirect_to root_url
   end
 
   def create

@@ -11,6 +11,11 @@
   </div>
 </div>
 
+<%= form_with(local: true) do |f| %>
+  <%= f.label :content, "テキスト", class: "label" %>
+  <%= f.text_area :content, class: "border" %>
+<% end %>
+
 <% if logged_in? %>
 <section class="stats">
   <%= render 'shared/stats' %>

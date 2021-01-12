@@ -11,11 +11,4 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
-
-  def already_logged_in?
-    if logged_in?
-      flash[:info] = '既にログインしています'
-      redirect_to root_url
-    end
-  end
 end

@@ -27,8 +27,8 @@ class SessionsController < ApplicationController
   end
 
   def easy
-    guest = User.find(1)
-    log_in guest
+    @user = User.first
+    log_in @user
     redirect_back_or root_url
   end
 end
