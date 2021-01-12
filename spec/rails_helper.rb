@@ -22,7 +22,7 @@ require 'capybara/rspec'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -69,13 +69,5 @@ RSpec.configure do |config|
   # 2021/01/12/9:00追加(参照：https://qiita.com/aokyo17/items/356b7628194937851848)
   config.before(:each) do |example|
     driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400] if example.metadata[:type] == :system
-  end
-
-  # 2021/01/12/13:00追加(gem 'database_rewinder')
-  config.before(:suite) do
-    DatabaseRewinder.clean_all
-  end
-  config.after(:each) do
-    DatabaseRewinder.clean
   end
 end

@@ -1,10 +1,9 @@
 FactoryBot.define do
   factory :user do
-    name { 'Alice' }
-    email { 'Alice@examle.com' }
-    password { 'foobar' }
-    password_confirmation { 'foobar' }
-    admin { true }
+    sequence(:name)         {Faker::Name.initials(number: 6)}
+    sequence(:email)        {Faker::Internet.free_email}
+    password                { 'password' }
+    password_confirmation   { 'password' }
     activated { true }
     activated_at { Time.zone.now }
   end
