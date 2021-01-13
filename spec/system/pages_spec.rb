@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe "Pages", type: :system do
-  context "ログインしていない時の" do
-    it "ヘッダーのリンクの検証" do
+describe 'Pages', type: :system do
+  context 'ログインしていない時の' do
+    it 'ヘッダーのリンクの検証' do
       visit root_path
       expect(page).to have_link 'applogo'
       expect(page).to have_link '簡単ログイン'
@@ -11,9 +11,9 @@ describe "Pages", type: :system do
     end
   end
 
-  context "ログインしている時の" do
+  context 'ログインしている時の' do
     let!(:user) { create(:user) }
-    it "ヘッダーのリンクの検証" do
+    it 'ヘッダーのリンクの検証' do
       log_in_as(user)
       visit root_path
       expect(page).to have_link 'applogo'
@@ -22,4 +22,3 @@ describe "Pages", type: :system do
     end
   end
 end
-

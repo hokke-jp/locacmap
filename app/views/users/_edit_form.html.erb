@@ -1,4 +1,4 @@
-<%= form_with(model: @user, local: true, url: signup_path, class: "flex flex-col" ) do |f| %>
+<%= form_with(model: @user, local: true, url: edit_user_path(current_user), class: "flex flex-col" ) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
 

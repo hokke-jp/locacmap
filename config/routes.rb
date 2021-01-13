@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  get 'password_resets/new'
-  get 'password_resets/edit'
-  get '/password_resets', to: 'password_resets#new'
   get '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
+  patch '/users/:id/edit', to: 'users#update'
   get '/login', to: 'sessions#new'
   get '/easylogin', to: 'sessions#easy'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get 'password_resets/new'
+  get 'password_resets/edit'
+  get '/password_resets', to: 'password_resets#new'
   resources :users do
     member do
       get 'profile'

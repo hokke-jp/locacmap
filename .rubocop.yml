@@ -82,3 +82,9 @@ Rails/SkipsModelValidations:
   Whitelist:
     - update_attribute
     - update_columns
+
+
+# RSpecのdescribeの行数制限(25行)を無視する
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

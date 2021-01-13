@@ -1,13 +1,20 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user,    only: %i[profile index edit update destroy following followers]
-  before_action :correct_user,      only: %i[edit update]
-  before_action :admin_user,        only: :destroy
+  before_action :logged_in_user, only: %i[profile index edit update destroy
+                                          following followers]
+  before_action :correct_user,   only: %i[edit update]
 
   def index
-    @users = User.where(activated: true).paginate(page: params[:page], per_page: 10)
+    @users = User.where(activated: true).paginate(page: params[:page],
+                                                  per_page: 10)
   end
 
   def show
+    @person = User.find(params[:id])
+
+    @microposts = @person.microposts.paginate(page: params[:page], per_page: 10)
+  end
+
+  def profile
     @user = current_user
     @person = User.find(params[:id])
 
@@ -29,8 +36,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def profile; end
-
   def edit; end
 
   def update
@@ -43,9 +48,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = '削除しました'
-    redirect_to users_url
+    @user = User.find(params[:id])
+    if current_user.admin?  # 管理者ユーザーの場合
+      flash[:danger] = '管理ユーザーは削除できません'
+    elsif current_user?(@user) # 管理者ユーザーではなく、自分のアカウントの場合
+      @user.destroy
+      flash[:info] = 'アカウントを削除しました'
+    else # 他人がアカウントを削除しようとした場合
+      return
+    end
+    redirect_to root_url
   end
 
   def following
@@ -73,9 +85,5 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
-  end
-
-  def admin_user
-    redirect_to(root_url) unless current_user.admin?
   end
 end

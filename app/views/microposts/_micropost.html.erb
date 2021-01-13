@@ -7,8 +7,8 @@
   </span>
   <span class="">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if @user == @person %>
-    <%= link_to "削除", micropost, method: :delete, data: { confirm: "You sure?" } %>
+    <% if current_user == @person %>
+    <%= link_to "削除", micropost, method: :delete, data: { confirm: "削除を実行します" } %>
     <% end %>
   </span>
 </li>

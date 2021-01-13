@@ -1,13 +1,12 @@
 <% provide(:title, @person.name) %>
 
 <div>
+
   <div class="text-center mt-5 mb-8">
     <div class="inline-block text-center">
       <%= gravatar_for(@person,size: "100") %>
     </div>
-    <p class="mt-2 text-xl">
-      <%= @person.name %>
-    </p>
+    <p class="mt-2 text-xl"><%= @person.name %></p>
   </div>
 
   <div class="">
@@ -23,23 +22,18 @@
     <p class="text-sm text-gray-600 ">
       アカウント作成日：<%= l @person.created_at, format: :y_m_d %>
     </p>
-    <div class="w-full border mx-auto">
-    </div>
+    <div class="w-full border mx-auto"></div>
   </div>
 
 </div>
 
 
-<% if logged_in? && @user == @person %>
+<% if logged_in? && current_user == @person %>
 <div>
   <ul class="text-gray-600">
     <li><%= link_to "プロフィール", profile_user_path(current_user) %></li>
     <li><%= link_to "ユーザー一覧", users_path %></li>
-    <li>
-      <a href="#">
-        お気に入りの記事
-      </a>
-    </li>
+    <li><a href="#">お気に入りの記事</a></li>
     <li><%= link_to "登録変更", edit_user_path(current_user) %></li>
     <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
   </ul>
