@@ -19,7 +19,7 @@
 }
 
 .alert-info {
-  @apply mx-auto my-2 text-yt-gray;
+  @apply mx-auto my-2 text-gray-600 text-opacity-75;
 }
 
 .alert-danger {

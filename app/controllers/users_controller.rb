@@ -49,8 +49,13 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if current_user.admin?  # 管理者ユーザーの場合
-      flash[:danger] = '管理ユーザーは削除できません'
+    if current_user.admin?  # 管理ユーザーの場合
+      if current_user == @user # 管理ユーザーを削除する場合
+        flash[:danger] = '管理ユーザーは削除できません'
+      else # 他のユーザーを削除する場合
+        # @user.destroy # ポートフォリオ用の'簡単ログイン'で削除できないように
+        flash[:info] = 'アカウントを削除しました'
+      end
     elsif current_user?(@user) # 管理者ユーザーではなく、自分のアカウントの場合
       @user.destroy
       flash[:info] = 'アカウントを削除しました'
