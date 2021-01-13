@@ -29,7 +29,7 @@ test:
   database: localmap_test
 
 production:
-    <<: *default
+  <<: *default
   database: localmap_production
   adapter: postgresql
   encoding: unicode
