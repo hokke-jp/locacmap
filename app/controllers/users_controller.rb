@@ -52,19 +52,17 @@ class UsersController < ApplicationController
     if current_user.admin?  # 管理ユーザーの場合
       if current_user == @user # 自身を削除できない
         flash[:danger] = '管理ユーザーは削除できません'
-      else # 他のユーザーは削除できる
+      else # 他人のアカウントは削除できる
         # ポートフォリオ用の'簡単ログイン'で削除できないように
         # @user.destroy
         # flash[:info] = 'アカウントを削除しました'
         flash[:info] = '現在、管理ユーザーはアカウントを削除できない設定にしてあります'
       end
-    elsif current_user?(@user) # 非管理ユーザーは自分のアカウントを削除できる
+    elsif current_user?(@user) # ユーザーは自分のアカウントを削除できる
       @user.destroy
       flash[:info] = 'アカウントを削除しました'
-    else # 他人のアカウントは削除できない
-      return
     end
-    redirect_to root_url
+    redirect_to root_url # ユーザーは他人のアカウントを削除できない
   end
 
   def following

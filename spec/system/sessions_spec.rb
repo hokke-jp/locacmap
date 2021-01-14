@@ -86,19 +86,3 @@ describe 'Sessions', type: :system do
     end
   end
 end
-
-# expect(page).to have_selector 'h1.information', text: '大事なお知らせ'
-
-# let!(:admin_user) { create(:user, :admin) }
-
-# 全てのタブを取得
-# windows = page.driver.browser.window_handles
-
-# 最後に開いたタブに移動=リンククリックで開いたタブ
-# page.driver.browser.switch_to.window(windows.last)
-
-# 現在表示中のタブ=リンククリックで開いたタブをクローズ（これをしないとゴミのタブがたまる）
-# page.driver.browser.close
-
-# 元いたタブに戻る
-# page.driver.browser.switch_to.window(windows.first)

@@ -12,8 +12,8 @@
 </div>
 
 <%= form_with(local: true) do |f| %>
-  <%= f.label :content, "テキスト", class: "label" %>
-  <%= f.text_area :content, class: "border" %>
+  <%= f.label :content, "text_field_test", class: "label" %>
+  <%= f.text_area :content, id: 'content', class: "border" %>
 <% end %>
 
 <% if logged_in? %>
