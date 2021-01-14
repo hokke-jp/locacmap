@@ -31,10 +31,10 @@
 <% if logged_in? && current_user == @person %>
 <div>
   <ul class="text-gray-600">
-    <li><%= link_to "プロフィール", profile_user_path(current_user) %></li>
+    <li><%= link_to "ユーザー情報", profile_user_path(current_user) %></li>
     <li><%= link_to "ユーザー一覧", users_path %></li>
     <li><a href="#">お気に入りの記事</a></li>
-    <li><%= link_to "登録変更", edit_user_path(current_user) %></li>
+    <li><%= link_to "アカウント編集", edit_user_path(current_user) %></li>
     <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
   </ul>
 </div>

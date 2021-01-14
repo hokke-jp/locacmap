@@ -54,7 +54,7 @@ class UsersController < ApplicationController
         flash[:danger] = '管理ユーザーは削除できません'
       else # 他のユーザーを削除する場合
         # @user.destroy # ポートフォリオ用の'簡単ログイン'で削除できないように
-        flash[:info] = 'アカウントを削除しました'
+        flash[:info] = '現在、管理ユーザーはアカウントを削除できない設定にしてあります'
       end
     elsif current_user?(@user) # 管理者ユーザーではなく、自分のアカウントの場合
       @user.destroy

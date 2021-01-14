@@ -2,9 +2,9 @@ class SessionsController < ApplicationController
   def new; end
 
   def easy
-    @user = User.first
-    log_in @user
-    redirect_back_or root_url
+    log_in User.first
+    flash[:info] = '管理ユーザーとしてログインしました'
+    redirect_to root_url
   end
 
   def create
