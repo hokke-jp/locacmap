@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Sessions', type: :request do
   describe 'remember me' do
     let!(:user) { create(:user) }
+    
     it 'remember meがonの場合、cookie保存' do
       post login_path, params: { session: { email: user.email, password: user.password, remember_me: '1' } }
       expect(response).to redirect_to root_url

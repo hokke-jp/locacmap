@@ -23,6 +23,7 @@ describe 'Sessions', type: :system do
     end
 
     let!(:user) { create(:user) }
+
     it 'パスワードは正しいがメールアドレスが間違っている場合、警告が出る' do
       visit login_path
       fill_in 'メールアドレス',	with: ''
@@ -65,6 +66,7 @@ describe 'Sessions', type: :system do
 
   describe '#destroy' do
     let!(:user) { create(:user) }
+    
     it 'ログアウトを押すとログアウトする' do
       log_in_as(user)
       click_on user.name
