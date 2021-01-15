@@ -31,21 +31,21 @@ describe 'Users', type: :system do
     it '有効な入力では、updateが行われている' do
       log_in_as(user)
       visit edit_user_path(user)
-      fill_in 'ユーザー名',	with: "Alice"
-      fill_in 'メールアドレス',	with: "Alice@example.com"
+      fill_in 'ユーザー名',	with: 'Alice'
+      fill_in 'メールアドレス',	with: 'Alice@example.com'
       click_on '更新'
-      expect(User.find_by(email: "alice@example.com").name).to eq 'Alice'
+      expect(User.find_by(email: 'alice@example.com').name).to eq 'Alice'
     end
 
     it '有効な入力後、"users#show"に遷移し、alertが出る' do
       log_in_as(user)
       visit edit_user_path(user)
-      fill_in 'ユーザー名',	with: "Bob"
-      fill_in 'メールアドレス',	with: "bob@example.com"
-      fill_in 'パスワード',	with: "bobbob"
-      fill_in 'パスワード（確認）',	with: "bobbob"
+      fill_in 'ユーザー名',	with: 'Bob'
+      fill_in 'メールアドレス',	with: 'bob@example.com'
+      fill_in 'パスワード',	with: 'bobbob'
+      fill_in 'パスワード（確認）',	with: 'bobbob'
       click_on '更新'
-      expect(page).to have_title("Bob | 歴史地図")
+      expect(page).to have_title('Bob | 歴史地図')
       expect(page).to have_content('更新しました')
     end
   end

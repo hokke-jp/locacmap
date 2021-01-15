@@ -6,7 +6,7 @@ describe 'AccountActivations', type: :system do
     ActionMailer::Base.deliveries.clear
   end
 
-  it "有効化してない状態では,ログインできない" do
+  it '有効化してない状態では,ログインできない' do
     visit signup_path
     fill_in 'ユーザー名',	with: user.name
     fill_in 'メールアドレス',	with: user.email

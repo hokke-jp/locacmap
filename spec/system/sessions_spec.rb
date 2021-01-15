@@ -14,7 +14,7 @@ describe 'Sessions', type: :system do
 
   describe '#destroy' do
     let!(:user) { create(:user) }
-    
+
     it 'ログアウトを押すとログアウトする' do
       log_in_as(user)
       click_on user.name

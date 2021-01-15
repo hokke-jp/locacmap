@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 describe 'AccountActivations', type: :request do
-  # let!(:user) { build(:user) }
   before do
     ActionMailer::Base.deliveries.clear
   end
 
-  context "アカウント作成入力後" do
+  context 'アカウント作成フォーム入力後' do
     before do
-      post signup_path, params: { user: { name:  "Example User",
-                                          email: "user@example.com",
-                                          password:              "password",
-                                          password_confirmation: "password" } }
+      post signup_path, params: { user: { name: 'Example User',
+                                          email: 'user@example.com',
+                                          password: 'password',
+                                          password_confirmation: 'password' } }
       @user = assigns(:user)
     end
 
@@ -21,7 +20,7 @@ describe 'AccountActivations', type: :request do
     end
 
     it 'メールアドレスは正しいが有効化トークンが不正な場合は、ログインできない' do
-      get edit_account_activation_path("invalid token", email: @user.email)
+      get edit_account_activation_path('invalid token', email: @user.email)
       expect(response).to redirect_to root_url
     end
 

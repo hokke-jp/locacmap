@@ -4,7 +4,7 @@ describe 'Users', type: :system do
   describe '#create' do
     let!(:user) { build(:user) }
 
-    context "無効な入力では" do
+    context '無効な入力では' do
       before do
         visit signup_path
         fill_in 'ユーザー名',	with: 'A' * 21
@@ -28,7 +28,7 @@ describe 'Users', type: :system do
       end
     end
 
-    context "有効な入力では" do
+    context '有効な入力では' do
       before do
         ActionMailer::Base.deliveries.clear
         visit signup_path
@@ -41,7 +41,7 @@ describe 'Users', type: :system do
       it 'ユーザー数が増える' do
         expect { click_on '登録' }.to change { User.count }.by(1)
       end
-  
+
       it '再読み込みすると、alertが消える' do
         click_on '登録'
         expect(page).to have_title('歴史地図')
@@ -50,8 +50,8 @@ describe 'Users', type: :system do
         expect(page).to have_title('歴史地図')
         expect(page).not_to have_content('確認メールを送信しました')
       end
-  
-      it "メールが送られる" do
+
+      it 'メールが送られる' do
         click_on '登録'
         expect(page).to have_content('確認メールを送信しました')
         expect(ActionMailer::Base.deliveries.size).to eq 1
