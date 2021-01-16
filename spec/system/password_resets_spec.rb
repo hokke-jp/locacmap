@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'PasswordResets', type: :system do
+describe PasswordResetsController, type: :system do
   let!(:user) { create(:user) }
 
   describe '#new' do

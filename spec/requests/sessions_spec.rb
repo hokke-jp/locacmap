@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Sessions', type: :request do
+describe SessionsController, type: :request do
   describe 'remember me' do
     let!(:user) { create(:user) }
 

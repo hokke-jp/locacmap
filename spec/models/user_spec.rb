@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UsersController do
+describe User do
   it '有効な入力だとOK' do
     expect(build(:user)).to be_valid
   end

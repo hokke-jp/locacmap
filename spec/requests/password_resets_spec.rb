@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'PasswordResets', type: :request do
+describe PasswordResetsController, type: :request do
   let!(:user) { create(:user) }
   before do
     ActionMailer::Base.deliveries.clear

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'AccountActivations', type: :system do
+describe AccountActivationsController, type: :system do
   let!(:user) { build(:user) }
   before do
     ActionMailer::Base.deliveries.clear
