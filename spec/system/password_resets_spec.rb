@@ -16,6 +16,7 @@ describe PasswordResetsController, type: :system do
     before do
       visit new_password_reset_path
     end
+
     it '無効な入力では警告が出る' do
       fill_in 'メールアドレス',	with: ''
       click_on '送信'
