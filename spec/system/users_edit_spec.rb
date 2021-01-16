@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'Users', type: :system do
+describe UsersController, type: :system do
   describe '#edit' do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }
 
     it 'ログイン時、"users#edit"に遷移できる' do
       log_in_as(user)
-      click_on user.name
+      click_on 'gravatar_icon'
       click_on 'アカウント編集'
       expect(page).to have_title('アカウント編集 | 歴史地図')
       expect(page).to have_content('アカウント編集')

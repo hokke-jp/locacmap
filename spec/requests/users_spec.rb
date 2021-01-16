@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Users', type: :request do
+describe UsersController, type: :request do
   describe '#update' do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }

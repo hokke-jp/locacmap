@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Users', type: :system do
+describe UsersController, type: :system do
   describe '#create' do
     let!(:user) { build(:user) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Sessions', type: :system do
+describe SessionsController, type: :system do
   describe '#create' do
     it '無効な入力をすると警告が出る' do
       visit login_path
@@ -49,7 +49,7 @@ describe 'Sessions', type: :system do
       click_button 'ログイン'
       expect(page).to have_title('歴史地図')
       expect(page).to have_link '投稿する'
-      expect(page).to have_link user.name
+      expect(page).to have_link 'gravatar_icon'
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Users', type: :system do
+describe UsersController, type: :system do
   describe '#destroy' do
     let!(:admin_user) { create(:user, :admin) }
     let!(:user) { create(:user) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Pages', type: :system do
-  context 'ログインしていない時の' do
+describe PagesController, type: :system do
+  context '非ログイン時' do
     it 'ヘッダーのリンクの検証' do
       visit root_path
       expect(page).to have_link 'applogo'
@@ -11,14 +11,13 @@ describe 'Pages', type: :system do
     end
   end
 
-  context 'ログインしている時の' do
+  context 'ログイン時' do
     let!(:user) { create(:user) }
     it 'ヘッダーのリンクの検証' do
       log_in_as(user)
-      visit root_path
       expect(page).to have_link 'applogo'
       expect(page).to have_link 'post'
-      expect(page).to have_link user.name
+      expect(page).to have_link 'gravatar_icon'
     end
   end
 end

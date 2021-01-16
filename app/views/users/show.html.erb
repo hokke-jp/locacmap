@@ -1,18 +1,18 @@
-<% provide(:title, @person.name) %>
+<% provide(:title, @user.name) %>
 
 <div>
 
   <div class="text-center mt-5 mb-8">
     <div class="inline-block text-center">
-      <%= gravatar_for(@person,size: "100") %>
+      <%= gravatar_for(@user,size: "100") %>
     </div>
-    <p class="mt-2 text-xl"><%= @person.name %></p>
+    <p class="mt-2 text-xl"><%= @user.name %></p>
   </div>
 
   <div class="">
     <div class="flex flex-col text-center">
       <div class="mb-2">
-        <%= link_to @person.microposts.count, micropost_path(person: params[:id]), {class: "text-2xl rounded-md text-indigo-500 hover:text-indigo-800 hover:bg-indigo-200"} %>
+        <%= link_to @user.microposts.count, micropost_path(user: params[:id]), {class: "text-2xl rounded-md text-indigo-500 hover:text-indigo-800 hover:bg-indigo-200"} %>
       </div>
       <p class="text-sm text-gray-600  bg-tw-gray">投稿数</p>
     </div>
@@ -20,7 +20,7 @@
 
   <div class="w-4/5 flex flex-col text-right mx-auto my-5">
     <p class="text-sm text-gray-600 ">
-      アカウント作成日：<%= l @person.created_at, format: :y_m_d %>
+      アカウント作成日：<%= l @user.created_at, format: :y_m_d %>
     </p>
     <div class="w-full border mx-auto"></div>
   </div>
@@ -28,7 +28,7 @@
 </div>
 
 
-<% if logged_in? && current_user == @person %>
+<% if logged_in? && current_user == @user %>
 <div>
   <ul class="text-gray-600">
     <li><%= link_to "ユーザー情報", profile_user_path(current_user) %></li>

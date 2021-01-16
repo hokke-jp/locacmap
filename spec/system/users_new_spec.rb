@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Users', type: :system do
+describe UsersController, type: :system do
   describe '#new' do
     it '非ログイン時、"users#new"に遷移できる' do
       visit root_path
