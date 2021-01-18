@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/password_resets', to: 'password_resets#new'
   resources :users do
     member do
-      get 'profile'
       get 'following'
       get 'followers'
     end

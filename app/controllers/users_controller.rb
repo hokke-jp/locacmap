@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[profile index edit update destroy
+  before_action :logged_in_user, only: %i[index edit update destroy
                                           following followers]
   before_action :correct_user,   only: %i[edit update]
 
@@ -10,10 +10,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
-
-  def profile
-    @microposts = current_user.microposts.paginate(page: params[:page], per_page: 10)
   end
 
   def new

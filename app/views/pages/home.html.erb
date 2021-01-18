@@ -17,6 +17,7 @@
 <% end %>
 
 <% if logged_in? %>
+<li><%= link_to "ユーザー一覧", users_path %></li>
 <section class="stats">
   <%= render 'shared/stats' %>
 </section>
