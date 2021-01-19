@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'pages#home'
+  get '/map', to: 'pages#map'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
   patch '/users/:id/edit', to: 'users#update'

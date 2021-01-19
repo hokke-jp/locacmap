@@ -1,5 +1,49 @@
 <% provide(:title, "投稿する") %>
 
+
+<div class="max-w-5xl h-64">
+  <div id="map"></div>
+</div>
+
+<script>
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 37, lng: 140},
+      zoom: 5
+    });
+    map.addListener('click', function(e){
+      this.panTo(e.latLng);
+      console.log(e.latLng.lat());
+      console.log(e.latLng.lng());
+      console.log(e.latLng.toString());
+    });
+
+    google.maps.event.addListener(map, 'dblclick', function(e) {
+    var marker = new google.maps.Marker({
+      position: e.latLng,  //イベントの発生した緯度・経度（位置）
+      map: this,  //this は map を意味します
+      animation: google.maps.Animation.DROP
+    });
+ 
+    var infoWindow = new google.maps.InfoWindow({
+      content: e.latLng.toString() //イベントの発生した位置を toString() で文字列に変換
+    });
+ 
+    //マーカーのイベント
+    google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.open(map, marker); //marker の位置に情報ウィンドウを表示
+    });
+ 
+    //情報ウィンドウののイベント
+    google.maps.event.addListener(infoWindow, 'closeclick', function() {
+      marker.setMap(null);  //マーカーを削除
+    });
+  });
+  }
+</script> 
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&callback=initMap" async defer></script>
+
 <div class="w-4/5 mx-auto my-10">
   <div class="max-w-sm mx-auto">
     <%= render 'shared/micropost_form' %>

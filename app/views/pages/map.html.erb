@@ -1,0 +1,14 @@
+<div class="w-full h-map_sp lg:h-map_pc">
+  <div id="map"></div>
+</div>
+
+<script>
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 37, lng: 140},
+      zoom: 5
+    });
+  }
+</script> 
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&callback=initMap" async defer></script>

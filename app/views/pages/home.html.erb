@@ -1,3 +1,4 @@
+<!-- 
 <div class="mt-10 max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
   <div class="sm:flex sm:items-center px-6 py-4">
     <img class="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 sm:h-24 rounded-full" src="https://randomuser.me/api/portraits/women/17.jpg" alt="Woman's Face">
@@ -10,6 +11,19 @@
     </div>
   </div>
 </div>
+-->
+
+<div id="home_map"></div>
+<script>
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('home_map'), {
+      center: {lat: 37, lng: 140},
+      zoom: 4.4
+    });
+  }
+</script> 
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&callback=initMap" async defer></script>
 
 <%= form_with(local: true) do |f| %>
   <%= f.label :content, "text_field_test", class: "label" %>
