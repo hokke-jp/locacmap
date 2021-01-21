@@ -10,11 +10,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= render 'layouts/shim' %>
     <style>
-    #map {
+    #post_map {
       height: 100%;
       width: 100%;
     }
-    #homemap {
+    #map {
       height: 400px;
       width: 600px;
     }
@@ -41,5 +41,6 @@
     </div>
 
     <%= render 'layouts/footer' %>
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&libraries=places&callback=initMap" async defer></script>
   </body>
 </html>

@@ -1,5 +1,13 @@
 <%= form_with(model: @micropost, local: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <div>
+    <%= f.label :address, "写真を撮った場所、関連する地名", class: "label" %>
+    <%= f.text_field :address, class: "field" %>
+  </div>
+  <div>
+    <%= f.label :LatLng, "緯度・経度", class: "label" %>
+    <%= f.text_field :LatLng, class: "field" %>
+  </div>
   <div class="">
     <%= f.text_area :content, placeholder: "Compose new micropost..." %>
   </div>
