@@ -32,18 +32,16 @@ describe UsersController, type: :system do
 
       it 'ユーザー関連リンクの各項目チェック' do
         visit user_path(user)
-        expect(page).to have_link 'ユーザー情報'
-        expect(page).to have_link 'ユーザー一覧'
-        expect(page).to have_link 'お気に入りの記事'
+        expect(page).to have_link 'いいねした記事'
         expect(page).to have_link 'アカウント編集'
-        expect(page).to have_link 'ログアウト'
+        expect(page).to have_button 'ログアウト'
       end
 
       it 'ユーザー自身のページの場合、ユーザー情報とユーザー関連リンクがある' do
         visit user_path(user)
         expect(page).to have_title("#{user.name} | 歴史地図")
         expect(page).to have_content user.name
-        expect(page).to have_link 'ログアウト'
+        expect(page).to have_button 'ログアウト'
       end
 
       it '他のユーザーのページの場合、ユーザー情報はあるがユーザー関連リンクはない' do

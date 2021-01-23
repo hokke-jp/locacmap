@@ -13,16 +13,6 @@
 </div>
 -->
 
-<div id="home_map"></div>
-<script>
-  let map;
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('home_map'), {
-      center: {lat: 37, lng: 140},
-      zoom: 4.4
-    });
-  }
-</script> 
 
 <%= form_with(local: true) do |f| %>
   <%= f.label :content, "text_field_test", class: "label" %>

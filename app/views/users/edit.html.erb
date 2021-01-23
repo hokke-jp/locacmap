@@ -9,7 +9,7 @@
     </div>
     <%= render 'edit_form' %>
     <% unless current_user.admin? %>
-    <%= link_to "アカウント削除", current_user, method: :delete, data: { confirm: "このアカウントを削除します。この操作は取り消せません。よろしいですか？" } %>
+    <%= link_to "この投稿を削除", current_user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' } %>
     <% end %>
   </div>
 </div>

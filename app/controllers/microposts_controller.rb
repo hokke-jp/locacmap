@@ -1,6 +1,7 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: %i[index new create destroy]
   before_action :correct_user,   only: :destroy
+  protect_from_forgery :except => [:destroy]
 
   def index
     @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10) if logged_in?
