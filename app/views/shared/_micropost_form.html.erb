@@ -5,8 +5,8 @@
     <%= f.text_field :address, class: "field" %>
   </div>
   <div>
-    <%= f.label :address, "時代", class: "label" %>
-    <%= f.text_field :address, class: "field" %>
+    <%= f.label :period, "時代", class: "label" %>
+    <%= f.collection_select( :period_id, Period.all, :id, :name, {include_blank: '選択してください' })%>
   </div>
   <div>
     <%= f.label :LatLng, "緯度・経度", class: "label" %>
