@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Micropost do
   let!(:user) { create(:user) }
   before do
-    @micropost = user.microposts.build(content: 'Hello world!')
+    @micropost = user.microposts.build(title: '初めまして', content: 'よろしくお願いします。')
   end
 
   it '有効な入力だとOK' do
@@ -33,14 +33,14 @@ describe Micropost do
   it '最も新しいマイクロポストを最初に表示する' do
     alice = create(:user)
     bob = create(:user)
-    alice.microposts.create(content: 'I am Alice.')
-    bob_post = bob.microposts.create(content: 'I am Bob.')
+    alice.microposts.create(title: 'I am Alice.', content: 'Nice to meet you.')
+    bob_post = bob.microposts.create(title: 'I am Bob.', content: 'Nice to meet you.')
     expect(Micropost.first).to eq bob_post
   end
 
   it 'ユーザーを削除するとマイクロポストも削除される' do
     alice = create(:user)
-    alice.microposts.create!(content: 'I am Alice.')
+    alice.microposts.create!(title: 'I am Alice.', content: 'Nice to meet you.')
     expect { alice.destroy }.to change { Micropost.count }.by(-1)
   end
 end

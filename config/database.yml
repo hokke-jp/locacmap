@@ -13,23 +13,23 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: localmap
+  username: historymap
   password: burihokke
   host: localhost
-  socket: '/tmp/mysql.sock'
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default
   reconnect: false
-  database: localmap_development
+  database: historymap_development
 
 test:
   <<: *default
   reconnect: false
-  database: localmap_test
+  database: historymap_test
 
 production:
   <<: *default
-  database: localmap_production
+  database: historymap_production
   adapter: postgresql
   encoding: unicode

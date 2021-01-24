@@ -21,8 +21,9 @@ end
 # マイクロポスト
 users = User.order(:created_at).take(6)
 35.times do
+  title = Faker::Lorem.sentence(word_count: 2)
   content = Faker::Lorem.sentence(word_count: 5)
-  users.each { |user| user.microposts.create!(content: content) }
+  users.each { |user| user.microposts.create!(title: title, content: content) }
 end
 
 # 以下のリレーションシップを作成する

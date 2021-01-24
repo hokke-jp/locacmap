@@ -1,7 +1,11 @@
 <%= form_with(model: @micropost, local: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div>
-    <%= f.label :address, "写真を撮った場所、関連する地名", class: "label" %>
+    <%= f.label :address, "都道府県", class: "label" %>
+    <%= f.text_field :address, class: "field" %>
+  </div>
+  <div>
+    <%= f.label :address, "時代", class: "label" %>
     <%= f.text_field :address, class: "field" %>
   </div>
   <div>
@@ -9,7 +13,12 @@
     <%= f.text_field :LatLng, class: "field" %>
   </div>
   <div class="">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <%= f.label :title, "タイトル", class: "label" %>
+    <%= f.text_area :title, placeholder: "30文字以内", class: "field" %>
+  </div>
+  <div class="">
+    <%= f.label :title, "説明文", class: "label" %>
+    <%= f.text_area :content, placeholder: "140文字以内", class: "field" %>
   </div>
   <%= f.submit "投稿", class: "" %>
   <span class="">
@@ -18,9 +27,9 @@
 <% end %>
 
 <script type="text/javascript">
-  const micropost_image = document.getElementById("micropost_image")
+  let micropost_image = document.getElementById("micropost_image")
   micropost_image.addEventListener("change", () => {
-    const size_in_megabytes = micropost_image.files[0].size/1024/1024;
+    let size_in_megabytes = micropost_image.files[0].size/1024/1024;
     if (size_in_megabytes > 5) {
       alert("5MB以下のファイルを選択してください。");
       micropost_image.value = "";
