@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_084751) do
+ActiveRecord::Schema.define(version: 2021_01_25_000145) do
 
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -47,12 +47,21 @@ ActiveRecord::Schema.define(version: 2021_01_24_084751) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "title"
     t.bigint "period_id"
+    t.bigint "prefecture_id"
+    t.string "latlng"
     t.index ["period_id"], name: "index_microposts_on_period_id"
+    t.index ["prefecture_id"], name: "index_microposts_on_prefecture_id"
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
   end
 
   create_table "periods", charset: "utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "prefectures", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -87,5 +96,6 @@ ActiveRecord::Schema.define(version: 2021_01_24_084751) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "microposts", "periods"
+  add_foreign_key "microposts", "prefectures"
   add_foreign_key "microposts", "users"
 end

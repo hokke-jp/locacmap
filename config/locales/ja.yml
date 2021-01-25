@@ -10,6 +10,8 @@ ja:
         title: タイトル
         content: 説明文
         period_id: 時代
+        prefecture_id: 都道府県
+        latlng: ピン
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"

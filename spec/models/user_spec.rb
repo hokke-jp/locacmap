@@ -28,16 +28,16 @@ describe User do
   end
 
   it 'emailが有効なフォーマットならOK' do
-    valid_addresses  = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
-      first.last@foo.jp alice+bob@baz.cn]
+    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+                         first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
       expect(build(:user, email: valid_address)).to be_valid
     end
   end
 
   it 'emailが無効なフォーマットならNG' do
-    invalid_addresses  = %w[user@example,com user_at_foo.org user.name@example.
-      foo@bar_baz.com foo@bar+baz.com]
+    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
+                           foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
       expect(build(:user, email: invalid_address)).not_to be_valid
     end
@@ -84,11 +84,11 @@ describe User do
       it 'aliceのフォローにbobが含まれる' do
         expect(alice.following?(bob)).to be true
       end
-  
+
       it 'bobのフォロワーにaliceが含まれる' do
         expect(bob.followers.include?(alice)).to be true
       end
-  
+
       it 'bobのフォローを外すと、aliceのフォローに含まれなくなる' do
         alice.unfollow(bob)
         expect(alice.following?(bob)).to be false

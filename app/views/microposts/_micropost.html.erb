@@ -9,6 +9,9 @@
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class=""><%= link_to micropost.user.name, micropost.user %><br></span>
   <span class="">
+    <%= micropost.prefecture.name %><br>
+  </span>
+  <span class="">
     <%= micropost.period.name %><br>
   </span>
   <span class="">

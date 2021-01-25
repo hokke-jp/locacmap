@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :period do
+  factory :prefecture do
     name { 'MyString' }
   end
 end

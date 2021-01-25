@@ -1,4 +1,4 @@
-<% provide(:title, "投稿する") %>
+<% provide(:title, "投稿作成") %>
 
 <input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
 <div class="max-w-5xl h-64">
@@ -60,9 +60,12 @@ function postMap() {
         });
         console.log(rets[0].long_name);
         console.log(formatted_address);
+        console.log(results[0].geometry.location);
+        const location = results[0].geometry.location;
+        console.log(location);
 
         //マーカーの生成
-        marker.setMap(null);
+        if (marker){marker.setMap(null)};
         marker = new google.maps.Marker({
           position: e.latLng,
           map: map,
@@ -86,9 +89,23 @@ function postMap() {
           marker.setMap(null);  //マーカーを削除
         });
 
-        document.getElementById( "micropost_address" ).value = rets[0].long_name;
-        document.getElementById( "micropost_LatLng" ).value = e.latLng;
-        console.log(e.latLng)
+        document.getElementById( "micropost_latlng" ).value = String(e.latLng);
+        console.log(typeof(String(e.latLng)));
+        console.log(typeof(e.latLng));
+        console.log(e.latLng);
+        console.log(e.latLng["lat"]);
+        console.log(Object.values(e.latLng["lat"]));
+
+        function change_pulldown(){
+          pulldown_option = document.getElementById("micropost_prefecture_id").getElementsByTagName('option');
+          for(i=0; i<pulldown_option.length; i++){
+            if(pulldown_option[i].innerHTML == rets[0].long_name){
+              pulldown_option[i].selected = true;
+              break;
+            }
+          }
+        }
+        change_pulldown();
 
       }else if(status === 'ZERO_RESULTS') {
         alert('不明なアドレスです： ' + status);

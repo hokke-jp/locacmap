@@ -16,7 +16,7 @@ describe Relationship do
     expect(@relationship).not_to be_valid
   end
 
-  it 'followed_idがない場合はNG'do
+  it 'followed_idがない場合はNG' do
     @relationship.followed_id = nil
     expect(@relationship).not_to be_valid
   end
