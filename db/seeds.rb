@@ -82,7 +82,7 @@ shikoku.microposts.create!(title: '弘法大師が悟りを開いた場所。御
 
 tyugoku.microposts.create!(title: '伝説の怪物・八俣遠呂智(ヤマタオロチ)がいたとされる山。', content: '一度は聞いたことがある八俣遠呂智伝説。ちなみに古事記によると"ノ"は添えないそうです。須佐之男命が対峙し、その体から出てきた剣が今も、三種の神器の一つとして皇室で受け継がれています。', period_id: 14, prefecture_id: 32, latlng: "(35.33710732807216, 132.87221059002144)")
 
-kinki.microposts.create!(title: '民の竈。仁徳天皇のお墓。', content: '民家から煙が登らないのを見た仁徳天皇は、「これは民が貧しいからである。3年間の徴税を禁止し、免税とする」と仰られ、税を免除されました。それから3年経ちだんだんと煙が登ってきましたが、仁徳天皇はそれでも税をとりません。仁徳天皇の御殿は雨漏りしていたそうです。ついに耐え兼ねた民が自ら税を納めたというのが民の竈の話です。こんな君主をいただけてとても幸運です。', period_id: 13, prefecture_id: 27, latlng: "(34.56223299851912, 135.48615136207565)")
+kinki.microposts.create!(title: '民のかまど。仁徳天皇のお墓。', content: '民家からかまどの煙が登らないのを見た仁徳天皇は、「これは民が貧しいからである。3年間の徴税を禁止し、免税とする」と仰られ、税を免除されました。それから3年経ちだんだんと煙が登ってきましたが、仁徳天皇はそれでも税をとりません。仁徳天皇の御殿は雨漏りしていたそうです。ついに耐え兼ねた民が自ら税を納めたというのが民の竈の話です。こんな君主をいただけてとても幸運です。', period_id: 13, prefecture_id: 27, latlng: "(34.56223299851912, 135.48615136207565)")
 
 tyubu.microposts.create!(title: '川中島の今の姿', content: '戦国時代の最強武将は？と問われるとおそらく武田信玄か上杉謙信この二人のどちらかになるのではないでしょうか。川中島はそんな二人が奪い合い、火花を散らした土地です。写真は最激戦だった第四次合戦の戦場だった八幡原(はちまんぱら)の今の姿です。', period_id: 7, prefecture_id: 20, latlng: "(35.33710732807216, 132.87221059002144)")
 
@@ -95,7 +95,7 @@ hokkaido.microposts.create!(title: '榎本軍鷲ノ木上陸地跡', content: '�
 def image_path(n)
   Rails.root.join("db/images", "img_#{n}.jpg")
 end
-microposts = Micropost.all
+microposts = Micropost.all.reverse_order
 microposts.each.with_index(1) { |micropost, n|
   micropost.image.attach(io: File.open(image_path(n)), filename: "#{micropost.user.name}_#{micropost.id}.png")
 }

@@ -1,4 +1,18 @@
-<div class="col-md-8">
-  <h3>Micropost Feed</h3>
-  <%= render 'shared/feed' %>
-</div>
+<% provide(:title, "記事一覧") %>
+
+<h2>検索</h2>
+<%= form_tag(microposts_path, :method => 'get' ) do %>
+  <%= text_field_tag :search %>
+  <%= submit_tag 'Search', :name => nil %>
+<% end %>
+
+<% if @microposts.any? %>
+  <h3>投稿数：<%= @microposts.count %></h3>
+  <ol class="microposts">
+    <%= render @microposts %>
+  </ol>
+  <%= will_paginate @microposts %>
+<% else %>
+  <a href="/">home</a>
+  <p>このユーザーの投稿はまだありません。</p>
+<% end %>

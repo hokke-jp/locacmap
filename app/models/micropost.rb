@@ -18,4 +18,9 @@ class Micropost < ApplicationRecord
   def display_image
     image.variant(resize_to_limit: [500, 240])
   end
+
+  def self.search(search)
+    return Micropost.all unless search
+    Micropost.where(['content LIKE ?', "%#{search}%"])
+  end
 end
