@@ -9,7 +9,7 @@ class Micropost < ApplicationRecord
   validates :prefecture_id, presence: { message: 'を選択してください' }
   validates :period_id, presence: { message: 'を選択してください' }
   validates :title, presence: true, length: { maximum: 30 }
-  validates :content, presence: true, length: { maximum: 140 }
+  validates :content, presence: true, length: { maximum: 200 }
   validates :image,
             content_type: { in: %w[image/jpeg image/gif image/png], message: ' must be a valid image format' },
             size: { less_than: 5.megabytes, message: ' should be less than 5MB' }
