@@ -4,6 +4,7 @@ class MicropostsController < ApplicationController
   protect_from_forgery except: :destroy
 
   def index
+    @microposts ||= Micropost.all
     @microposts = Micropost.paginate(page: params[:page], per_page: 10).search(params[:search])
   end
 

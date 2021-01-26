@@ -21,6 +21,31 @@ class Micropost < ApplicationRecord
 
   def self.search(search)
     return Micropost.all unless search
-    Micropost.where(['content LIKE ?', "%#{search}%"])
+    Micropost.where(['title LIKE ? or content LIKE ?', "%#{search}%", "%#{search}%"])
+    # Micropost.where(['title LIKE ?', "%#{search}%"])
   end
+
+  # def self.search(search)
+  #   return Micropost.all unless search
+  #   split_keyword = search.split(/[[:blank:]]+/)
+  #   @posts = []
+  #   split_keyword.each do |keyword|
+  #     next if keyword == "" 
+  #     @posts += Micropost.where('title LIKE(?)', "%#{keyword}%")
+  #   end 
+  #   return @posts.uniq!
+  # end
+
+#   def search
+#     redirect_to root_path if params[:keyword] == ""
+  
+#     split_keyword = params[:keyword].split(/[[:blank:]]+/)
+  
+#     @items = [] 
+#     split_keyword.each do |keyword|
+#       next if keyword == "" 
+#       @items += Item.where('name LIKE(?)', "%#{keyword}%")
+#     end 
+#     @items.uniq! #重複した商品を削除する
+#   end
 end
