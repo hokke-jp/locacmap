@@ -14,16 +14,37 @@ class Micropost < ApplicationRecord
             content_type: { in: %w[image/jpeg image/gif image/png], message: ' must be a valid image format' },
             size: { less_than: 5.megabytes, message: ' should be less than 5MB' }
 
+  scope :search_keyword, -> (keyword) { search_title(keyword).or(search_content(keyword)) }
+  scope :search_title, -> (keyword) { where('title LIKE ?', "%#{keyword}%") }
+  scope :search_content, -> (keyword) { where('content LIKE ?', "%#{keyword}%") }
+  scope :search_prefecture, -> (prefecture_id) { where(prefecture_id: prefecture_id) unless prefecture_id.blank? }
+  scope :search_period, -> (period_id) { where(period_id: period_id) unless period_id.blank? }
+
   # 表示用のリサイズ済み画像を返す
   def display_image
     image.variant(resize_to_limit: [500, 240])
   end
 
-  def self.search(search)
-    return Micropost.all unless search
-    Micropost.where(['title LIKE ? or content LIKE ?', "%#{search}%", "%#{search}%"])
-    # Micropost.where(['title LIKE ?', "%#{search}%"])
+  def self.search(keyword, prefecture_id, period_id)
+    return Micropost.all if keyword.blank? && prefecture_id.blank? && period_id.blank?
+    keywords = keyword.split(/[[:blank:]]+/)
+    keywords.delete('')
+
+    results = keywords.inject(all) do |relation, keyword|
+      relation.search_keyword(keyword)
+    end
+    results.search_prefecture(prefecture_id).search_period(period_id)
   end
+
+  # def self.search(search, prefecture_id, period_id)
+  #   return Micropost.all unless search && prefecture_id && period_id
+  #   Micropost.where(['title LIKE ? OR content LIKE ?', "%#{search}%", "%#{search}%"])
+  #   Micropost.where(['title LIKE ? OR content LIKE ? AND prefecture_id = ? AND period_id = ?', "%#{search}%", "%#{search}%", prefecture_id, period_id])
+  #   Micropost.where(period_id: 10)
+  #   Micropost.where('prefecture_id = ? AND period_id = ?', 14, 9)
+  #   Micropost.where(prefecture_id: nil)
+  #   Micropost.where(user_id: [1, 2])
+  # end
 
   # def self.search(search)
   #   return Micropost.all unless search

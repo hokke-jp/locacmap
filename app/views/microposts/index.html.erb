@@ -1,13 +1,17 @@
 <% provide(:title, "記事一覧") %>
 
 <h2>検索</h2>
-<%= form_tag(microposts_path, :method => 'get' ) do %>
-  <%= text_field_tag :search %>
-  <%= submit_tag 'Search', :name => nil %>
+<%= form_with url: microposts_path, method: :get, local: true do |f| %>
+  <%= link_to 'Clear', microposts_path %>
+  <%#= f.text_field :search %>
+  <%= f.search_field :search, class: "border", placeholder: "キーワード検索" %>
+  <%= f.submit('検索') %>
+  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, include_blank: '都道府県' %>
+  <%= f.collection_select :period_id, Period.all, :id, :name, include_blank: '時代' %>
 <% end %>
 
 <% if @microposts.any? %>
-  <h3>投稿数：<%= @microposts.count %></h3>
+  <h3>検索結果：<%= @microposts.count %>件</h3>
   <ol class="microposts">
     <%= render @microposts %>
   </ol>
