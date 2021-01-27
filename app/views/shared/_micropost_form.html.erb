@@ -5,12 +5,12 @@
     <%= f.text_field :latlng, class: "field" %>
   </div>
   <div>
-    <%= f.label :prefecture, "都道府県", class: "label" %>
-    <%= f.collection_select( :prefecture_id, Prefecture.all, :id, :name, {include_blank: '選択してください' }) %>
+    <%= f.label :prefecture_id, "都道府県", class: "label" %>
+    <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '選択してください' } %>
   </div>
   <div>
-    <%= f.label :period, "時代", class: "label" %>
-    <%= f.collection_select( :period_id, Period.all, :id, :name, {include_blank: '選択してください' }) %>
+    <%= f.label :period_id, "時代", class: "label" %>
+    <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '選択してください' } %>
   </div>
   <div class="">
     <%= f.label :title, "タイトル", class: "label" %>
