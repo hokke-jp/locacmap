@@ -3,7 +3,9 @@ class Micropost < ApplicationRecord
   has_one_attached :image
   belongs_to :period, optional: true
   belongs_to :prefecture, optional: true
-  default_scope -> { order(created_at: :desc) }
+  has_many :goings, dependent: :destroy
+  has_many :gone_users, through: :goings, source: :user
+
   validates :user_id, presence: true
   validates :latlng, presence: { message: 'を立ててください' }
   validates :prefecture_id, presence: { message: 'を選択してください' }
@@ -14,6 +16,7 @@ class Micropost < ApplicationRecord
             content_type: { in: %w[image/jpeg image/gif image/png], message: ' must be a valid image format' },
             size: { less_than: 5.megabytes, message: ' should be less than 5MB' }
 
+  default_scope -> { order(created_at: :desc) }
   scope :search_keyword, -> (keyword) { search_title(keyword).or(search_content(keyword)) }
   scope :search_title, -> (keyword) { where('title LIKE ?', "%#{keyword}%") }
   scope :search_content, -> (keyword) { where('content LIKE ?', "%#{keyword}%") }
