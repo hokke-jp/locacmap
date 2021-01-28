@@ -38,38 +38,4 @@ class Micropost < ApplicationRecord
     end
     results.search_prefecture(prefecture_id).search_period(period_id)
   end
-
-  # def self.search(search, prefecture_id, period_id)
-  #   return Micropost.all unless search && prefecture_id && period_id
-  #   Micropost.where(['title LIKE ? OR content LIKE ?', "%#{search}%", "%#{search}%"])
-  #   Micropost.where(['title LIKE ? OR content LIKE ? AND prefecture_id = ? AND period_id = ?', "%#{search}%", "%#{search}%", prefecture_id, period_id])
-  #   Micropost.where(period_id: 10)
-  #   Micropost.where('prefecture_id = ? AND period_id = ?', 14, 9)
-  #   Micropost.where(prefecture_id: nil)
-  #   Micropost.where(user_id: [1, 2])
-  # end
-
-  # def self.search(search)
-  #   return Micropost.all unless search
-  #   split_keyword = search.split(/[[:blank:]]+/)
-  #   @posts = []
-  #   split_keyword.each do |keyword|
-  #     next if keyword == "" 
-  #     @posts += Micropost.where('title LIKE(?)', "%#{keyword}%")
-  #   end 
-  #   return @posts.uniq!
-  # end
-
-#   def search
-#     redirect_to root_path if params[:keyword] == ""
-  
-#     split_keyword = params[:keyword].split(/[[:blank:]]+/)
-  
-#     @items = [] 
-#     split_keyword.each do |keyword|
-#       next if keyword == "" 
-#       @items += Item.where('name LIKE(?)', "%#{keyword}%")
-#     end 
-#     @items.uniq! #重複した商品を削除する
-#   end
 end
