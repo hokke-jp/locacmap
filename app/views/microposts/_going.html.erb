@@ -1,0 +1,16 @@
+<% if current_user.already_gone?(micropost) %>
+
+  <%= form_with(model: Going, html: { method: :delete },
+                remote: true, url: "/going/#{micropost.id}") do |f| %>
+    <%= f.submit "チェックを外す", class: "" %>
+  <% end %>
+
+<% else %>
+
+  <%= form_with(model: Going,
+                remote: true, url: "/going/#{micropost.id}") do |f| %>
+    <div><%= hidden_field_tag :micropost_id, micropost.id %></div>
+    <%= f.submit "行ってみたい", class: "" %>
+  <% end %>
+
+<% end %>

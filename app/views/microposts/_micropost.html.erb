@@ -26,11 +26,5 @@
     <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' } %>
     <% end %>
   </span>
-  <p>
-  <% if current_user.already_gone?(micropost) %>
-    <p><%= link_to 'チェックを外す', "/going//#{micropost.id}", method: :DELETE %></p>
-  <% else %>
-    <p><%= link_to '行ってみたい', "/going/#{micropost.id}", method: :POST %></p>
-  <% end %>
-  </p>
+  <div id="micropost_<%= micropost.id %>"><%= render 'going', micropost: micropost %></div>
 </li>
