@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   resources :password_resets, only: %i[new create edit update]
   resources :microposts, only: %i[index show new create destroy]
   resources :relationships, only: %i[create destroy]
+  post 'going/:id', to: 'goings#create'
+  delete 'going/:id', to: 'goings#destroy'
 end

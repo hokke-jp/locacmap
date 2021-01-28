@@ -26,4 +26,5 @@
     <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' } %>
     <% end %>
   </span>
+  <div id="micropost_<%= micropost.id %>"><%= render 'going', micropost: micropost %></div>
 </li>
