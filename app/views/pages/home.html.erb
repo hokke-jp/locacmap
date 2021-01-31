@@ -20,6 +20,8 @@
   <%= f.text_area :content, id: 'content', class: "border" %>
 <% end %>
 
+<%= render @microposts %>
+
 <% if logged_in? %>
 <li><%= link_to "ユーザー一覧", users_path %></li>
 <section class="stats">

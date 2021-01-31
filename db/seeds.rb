@@ -1,66 +1,66 @@
 admin = User.create!(name: '管理ユーザー',
-             email: 'historymap@example.com',
-             password: 'historymap',
-             password_confirmation: 'historymap',
-             admin: true,
-             activated: true,
-             activated_at: Time.zone.now)
+                    email: 'historymap@example.com',
+                    password: 'historymap',
+                    password_confirmation: 'historymap',
+                    admin: true,
+                    activated: true,
+                    activated_at: Time.zone.now)
 
 kyusyu = User.create!(name: '九州男児',
-              email: 'kyusyu@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                      email: 'kyusyu@example.com',
+                      password: 'historymap',
+                      password_confirmation: 'historymap',
+                      activated: true,
+                      activated_at: Time.zone.now)
 
 shikoku = User.create!(name: 'お遍路坊主',
-              email: 'shikoku@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                      email: 'shikoku@example.com',
+                      password: 'historymap',
+                      password_confirmation: 'historymap',
+                      activated: true,
+                      activated_at: Time.zone.now)
 
 tyugoku = User.create!(name: '山陰山陽の虎',
-              email: 'tyugoku@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                      email: 'tyugoku@example.com',
+                      password: 'historymap',
+                      password_confirmation: 'historymap',
+                      activated: true,
+                      activated_at: Time.zone.now)
 
 kinki = User.create!(name: '上方',
-              email: 'kinki@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                    email: 'kinki@example.com',
+                    password: 'historymap',
+                    password_confirmation: 'historymap',
+                    activated: true,
+                    activated_at: Time.zone.now)
 
 tyubu = User.create!(name: '中部オンエア',
-              email: 'tyubu@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                    email: 'tyubu@example.com',
+                    password: 'historymap',
+                    password_confirmation: 'historymap',
+                    activated: true,
+                    activated_at: Time.zone.now)
 
-kanto = User.create!(name: '一般人',
-              email: 'kanto@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+kanto = User.create!(name: '江戸っ子',
+                    email: 'kanto@example.com',
+                    password: 'historymap',
+                    password_confirmation: 'historymap',
+                    activated: true,
+                    activated_at: Time.zone.now)
 
 tohoku = User.create!(name: '伊達男',
-              email: 'tohoku@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                      email: 'tohoku@example.com',
+                      password: 'historymap',
+                      password_confirmation: 'historymap',
+                      activated: true,
+                      activated_at: Time.zone.now)
 
 hokkaido = User.create!(name: '松山千春',
-              email: 'hokkaido@example.com',
-              password: 'historymap',
-              password_confirmation: 'historymap',
-              activated: true,
-              activated_at: Time.zone.now)
+                        email: 'hokkaido@example.com',
+                        password: 'historymap',
+                        password_confirmation: 'historymap',
+                        activated: true,
+                        activated_at: Time.zone.now)
 
 
 # 時代カテゴリ作成
@@ -82,7 +82,7 @@ shikoku.microposts.create!(title: '弘法大師が悟りを開いた場所。御
 
 tyugoku.microposts.create!(title: '伝説の怪物・八俣遠呂智(ヤマタオロチ)がいたとされる山。', content: '一度は聞いたことがある八俣遠呂智伝説。ちなみに古事記によると"ノ"は添えないそうです。須佐之男命が対峙し、その体から出てきた剣が今も、三種の神器の一つとして皇室で受け継がれています。', period_id: 14, prefecture_id: 32, latlng: "(35.33710732807216, 132.87221059002144)")
 
-kinki.microposts.create!(title: '民のかまど。仁徳天皇のお墓。', content: '民家からかまどの煙が登らないのを見た仁徳天皇は、「これは民が貧しいからである。3年間の徴税を禁止し、免税とする」と仰られ、税を免除されました。それから3年経ちだんだんと煙が登ってきましたが、仁徳天皇はそれでも税をとりません。仁徳天皇の御殿は雨漏りしていたそうです。ついに耐え兼ねた民が自ら税を納めたというのが民の竈の話です。こんな君主をいただけてとても幸運です。', period_id: 13, prefecture_id: 27, latlng: "(34.56223299851912, 135.48615136207565)")
+kinki.microposts.create!(title: '民のかまど。仁徳天皇のお墓。', content: '民家のかまどの煙が登らないのを見た仁徳天皇は、「これは民が貧しいからである。3年間の徴税を禁止し、免税とする」と仰られ、税を免除されました。それから3年経ちだんだんと煙が登ってきましたが、仁徳天皇はそれでも税をとりません。仁徳天皇の御殿は雨漏りしていたそうです。ついに耐え兼ねた民が自ら税を納めたというのが民の竈の話です。こんな君主をいただけてとても幸運です。', period_id: 13, prefecture_id: 27, latlng: "(34.56223299851912, 135.48615136207565)")
 
 tyubu.microposts.create!(title: '川中島の今の姿', content: '戦国時代の最強武将は？と問われるとおそらく武田信玄か上杉謙信この二人のどちらかになるのではないでしょうか。川中島はそんな二人が奪い合い、火花を散らした土地です。写真は最激戦だった第四次合戦の戦場だった八幡原(はちまんぱら)の今の姿です。', period_id: 7, prefecture_id: 20, latlng: "(35.33710732807216, 132.87221059002144)")
 
@@ -97,18 +97,24 @@ def image_path(n)
 end
 microposts = Micropost.all.reverse_order
 microposts.each.with_index(1) { |micropost, n|
-  micropost.image.attach(io: File.open(image_path(n)), filename: "#{micropost.user.name}_#{micropost.id}.png")
+  micropost.image.attach(io: File.open(image_path(n)),
+                         filename: "#{micropost.user.name}_#{micropost.id}.png")
 }
 
-# image_path = Rails.root.join("db/fixtures", "hokusai_nami.jpg")
-# post = admin.microposts.create!(title: '初', content: 'よろしく', period_id: 2, prefecture_id: 2, latlng: "(40.64505808040853, 141.45507812499997)")
-# post.image.attach(io: File.open(image_path), filename: "#{post.user.name}_#{post.id}.png")
-# post.save!
-
-# 以下のリレーションシップを作成する
+# 初期ユーザーフォロー関係
 users = User.all
 user  = users.first
 following = users[2..7]
 followers = users[4..9]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+# 「行きたい！」初期設定
+(1..8).each { |n| admin.goings.create!(micropost_id: n) }
+(2..9).each { |n| kyusyu.goings.create!(micropost_id: n) }
+(1..9).each { |n| shikoku.goings.create!(micropost_id: n) }
+(5..9).each { |n| tyugoku.goings.create!(micropost_id: n) }
+(1..4).each { |n| kinki.goings.create!(micropost_id: n) }
+(3..6).each { |n| tyubu.goings.create!(micropost_id: n) }
+(4..7).each { |n| kanto.goings.create!(micropost_id: n) }
+(5..8).each { |n| tohoku.goings.create!(micropost_id: n) }

@@ -1,11 +1,19 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: %i[new create destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :correct_user, only: :destroy
   protect_from_forgery except: :destroy
 
   def index
-    # @microposts = Micropost.paginate(page: params[:page], per_page: 10).search(params[:search])
-    @microposts = Micropost.paginate(page: params[:page], per_page: 10).search(params[:search], params[:prefecture_id], params[:period_id])
+    @microposts = Micropost.page(params[:page]).per(5).all
+  end
+
+  def search
+    @microposts = Micropost.page(params[:page]).per(5).search(params[:search], params[:prefecture_id], params[:period_id], params[:sort])
+    respond_to do |format|
+      format.html { redirect_to microposts_url }
+      format.js
+    end
+    # render :index
   end
 
   # def index
@@ -13,7 +21,7 @@ class MicropostsController < ApplicationController
   # end
 
   def show
-    @microposts = User.find(params[:id]).microposts.paginate(page: params[:page], per_page: 10)
+    @microposts = User.find(params[:id]).microposts.page(params[:page]).per(5)
   end
 
   def new

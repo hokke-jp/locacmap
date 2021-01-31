@@ -1,0 +1,12 @@
+<% if microposts.any? %>
+  <h3 id="search-conditions"></h3>
+  <ol id="microposts" class="microposts">
+    <%= render partial: 'microposts/micropost', collection: microposts %>
+  </ol>
+  <div id="paginate">
+    <%= paginate microposts, remote: true %>
+  </div>
+<% else %>
+  <a href="/">home</a>
+  <p>検索結果なし。</p>
+<% end %>

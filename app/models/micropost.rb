@@ -17,23 +17,35 @@ class Micropost < ApplicationRecord
             size: { less_than: 5.megabytes, message: ' should be less than 5MB' }
 
   default_scope -> { order(created_at: :desc) }
-  scope :search_keyword, -> (keyword) { search_title(keyword).or(search_content(keyword)) }
-  scope :search_title, -> (keyword) { where('title LIKE ?', "%#{keyword}%") }
-  scope :search_content, -> (keyword) { where('content LIKE ?', "%#{keyword}%") }
-  scope :search_prefecture, -> (prefecture_id) { where(prefecture_id: prefecture_id) unless prefecture_id.blank? }
-  scope :search_period, -> (period_id) { where(period_id: period_id) unless period_id.blank? }
+  scope :search_keyword, ->(keyword) { search_title(keyword).or(search_content(keyword)) }
+  scope :search_title, ->(keyword) { where('title LIKE ?', "%#{keyword}%") }
+  scope :search_content, ->(keyword) { where('content LIKE ?', "%#{keyword}%") }
+  scope :search_prefecture, ->(prefecture_id) { where(prefecture_id: prefecture_id) if prefecture_id.present? }
+  scope :search_period, ->(period_id) { where(period_id: period_id) if period_id.present? }
 
   # 表示用のリサイズ済み画像を返す
   def display_image
     image.variant(resize_to_limit: [500, 240])
   end
 
-  def self.search(keyword, prefecture_id, period_id)
-    return Micropost.all if keyword.blank? && prefecture_id.blank? && period_id.blank?
-    keywords = keyword.split(/[[:blank:]]+/)
+  def self.search(search_words, prefecture_id, period_id, sort)
+    case sort
+    when 'new'
+      microposts = Micropost.all
+    when 'going'
+      microposts = Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+    when 'period_asc'
+      microposts = Micropost.reorder(period_id: :asc).all
+    when 'period_desc'
+      microposts = Micropost.reorder(period_id: :desc).all
+    end
+
+    return microposts if search_words.blank? && prefecture_id.blank? && period_id.blank?
+
+    keywords = search_words.split(/[[:blank:]]+/)
     keywords.delete('')
 
-    results = keywords.inject(all) do |relation, keyword|
+    results = keywords.inject(microposts) do |relation, keyword|
       relation.search_keyword(keyword)
     end
     results.search_prefecture(prefecture_id).search_period(period_id)
