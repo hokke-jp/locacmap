@@ -1,5 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe "Goings", type: :request do
-
+RSpec.describe 'Goings', type: :request do
 end

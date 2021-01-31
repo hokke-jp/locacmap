@@ -99,6 +99,7 @@ class User < ApplicationRecord
     goings.where(micropost_id: micropost.id).exists?
     # self.goings.exists?(micropost_id: micropost.id)
   end
+
   private
 
   # メールアドレスをすべて小文字にする

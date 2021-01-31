@@ -1,0 +1,27 @@
+<% if params[:search].present? %>
+"<%= params[:search] %>"
+<% end %>
+
+<% if params[:prefecture_id].present? %>
+都道府県:<%= Prefecture.find(params[:prefecture_id]).name %>
+<% end %>
+
+<% if params[:period_id].present? %>
+時代:<%= Period.find(params[:period_id]).name %>
+<% end %>
+
+<% case params[:sort] %>
+<% when 'new' %>
+最新順
+<% when 'going' %>
+行ってみたい!順
+<% when 'period_asc' %>
+時代昇順
+<% when 'period_desc' %>
+時代降順
+<% end %>
+
+の検索結果
+
+
+

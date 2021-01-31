@@ -19,8 +19,11 @@ Rails.application.routes.draw do
   end
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
-  resources :microposts, only: %i[index show new create destroy]
+  resources :microposts, only: %i[index show new create destroy] do
+    collection do
+      get 'search'
+    end
+  end
   resources :relationships, only: %i[create destroy]
-  post 'going/:id', to: 'goings#create'
-  delete 'going/:id', to: 'goings#destroy'
+  resources :goings, only: %i[create destroy]
 end
