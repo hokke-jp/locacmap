@@ -53,14 +53,14 @@ class Micropost < ApplicationRecord
   end
 
   def self.period_all
-    Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+    Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').limit(15)
   end
 
   def self.period_month
-    Micropost.where(created_at: 1.month.ago...Time.zone.now).joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+    Micropost.where(created_at: 1.month.ago...Time.zone.now).joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').limit(15)
   end
 
   def self.period_week
-    Micropost.where(created_at: 1.week.ago...Time.zone.now).joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+    Micropost.where(created_at: 1.week.ago...Time.zone.now).joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').limit(15)
   end
 end
