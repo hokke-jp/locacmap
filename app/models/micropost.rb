@@ -34,7 +34,7 @@ class Micropost < ApplicationRecord
     when 'new'
       microposts = Micropost.all
     when 'going'
-      microposts = Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+      microposts = Micropost.joins("LEFT OUTER JOIN goings ON microposts.id = goings.micropost_id").group('microposts.id').reorder('count(goings.id) desc')
     when 'period_asc'
       microposts = Micropost.reorder(period_id: :asc).all
     when 'period_desc'
