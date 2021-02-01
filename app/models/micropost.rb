@@ -17,7 +17,8 @@ class Micropost < ApplicationRecord
             size: { less_than: 5.megabytes, message: ' should be less than 5MB' }
 
   default_scope -> { order(created_at: :desc) }
-  scope :search_keyword, ->(keyword) { search_title(keyword).or(search_content(keyword)) }
+  scope :search_keyword, ->(keyword) { search_user(keyword).or(search_title(keyword)).or(search_content(keyword)) }
+  scope :search_user, ->(keyword) { includes(:user).where(users: { name: keyword.to_s }) }
   scope :search_title, ->(keyword) { where('title LIKE ?', "%#{keyword}%") }
   scope :search_content, ->(keyword) { where('content LIKE ?', "%#{keyword}%") }
   scope :search_prefecture, ->(prefecture_id) { where(prefecture_id: prefecture_id) if prefecture_id.present? }
@@ -49,5 +50,17 @@ class Micropost < ApplicationRecord
       relation.search_keyword(keyword)
     end
     results.search_prefecture(prefecture_id).search_period(period_id)
+  end
+
+  def self.period_all
+    Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+  end
+
+  def self.period_month
+    Micropost.where(created_at: 1.month.ago...Time.zone.now).joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
+  end
+
+  def self.period_week
+    Micropost.where(created_at: 1.week.ago...Time.zone.now).joins(:goings).group('micropost_id').reorder('count(micropost_id) desc')
   end
 end

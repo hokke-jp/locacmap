@@ -12,15 +12,28 @@
   </div>
 </div>
 -->
+
 <div id="testmap" class="h-56 w-1/2">
 </div>
 
-<%= form_with(local: true) do |f| %>
-  <%= f.label :content, "text_field_test", class: "label" %>
-  <%= f.text_area :content, id: 'content', class: "border" %>
-<% end %>
+<fieldset>
+  <legend>トレンド</legend>
+  <input id="period-all" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
+  <label class="radio-inline__label" for="period-all">
+      <a href="#">全期間</a>
+  </label>
+  <input id="period-month" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label class="radio-inline__label" for="period-month">
+      1ヶ月
+  </label>
+  <input id="period-week" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label class="radio-inline__label" for="period-week">
+      1週間
+  </label>
+</fieldset>
 
-<%= render @microposts %>
+<%= render 'microposts/microposts', microposts: @trend_all %>
+
 
 <% if logged_in? %>
 <li><%= link_to "ユーザー一覧", users_path %></li>
