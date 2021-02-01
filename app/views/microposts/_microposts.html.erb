@@ -3,9 +3,9 @@
   <ol id="microposts" class="microposts">
     <%= render partial: 'microposts/micropost', collection: microposts %>
   </ol>
-  <div id="paginate">
+  <% if microposts.page(2).present? %>
     <%= paginate microposts, remote: true %>
-  </div>
+  <% end %>
 <% else %>
   <a href="/">home</a>
   <p>検索結果なし。</p>

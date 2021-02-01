@@ -20,19 +20,21 @@
   <legend>トレンド</legend>
   <input id="period-all" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label class="radio-inline__label" for="period-all">
-      <a href="#">全期間</a>
+      <%= link_to "全期間", root_path, remote: true %>
   </label>
   <input id="period-month" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label class="radio-inline__label" for="period-month">
-      1ヶ月
+      <%= link_to "1ヶ月", month_path, remote: true %>
   </label>
   <input id="period-week" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label class="radio-inline__label" for="period-week">
-      1週間
+      <%= link_to "1週間", week_path, remote: true %>
   </label>
 </fieldset>
 
+<div id="trend">
 <%= render 'microposts/microposts', microposts: @trend_all %>
+</div>
 
 
 <% if logged_in? %>

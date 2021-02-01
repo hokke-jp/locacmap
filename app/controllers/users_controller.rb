@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   protect_from_forgery except: :destroy
 
   def index
-    @users = User.page(params[:page]).per(5).where(activated: true)
+    @users = User.page(params[:page]).per(10).where(activated: true)
   end
 
   def show
