@@ -1,15 +1,38 @@
 <div class="w-full h-smartphone-screen lg:h-pc-screen">
-  <div id="map"></div>
+  <div id='main-map' style="height: 400px; width: 600px"></div>
 </div>
-
+<div id="latlngs-data" data-latlngs="<%= @default_microposts.pluck(:latlng).to_json %>"></div>
+<%= @default_microposts.ids %>
+<%= @default_microposts.pluck(:id) %>
+<%= @default_microposts.pluck(:latlng) %>
 
 
 <script>
+// railsに保存してあるstring型のlatlngをNumber型の配列に変換
+function latlngToNumber(micropost_latlng) {
+  const ll = micropost_latlng.replace(/\(/g, '').replace(/\)/g, '');
+  const latlng = [Number(ll.split(',')[0]), Number(ll.split(',')[1])];
+  return latlng;
+}
+
+const latlngs_data = document.getElementById('latlngs-data');
+const strLatlngsArray = JSON.parse(latlngs_data.getAttribute('data-latlngs'));
+const latlngsArray = [];
+for( key in strLatlngsArray ) {
+  latlngsArray.push( latlngToNumber(strLatlngsArray[key]) );
+}
+console.log( typeof strLatlngsArray[0][0] );
+console.log( strLatlngsArray instanceof Array );
+console.log( typeof latlngsArray[0][0] );
+console.log( latlngsArray instanceof Array );
+console.log( latlngsArray.length );
+// center: {lat: ll[0], lng: ll[1]}
+
 function mainMap(){
-  const target = document.getElementById('map');
-  let main_map = new google.maps.Map(target, {
+  const target = document.getElementById('main-map');
+  const main_map = new google.maps.Map(target, {
     center: {lat: 37, lng: 140},
-    zoom: 5,
+    zoom: 4,
     zoomControl: false,
     mapTypeControl: false,
     streetViewControl: false,
@@ -26,6 +49,14 @@ function mainMap(){
       strictBounds: false
     },
   });
+
+  let marker
+  for ( let latlng of latlngsArray ){
+    marker = new google.maps.Marker({
+      position: {lat: latlng[0], lng: latlng[1]},
+      map: main_map,
+    });
+  }
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&libraries=places&callback=mainMap" async defer></script>

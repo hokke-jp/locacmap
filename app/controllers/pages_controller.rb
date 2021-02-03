@@ -6,7 +6,15 @@ class PagesController < ApplicationController
     @microposts = @user.microposts
   end
 
-  def month
+  def trend_all
+    @trend_all = Micropost.page(params[:page]).period_all
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
+  end
+
+  def trend_month
     @trend_month = Micropost.page(params[:page]).period_month
     respond_to do |format|
       format.html { redirect_to root_url }
@@ -14,7 +22,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def week
+  def trend_week
     @trend_week = Micropost.page(params[:page]).period_week
     respond_to do |format|
       format.html { redirect_to root_url }
@@ -22,5 +30,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def map; end
+  def map
+    @default_microposts = Micropost.period_week
+  end
 end

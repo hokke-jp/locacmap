@@ -2,7 +2,7 @@
 
 <input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
 <div class="max-w-5xl h-64">
-  <div id="post_map"></div>
+  <div id="post_map" style="height: 100%; width: 100%"></div>
 </div>
 <div class="w-4/5 mx-auto my-10">
   <div class="max-w-sm mx-auto">
@@ -14,11 +14,10 @@
 
 <script>
 let map;
-let marker;
 let infoWindow;
 let autocomplete;
 function postMap() {
-  marker = new google.maps.Marker();
+  let marker = new google.maps.Marker();
   const target = document.getElementById('post_map');
   const empire = {lat: 37, lng: 140};
   
@@ -65,7 +64,7 @@ function postMap() {
         console.log(location);
 
         //マーカーの生成
-        if (marker){marker.setMap(null)};
+        if (marker){ marker.setMap(null) };
         marker = new google.maps.Marker({
           position: e.latLng,
           map: map,

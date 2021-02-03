@@ -9,7 +9,7 @@ module UsersHelper
                 id: "user#{user.id}-avatar", alt: 'user-avatar',
                 class: 'rounded-full shadow-md border border-indigo-200')
     else
-      image_tag('default_icon2.jpg', width: "#{size}px",
+      image_tag('default_icon.jpg', width: "#{size}px",
                 id: "user#{user.id}-avatar", alt: 'user-avatar',
                 class: 'rounded-full')
     end
