@@ -13,8 +13,8 @@ class Micropost < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 200 }
   validates :image,
-            content_type: { in: %w[image/jpeg image/gif image/png], message: ' must be a valid image format' },
-            size: { less_than: 5.megabytes, message: ' should be less than 5MB' }
+            content_type: { in: %w[image/jpeg image/gif image/png], message: 'のフォーマットが正しくありません' },
+            size: { less_than: 5.megabytes, message: ' のサイズは5MB以下にしてください' }
 
   default_scope -> { order(created_at: :desc) }
   scope :search_keyword, ->(keyword) { search_user(keyword).or(search_title(keyword)).or(search_content(keyword)) }

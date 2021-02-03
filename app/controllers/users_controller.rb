@@ -30,11 +30,21 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params)
+    if @user.update(user_params) && @user.avatar.attach(params[:user][:avatar])
       flash[:success] = '更新しました'
       redirect_to @user
     else
       render 'edit'
+    end
+  end
+
+  def update_avatar
+    # byebug
+    @user = User.find(params[:id])
+    @user.avatar.attach(params[:user][:avatar])
+    respond_to do |format|
+      format.html { redirect_to edit_user_path(@user) }
+      format.js
     end
   end
 
@@ -73,7 +83,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
 
   # beforeアクション

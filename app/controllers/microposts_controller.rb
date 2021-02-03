@@ -32,6 +32,7 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.image.attach(params[:micropost][:image])
+    # byebug
     if @micropost.save
       flash[:success] = '投稿しました'
       redirect_to microposts_url
