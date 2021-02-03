@@ -3,12 +3,12 @@
 
 
   <div class="mb-5">
-    <%= f.label :name, "ユーザー名", class: "label" %>
+    <%= f.label :name, "ユーザー名（他のユーザーに公開されます）", class: "label" %>
     <%= f.text_field :name, class: "field" %>
   </div>
 
   <div class="mb-5">
-    <%= f.label :email, "メールアドレス", class: "label" %>
+    <%= f.label :email, "メールアドレス（非公開）", class: "label" %>
     <%= f.email_field :email, class: "field" %>
   </div>
 
@@ -21,6 +21,8 @@
     <%= f.label :password_confirmation, "パスワード（確認）", class: "label" %>
     <%= f.password_field :password_confirmation, class: "field" %>
   </div>
+
+  <%#= f.file_field :avatar %>
 
   <%= f.submit yield(:button_text), class: "h-10 btn" %>
 <% end %>

@@ -4,7 +4,11 @@
 
   <div class="text-center mt-10 mb-16">
     <div class="inline-block text-center">
-      <%= gravatar_for(@user,size: "100") %>
+      <% if current_user == @user %>
+        <%= link_to avatar_for(@user, size: 100), edit_user_path(@user) %>
+      <% else %>
+        <%= link_to avatar_for(@user, size: 100), @user %>
+      <% end %>
     </div>
     <p class="mt-2 text-xl"><%= @user.name %></p>
   </div>
@@ -30,7 +34,6 @@
     </div>
   </div>
 
-  <%# micropost_path(user: params[:id]) %>
 
   <div class="w-4/5 flex flex-col text-right mx-auto">
     <p class="text-sm text-gray-600 ">
@@ -42,7 +45,7 @@
 </div>
 
 
-<% if logged_in? && current_user == @user %>
+<% if current_user == @user %>
 <div>
   <ul class="text-gray-600">
     <li><a href="#">いいねした記事</a></li>

@@ -62,6 +62,16 @@ hokkaido = User.create!(name: '松山千春',
                         activated: true,
                         activated_at: Time.zone.now)
 
+# 初期ユーザーアイコン
+def avatar_path(n)
+  Rails.root.join("db/avatars", "avatar_#{n}.jpg")
+end
+users = User.all.order(id: :asc)
+users.each.with_index(1) { |user, n|
+  user.avatar.attach(io: File.open(avatar_path(n)),
+                    filename: "avatar_#{user.id}.jpg")
+}
+
 
 # 時代カテゴリ作成
 periods = ['令和','平成','昭和','大正','明治','江戸','安土桃山','室町','鎌倉','平安','奈良','飛鳥','古墳','弥生','縄文','旧石器','人類以前']
@@ -99,7 +109,7 @@ end
 microposts = Micropost.all.reorder(id: :asc)
 microposts.each.with_index(1) { |micropost, n|
   micropost.image.attach(io: File.open(image_path(n)),
-                         filename: "#{micropost.user.name}_#{micropost.id}.png")
+                         filename: "micropost_image_#{micropost.id}.jpg")
 }
 
 # 初期ユーザーフォロー関係

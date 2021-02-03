@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
 
+  has_one_attached :avatar
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
@@ -18,6 +19,10 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
+                                    message: 'のフォーマットが正しくありません' },
+                      size: { less_than: 2.megabytes,
+                              message: 'のサイズは2MB以下にしてください' }
 
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -59,6 +64,11 @@ class User < ApplicationRecord
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
+  # アイコン初期化
+  # def avatar_init
+  #   update_columns(image: )
+  # end
+
   # 有効化用のメールを送信する
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
@@ -95,9 +105,9 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # 既に「行ってみたい」ボタンを押していればtrue
   def already_gone?(micropost)
     goings.where(micropost_id: micropost.id).exists?
-    # self.goings.exists?(micropost_id: micropost.id)
   end
 
   private

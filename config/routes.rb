@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/password_resets', to: 'password_resets#new'
   resources :users do
     member do
+      patch 'update_avatar'
       get 'following'
       get 'followers'
     end
