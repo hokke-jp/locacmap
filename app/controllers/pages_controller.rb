@@ -31,6 +31,6 @@ class PagesController < ApplicationController
   end
 
   def map
-    @default_microposts = Micropost.period_week
+    @microposts_for_map = Micropost.period_week
   end
 end

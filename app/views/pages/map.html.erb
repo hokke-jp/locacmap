@@ -1,10 +1,11 @@
 <div class="w-full h-smartphone-screen lg:h-pc-screen">
-  <div id='main-map' style="height: 400px; width: 600px"></div>
+  <div id='main-map' style="height: 100%"></div>
 </div>
-<div id="latlngs-data" data-latlngs="<%= @default_microposts.pluck(:latlng).to_json %>"></div>
-<%= @default_microposts.ids %>
-<%= @default_microposts.pluck(:id) %>
-<%= @default_microposts.pluck(:latlng) %>
+<div id="latlngs-data" data-latlngs="<%= @microposts_for_map.pluck(:latlng).to_json %>"></div>
+<%= @microposts_for_map.ids %>
+<%= @microposts_for_map.pluck(:id) %>
+<%= @microposts_for_map.pluck(:latlng) %>
+<%= render 'microposts/micropost', micropost: @microposts_for_map.first %>
 
 
 <script>
@@ -21,18 +22,12 @@ const latlngsArray = [];
 for( key in strLatlngsArray ) {
   latlngsArray.push( latlngToNumber(strLatlngsArray[key]) );
 }
-console.log( typeof strLatlngsArray[0][0] );
-console.log( strLatlngsArray instanceof Array );
-console.log( typeof latlngsArray[0][0] );
-console.log( latlngsArray instanceof Array );
-console.log( latlngsArray.length );
-// center: {lat: ll[0], lng: ll[1]}
 
 function mainMap(){
   const target = document.getElementById('main-map');
   const main_map = new google.maps.Map(target, {
     center: {lat: 37, lng: 140},
-    zoom: 4,
+    zoom: 5,
     zoomControl: false,
     mapTypeControl: false,
     streetViewControl: false,
@@ -41,22 +36,45 @@ function mainMap(){
     },
     restriction: {
       latLngBounds: {
-        north: 48.0,
+        north: 55.0,
         south: 20.0,
-        west: 125.0,
-        east: 150.0
+        west: 110.0,
+        east: 170.0
       },
       strictBounds: false
     },
   });
 
-  let marker
-  for ( let latlng of latlngsArray ){
-    marker = new google.maps.Marker({
-      position: {lat: latlng[0], lng: latlng[1]},
-      map: main_map,
+  const latLngs = [];
+  const markers = [];
+  const infoWindows = [];
+  latlngsArray.forEach( (latlng, i) => {
+    latLngs[i] = { lat: latlng[0], lng: latlng[1] }
+    markers[i] = new google.maps.Marker({
+      position: latLngs[i],
+      map: main_map
     });
-  }
+    infoWindows[i] = new google.maps.InfoWindow({
+      content: i+`<%= render 'microposts/micropost', micropost: @microposts_for_map.first %>`
+    });
+    markers[i].addListener('click', ()=> {
+      for ( infoWindow of infoWindows ) {
+        infoWindow.close();
+      }
+      main_map.panTo(latLngs[i]);
+      infoWindows[i].open(main_map, markers[i]);
+    });
+
+    markers[i].addListener('dblclick', ()=> {
+      main_map.panTo(latLngs[i]);
+      main_map.setZoom(10);
+    });
+  });
+  main_map.addListener('click', ()=> {
+    for ( infoWindow of infoWindows ) {
+      infoWindow.close();
+    }
+  });
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&libraries=places&callback=mainMap" async defer></script>

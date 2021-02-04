@@ -57,11 +57,11 @@ function postMap() {
         let rets = results[0].address_components.filter(function(component) {
           return component.types.indexOf("administrative_area_level_1") > -1;
         });
-        console.log(rets[0].long_name);
-        console.log(formatted_address);
-        console.log(results[0].geometry.location);
+        // console.log(rets[0].long_name);
+        // console.log(formatted_address);
+        // console.log(results[0].geometry.location);
         const location = results[0].geometry.location;
-        console.log(location);
+        // console.log(location);
 
         //マーカーの生成
         if (marker){ marker.setMap(null) };
@@ -74,8 +74,7 @@ function postMap() {
         
         //情報ウィンドウの生成
         infoWindow = new google.maps.InfoWindow({
-          content: formatted_address,
-          pixelOffset: new google.maps.Size(0, 5)
+          content: formatted_address
         });
 
         //マーカーにリスナーを設定
@@ -85,15 +84,15 @@ function postMap() {
         
         //情報ウィンドウリスナーを設定
         infoWindow.addListener('closeclick', function(){
-          marker.setMap(null);  //マーカーを削除
+          marker.setMap(null);
         });
 
         document.getElementById( "micropost_latlng" ).value = String(e.latLng);
-        console.log(typeof(String(e.latLng)));
-        console.log(typeof(e.latLng));
-        console.log(e.latLng);
-        console.log(e.latLng["lat"]);
-        console.log(Object.values(e.latLng["lat"]));
+        // console.log(typeof(String(e.latLng)));
+        // console.log(typeof(e.latLng));
+        // console.log(e.latLng);
+        // console.log(e.latLng["lat"]);
+        // console.log(Object.values(e.latLng["lat"]));
 
         function change_pulldown(){
           pulldown_option = document.getElementById("micropost_prefecture_id").getElementsByTagName('option');

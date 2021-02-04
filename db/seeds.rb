@@ -84,7 +84,7 @@ prefectures.each { |prefecture| Prefecture.create!(name: prefecture) }
 
 
 # マイクロポスト
-admin.microposts.create!(title: '葛飾北斎「神奈川沖浪裏」に似た構図が見られる地、千葉県銚子市', content: '海外でも人気な葛飾北斎の通称「波」。実際に描かれた場所については神奈川沖の船上と考えられています。写真は『産経新聞社「美しい日本を撮ろう」フォトコンテスト』で滑方清さんが撮影された一枚です。', period_id: 6, prefecture_id: 12, latlng: "(35.78257336213532, 140.82770410416438)", created_at: 5.day.ago)
+admin.microposts.create!(title: '葛飾北斎「神奈川沖浪裏」に似た構図が見られる地、千葉県銚子市', content: '海外でも人気な葛飾北斎の通称「波」。実際に描かれた場所については神奈川沖の船上と考えられています。写真は『産経新聞社「美しい日本を撮ろう」フォトコンテスト』で滑方清さんが撮影された一枚です。', period_id: 6, prefecture_id: 12, latlng: "(35.733200186434594, 140.82821442048603)", created_at: 5.day.ago)
 
 kyusyu.microposts.create!(title: '天孫降臨。日本の歴史が始まった土地。', content: '天照大神の孫に当たる瓊瓊杵尊(ニニギノミコト)が降り立った土地です。瓊瓊杵尊は初代天皇・神武天皇の曾祖父に当たる方です。写真は宮崎県高千穂町にある「天孫降臨の滝」です。', period_id: 14, prefecture_id: 45, latlng: "(32.740212975906154, 131.30097750103604)", created_at: 3.day.ago)
 
