@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :goings, dependent: :destroy
   has_many :gone_microposts, through: :goings, source: :micropost
 
-  validates :name,  presence: true, length: { maximum: 20 }
+  validates :name,  presence: true, length: { maximum: 20 }, uniqueness: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   has_secure_password
