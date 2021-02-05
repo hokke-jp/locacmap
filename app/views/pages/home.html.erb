@@ -13,9 +13,6 @@
 </div>
 -->
 
-<div id="testmap" class="h-56 w-1/2">
-</div>
-
 <fieldset>
   <legend>トレンド</legend>
   <input id="period-all" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
@@ -44,44 +41,4 @@
 </section>
 <%= link_to "最新の記事", microposts_url, {class: "text-2xl rounded-md text-indigo-500 hover:text-indigo-800 hover:bg-indigo-200"} %>
 <div id='ll'><%= current_user.microposts.first.latlng %></div>
-
-
-<script>
-// railsに保存してあるstring型のlatlngをNumber型の配列に変換
-function exchangeLatlng(id) {
-  const ll = "<%= current_user.microposts.first.latlng %>".replace(/\(/g, '').replace(/\)/g, '');
-  const latlng = [Number(ll.split(',')[0]), Number(ll.split(',')[1])];
-  return latlng;
-}
-
-function testMap(){
-  const exchangedlatlng = exchangeLatlng('ll');
-  const target = document.getElementById('testmap');
-  let latlng = new google.maps.LatLng(exchangedlatlng[0], exchangedlatlng[1]);
-  let test_map = new google.maps.Map(target, {
-    center: latlng,
-    zoom: 8,
-    zoomControl: false,
-    mapTypeControl: false,
-    streetViewControl: false,
-    mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-    },
-    restriction: {
-      latLngBounds: {
-        north: 48.0,
-        south: 20.0,
-        west: 125.0,
-        east: 150.0
-      },
-      strictBounds: false
-    },
-  });
-}
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&libraries=places&callback=testMap" async defer></script>
-
-
-
 <% end %>
