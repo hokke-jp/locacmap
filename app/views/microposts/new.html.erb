@@ -153,15 +153,15 @@ function postMap() {
     google.maps.event.addDomListener(buttonDiv, "click", function() {
       const infoWindow = new google.maps.InfoWindow; 
       
-      //ブラウザが Geolocation に対応しているかを判定
-      //対応していない場合の処理
+      // ブラウザが Geolocation に対応しているかを判定
+      // 対応していない場合の処理
       if(!navigator.geolocation){ 
         infoWindow.setPosition(map.getCenter());
         infoWindow.setContent('Geolocation に対応していません。');
         infoWindow.open(map);
       }
       
-      //ブラウザが対応している場合、position にユーザーの位置情報が入る
+      // ブラウザが対応している場合、position にユーザーの位置情報が入る
       navigator.geolocation.getCurrentPosition(
         
         // [第1引数] 取得に成功した場合の関数

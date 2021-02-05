@@ -1,6 +1,6 @@
 <% provide(:title, "記事一覧") %>
 
-<h2>検索</h2>
+<h1>検索</h1>
 <%= form_with url: search_microposts_path, method: :get do |f| %>
   <%= link_to 'Clear', microposts_path %>
   <%= f.search_field :search, class: "border", placeholder: "キーワード検索" %>
@@ -18,7 +18,8 @@
   </p>
   <%= f.submit('検索') %>
 <% end %>
-
+<p id="search-conditions"></p>
+<div id="link-to-map"></div>
 <div id="microposts">
   <%= render 'microposts/microposts', microposts: @microposts %>
 </div>

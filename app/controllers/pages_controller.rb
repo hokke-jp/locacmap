@@ -31,7 +31,15 @@ class PagesController < ApplicationController
   end
 
   def map
-    # @microposts_for_map = Micropost.page(params[:page]).period_week.limit(8)
-    @microposts_for_map = Micropost.all.page(params[:page]).limit(9)
+    if params[:microposts_ids].present?
+      @microposts_for_map = Micropost.page(params[:page]).where(id: params[:microposts_ids]).limit(8)
+      # byebug
+      @microposts_for_map.reload
+    else
+      # @microposts_for_map = Micropost.page(params[:page]).period_week.limit(8)
+      @microposts_for_map = Micropost.all.page(params[:page]).limit(8)
+      # byebug
+      @microposts_for_map.reload
+    end
   end
 end
