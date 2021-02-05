@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  get '/month', to: 'pages#month'
-  get '/week', to: 'pages#week'
+  get '/trend_all', to: 'pages#trend_all'
+  get '/trend_month', to: 'pages#trend_month'
+  get '/trend_week', to: 'pages#trend_week'
   get '/map', to: 'pages#map'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'

@@ -1,3 +1,4 @@
 document.getElementById('microposts').innerHTML = `<%= render 'microposts/microposts', microposts: @microposts %>`
 document.getElementById('search-conditions').innerHTML = `<%= render 'microposts/search_conditions' %>`
+document.getElementById('link-to-map').innerHTML = `<%= link_to "検索結果を地図で見る", map_path(microposts_ids: @microposts.ids) %>`
 document.getElementById('header').scrollIntoView()

@@ -14,7 +14,6 @@ class MicropostsController < ApplicationController
       format.html { redirect_to microposts_url }
       format.js
     end
-    # render :index
   end
 
   # def index

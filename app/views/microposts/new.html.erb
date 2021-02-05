@@ -1,8 +1,10 @@
 <% provide(:title, "投稿作成") %>
 
 <input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
+<div id="set-init" class="w-10 h-5 text-center bg-white cursor-pointer">全体</div>
+<div id="location-button" class="bg-white cursor-pointer">現在地</div>
 <div class="max-w-5xl h-64">
-  <div id="post_map"></div>
+  <div id="post_map" style="height: 100%; width: 100%"></div>
 </div>
 <div class="w-4/5 mx-auto my-10">
   <div class="max-w-sm mx-auto">
@@ -13,16 +15,11 @@
 
 
 <script>
-let map;
-let marker;
-let infoWindow;
-let autocomplete;
 function postMap() {
-  marker = new google.maps.Marker();
+  // マップ表示
   const target = document.getElementById('post_map');
   const empire = {lat: 37, lng: 140};
-  
-  map = new google.maps.Map(target, {
+  const map = new google.maps.Map(target, {
     center: empire,
     zoom: 5,
     zoomControl: false,
@@ -45,10 +42,11 @@ function postMap() {
 
 
 
+  // マップクリック時のアクション設定
+  let infoWindow;
+  let marker = new google.maps.Marker();
   let geocoder = new google.maps.Geocoder();  
-  //マップにリスナーを設定
   map.addListener('click', function(e){
-    //リバースジオコーディングでは location を指定
     geocoder.geocode({location: e.latLng}, function(results, status){
       if(status === 'OK' && results[0]) {
 
@@ -58,14 +56,10 @@ function postMap() {
         let rets = results[0].address_components.filter(function(component) {
           return component.types.indexOf("administrative_area_level_1") > -1;
         });
-        console.log(rets[0].long_name);
-        console.log(formatted_address);
-        console.log(results[0].geometry.location);
         const location = results[0].geometry.location;
-        console.log(location);
 
-        //マーカーの生成
-        if (marker){marker.setMap(null)};
+        // マーカーの生成
+        if (marker){ marker.setMap(null) };
         marker = new google.maps.Marker({
           position: e.latLng,
           map: map,
@@ -73,29 +67,24 @@ function postMap() {
           animation: google.maps.Animation.DROP
         });
         
-        //情報ウィンドウの生成
+        // 情報ウィンドウの生成
         infoWindow = new google.maps.InfoWindow({
-          content: formatted_address,
-          pixelOffset: new google.maps.Size(0, 5)
+          content: formatted_address
         });
 
-        //マーカーにリスナーを設定
+        // マーカーにリスナーを設定
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
         });
         
-        //情報ウィンドウリスナーを設定
+        // 情報ウィンドウリスナーを設定
         infoWindow.addListener('closeclick', function(){
-          marker.setMap(null);  //マーカーを削除
+          marker.setMap(null);
         });
 
         document.getElementById( "micropost_latlng" ).value = String(e.latLng);
-        console.log(typeof(String(e.latLng)));
-        console.log(typeof(e.latLng));
-        console.log(e.latLng);
-        console.log(e.latLng["lat"]);
-        console.log(Object.values(e.latLng["lat"]));
 
+        // クリック地点の都道府県をセレクトボックスに入力
         function change_pulldown(){
           pulldown_option = document.getElementById("micropost_prefecture_id").getElementsByTagName('option');
           for(i=0; i<pulldown_option.length; i++){
@@ -119,135 +108,97 @@ function postMap() {
 
 
 
-  // Create the autocomplete object and associate it with the UI input control.
-  // Restrict the search to the default country, and to place type "cities".
+  // 検索機能設定
   const input = document.getElementById("autocomplete");
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  autocomplete = new google.maps.places.Autocomplete(
+  const autocomplete = new google.maps.places.Autocomplete(
     input,
     {
-      types: ["(cities)"],
-      // componentRestrictions: countryRestrict,
+      fields: ["geometry", "name"],
+      componentRestrictions: {country: 'jp'}
     }
   );
   places = new google.maps.places.PlacesService(map);
   autocomplete.addListener("place_changed", onPlaceChanged);
 
+  function onPlaceChanged() {
+    const place = autocomplete.getPlace();
 
-
-  // 現在地取得用のボタン作成
-  const locationButtonDiv = document.createElement("div");
-  locationButtonDiv.setAttribute('id', "locationButtonDiv");
-  const locationButton = new locationControl(locationButtonDiv, map);
-  
-  locationButtonDiv.index = 1;
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(locationButtonDiv);
-}
-
-
-// When the user selects a city, get the place details for the city and
-// zoom the map in on the city.
-function onPlaceChanged() {
-  const place = autocomplete.getPlace();
-
-  if (place.geometry) {
-    map.panTo(place.geometry.location);
-    map.setZoom(15);
-  } else {
-    input.placeholder = "Enter a city";
-  }
-}
-
-
-function locationControl(buttonDiv, map) {
-  let buttonUI = document.createElement("div");
-
-  // ボタンスタイル
-  buttonUI.style.width = "80px";
-  buttonUI.style.height = "40px";
-  buttonUI.style.backgroundColor = "white";
-  buttonUI.style.color = "black";
-  buttonUI.style.textAlign = "center";
-  buttonUI.style.fontSize = "18px";
-  buttonUI.style.lineHeight = "35px";
-  buttonUI.style.borderRadius = "2px";
-  buttonUI.style.padding = "3px";
-  buttonUI.style.boxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
-  
-  // buttonUI.setAttribute('class', 'btn');
-  buttonUI.innerHTML = "現在地";
-
-  buttonDiv.style.marginBottom = "10px";
-  buttonDiv.style.marginRight = "10px";
-  buttonDiv.style.cursor = "pointer";
-  buttonDiv.appendChild(buttonUI);
-  
-  google.maps.event.addDomListener(buttonDiv, "click", function() {
-    infoWindow = new google.maps.InfoWindow; 
-    
-    //ブラウザが Geolocation に対応しているかを判定
-    //対応していない場合の処理
-    if(!navigator.geolocation){ 
-      //情報ウィンドウの位置をマップの中心位置に指定
-      infoWindow.setPosition(map.getCenter());
-      //情報ウィンドウのコンテンツを設定
-      infoWindow.setContent('Geolocation に対応していません。');
-      //情報ウィンドウを表示
-      infoWindow.open(map);
+    if (place.geometry) {
+      map.panTo(place.geometry.location);
+      map.setZoom(15);
+    } else {
+      input.placeholder = "検索";
     }
-    
-    //ブラウザが対応している場合、position にユーザーの位置情報が入る
-    navigator.geolocation.getCurrentPosition(
-      
-      // [第1引数] 取得に成功した場合の関数
-      function(position) { 
-      //position から緯度経度（ユーザーの位置）のオブジェクトを作成し変数に代入
-      let pos = {  
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      //情報ウィンドウに現在位置を指定
-      infoWindow.setPosition(pos);
-      //情報ウィンドウのコンテンツを設定
-      infoWindow.setContent('現在位置を取得しました。');
-      //情報ウィンドウを表示
-      infoWindow.open(map);
-      //マップの中心位置を指定
-      map.setCenter(pos);
-      //マップのzoomを設定
-      map.setZoom(12);
-    }, 
-    
-    // [第2引数] 取得に失敗した場合の関数
-    function(error) {
-      // エラーコード(error.code)の番号
-      // 0:UNKNOWN_ERROR        原因不明のエラー
-      // 1:PERMISSION_DENIED      利用者が位置情報の取得を許可しなかった
-      // 2:POSITION_UNAVAILABLE   電波状況などで位置情報が取得できなかった
-      // 3:TIMEOUT          位置情報の取得に時間がかかり過ぎた…
+  }
 
-      // エラー番号に対応したメッセージ
-      let errorInfo = [
-        "原因不明のエラーが発生しました。" ,
-        "位置情報の取得が許可されませんでした。" ,
-        "電波状況などで位置情報が取得できませんでした。" ,
-        "位置情報の取得に時間がかかり過ぎてタイムアウトしました。"
-      ];
-      // エラー番号
-      var errorNo = error.code ;
-      // エラーメッセージ
-      var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
-      // アラート表示
-      alert( errorMessage ) ;
-    },
 
-    // [第3引数] オプション
-    {
-      "enableHighAccuracy": false,
-      "timeout": 8000,
-      "maximumAge": 2000,
-    });
+
+  // 全体ボタン設定
+  const set_init = document.getElementById('set-init');
+  map.controls[google.maps.ControlPosition.BOTTOM].push(set_init);
+  google.maps.event.addDomListener(set_init, 'click', ()=> {
+    map.panTo(empire);
+    map.setZoom(5);
   });
+
+
+
+  // 現在地ボタン設定
+  const locationButton = document.getElementById('location-button');
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(locationButton);
+  new locationControl(locationButton, map);
+
+  function locationControl(buttonDiv, map) {
+    google.maps.event.addDomListener(buttonDiv, "click", function() {
+      const infoWindow = new google.maps.InfoWindow; 
+      
+      // ブラウザが Geolocation に対応しているかを判定
+      // 対応していない場合の処理
+      if(!navigator.geolocation){ 
+        infoWindow.setPosition(map.getCenter());
+        infoWindow.setContent('Geolocation に対応していません。');
+        infoWindow.open(map);
+      }
+      
+      // ブラウザが対応している場合、position にユーザーの位置情報が入る
+      navigator.geolocation.getCurrentPosition(
+        
+        // [第1引数] 取得に成功した場合の関数
+        function(position) { 
+        let pos = {  
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('現在位置を取得しました。');
+        infoWindow.open(map);
+        map.setCenter(pos);
+        map.setZoom(12);
+      }, 
+      
+      // [第2引数] 取得に失敗した場合の関数
+      function(error) {
+
+        let errorInfo = [
+          "原因不明のエラーが発生しました。" ,
+          "位置情報の取得が許可されませんでした。" ,
+          "電波状況などで位置情報が取得できませんでした。" ,
+          "位置情報の取得に時間がかかり過ぎてタイムアウトしました。"
+        ];
+        let errorNo = error.code ;
+        let errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
+        alert( errorMessage ) ;
+      },
+
+      // [第3引数] オプション
+      {
+        "enableHighAccuracy": false,
+        "timeout": 4000,
+        "maximumAge": 2000,
+      });
+    });
+  }
 }
 </script> 
 
