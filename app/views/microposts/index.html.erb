@@ -1,23 +1,39 @@
 <% provide(:title, "記事一覧") %>
 
 <h1>検索</h1>
-<%= form_with url: search_microposts_path, method: :get do |f| %>
+<%= form_with url: search_path, method: :get do |f| %>
   <%= link_to 'Clear', microposts_path %>
   <%= f.search_field :search, class: "border", placeholder: "キーワード検索" %>
   <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, include_blank: '都道府県' %>
   <%= f.collection_select :period_id, Period.all, :id, :name, include_blank: '時代' %>
-  <p>
-  <%= f.radio_button :sort, :new, checked: true %>
-  <%= f.label :sort_new, "最新" %>
-  <%= f.radio_button :sort, :going %>
-  <%= f.label :sort_going, "行ってみたい!" %>
-  <%= f.radio_button :sort, :period_asc %>
-  <%= f.label :sort_period_asc, "時代昇順" %>
-  <%= f.radio_button :sort, :period_desc %>
-  <%= f.label :sort_period_desc, "時代降順" %>
-  </p>
   <%= f.submit('検索') %>
 <% end %>
+
+<fieldset>
+  <%# <legend>並び替え</legend> %>
+
+  <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
+  <label id="latest-label" class="radio-inline__label" for="latest">
+      <%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+  <input id="going" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label id="going-label" class="radio-inline__label" for="going">
+      <%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+  <input id="period-asc" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label id="period-asc-label" class="radio-inline__label" for="period-asc">
+      <%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+  <input id="period-desc" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label id="period-desc-label" class="radio-inline__label" for="period-desc">
+      <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+</fieldset>
+
 <p id="search-conditions"></p>
 <div id="link-to-map"></div>
 <div id="microposts">

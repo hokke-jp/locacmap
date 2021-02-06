@@ -2,8 +2,6 @@ class PagesController < ApplicationController
   def home
     @trend_all = Micropost.page(params[:page]).period_all
     # byebug
-    @user = User.find(1)
-    @microposts = @user.microposts
   end
 
   def trend_all
@@ -34,12 +32,10 @@ class PagesController < ApplicationController
     if params[:microposts_ids].present?
       @microposts_for_map = Micropost.page(params[:page]).where(id: params[:microposts_ids]).limit(8)
       # byebug
-      @microposts_for_map.reload
     else
       # @microposts_for_map = Micropost.page(params[:page]).period_week.limit(8)
       @microposts_for_map = Micropost.all.page(params[:page]).limit(8)
       # byebug
-      @microposts_for_map.reload
     end
   end
 end
