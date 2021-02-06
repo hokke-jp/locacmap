@@ -1,6 +1,6 @@
 <% if microposts.present? %>
   <ol id="microposts" class="microposts">
-    <%= render partial: 'microposts/micropost', collection: microposts %>
+    <%= render partial: 'shared/micropost', collection: microposts %>
   </ol>
   <% if microposts.page(2).present? %>
     <%= paginate microposts, remote: true %>

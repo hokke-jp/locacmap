@@ -8,14 +8,6 @@ class MicropostsController < ApplicationController
     # byebug
   end
 
-  def search
-    @microposts = Micropost.page(params[:page]).per(10).search(params[:search], params[:prefecture_id], params[:period_id])
-    respond_to do |format|
-      format.html { redirect_to microposts_url }
-      format.js
-    end
-  end
-
   # def index
   #   @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10) if logged_in?
   # end
