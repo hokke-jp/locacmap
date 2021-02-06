@@ -10,7 +10,7 @@
 <%= @microposts_for_map.pluck(:id) %>
 <%= @microposts_for_map.pluck(:latlng) %>
 <div class="hidden">
-<%= render 'microposts/microposts', microposts: @microposts_for_map %>
+<%= render 'shared/microposts', microposts: @microposts_for_map %>
 </div>
 
 
