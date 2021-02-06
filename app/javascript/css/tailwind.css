@@ -16,7 +16,6 @@
 
 .radio-inline__label {
   display: inline-block;
-  padding: 0.5rem 1rem;
   margin-right: 18px;
   border-radius: 3px;
   transition: all .2s;

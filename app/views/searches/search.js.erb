@@ -1,0 +1,9 @@
+document.getElementById('microposts').innerHTML = `<%= render 'microposts/microposts', microposts: @microposts %>`
+document.getElementById('search-conditions').innerHTML = `<%= render 'microposts/search_conditions' %>`
+document.getElementById('link-to-map').innerHTML = `<%= link_to "検索結果を地図で見る", map_path(microposts_ids: @microposts.ids) %>`
+
+document.getElementById('latest').checked = true
+document.getElementById('latest-label').innerHTML = `<%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>`
+document.getElementById('going-label').innerHTML = `<%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>`
+document.getElementById('period-asc-label').innerHTML = `<%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>`
+document.getElementById('period-desc-label').innerHTML = `<%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>`

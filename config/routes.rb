@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   get 'password_resets/new'
   get 'password_resets/edit'
   get '/password_resets', to: 'password_resets#new'
+  get 'search', to: 'searches#search'
+  get 'sort_latest', to: 'searches#sort_latest'
+  get 'sort_going', to: 'searches#sort_going'
+  get 'sort_period_asc', to: 'searches#sort_period_asc'
+  get 'sort_period_desc', to: 'searches#sort_period_desc'
   resources :users do
     member do
       patch 'update_avatar'
@@ -23,11 +28,7 @@ Rails.application.routes.draw do
   end
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
-  resources :microposts, only: %i[index show new create destroy] do
-    collection do
-      get 'search'
-    end
-  end
+  resources :microposts, only: %i[index show new create destroy]
   resources :relationships, only: %i[create destroy]
   resources :goings, only: %i[create destroy]
 end

@@ -17,15 +17,15 @@
   <legend>トレンド</legend>
   <input id="period-all" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label class="radio-inline__label" for="period-all">
-      <%= link_to "全期間", trend_all_path, remote: true %>
+      <%= link_to "全期間", trend_all_path, {remote: true, class: "block p-3"} %>
   </label>
   <input id="period-month" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label class="radio-inline__label" for="period-month">
-      <%= link_to "1ヶ月", trend_month_path, remote: true %>
+      <%= link_to "1ヶ月", trend_month_path, {remote: true, class: "block p-3"} %>
   </label>
   <input id="period-week" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label class="radio-inline__label" for="period-week">
-      <%= link_to "1週間", trend_week_path, remote: true %>
+      <%= link_to "1週間", trend_week_path, {remote: true, class: "block p-3"} %>
   </label>
 </fieldset>
 

@@ -24,23 +24,12 @@ class Micropost < ApplicationRecord
   scope :search_prefecture, ->(prefecture_id) { where(prefecture_id: prefecture_id) if prefecture_id.present? }
   scope :search_period, ->(period_id) { where(period_id: period_id) if period_id.present? }
 
-  # 表示用のリサイズ済み画像を返す
   def display_image
     image.variant(resize_to_limit: [500, 240])
   end
 
-  def self.search(search_words, prefecture_id, period_id, sort)
-    case sort
-    when 'new'
-      microposts = Micropost.all
-    when 'going'
-      microposts = Micropost.joins("LEFT OUTER JOIN goings ON microposts.id = goings.micropost_id").group('microposts.id').reorder('count(goings.id) desc')
-    when 'period_asc'
-      microposts = Micropost.reorder(period_id: :asc).all
-    when 'period_desc'
-      microposts = Micropost.reorder(period_id: :desc).all
-    end
-
+  def self.search(search_words, prefecture_id, period_id)
+    microposts = Micropost.all
     return microposts if search_words.blank? && prefecture_id.blank? && period_id.blank?
 
     keywords = search_words.split(/[[:blank:]]+/)
@@ -50,6 +39,22 @@ class Micropost < ApplicationRecord
       relation.search_keyword(keyword)
     end
     results.search_prefecture(prefecture_id).search_period(period_id)
+  end
+
+  def self.sort_by_latest(microposts_ids)
+    Micropost.reorder(created_at: :desc).where(id: microposts_ids)
+  end
+
+  def self.sort_by_going(microposts_ids)
+    Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').where(id: microposts_ids)
+  end
+
+  def self.sort_by_period_asc(microposts_ids)
+    Micropost.reorder(period_id: :asc).where(id: microposts_ids)
+  end
+
+  def self.sort_by_period_desc(microposts_ids)
+    Micropost.reorder(period_id: :desc).where(id: microposts_ids)
   end
 
   def self.period_all
