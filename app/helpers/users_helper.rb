@@ -7,11 +7,11 @@ module UsersHelper
                                     resize:"#{size}x#{size}^", 
                                     crop:"#{size}x#{size}+0+0"),
                 id: "user#{user.id}-avatar", alt: 'user-avatar',
-                class: 'rounded-full shadow-md border border-indigo-200')
+                class: 'hover:opacity-50 rounded-full border border-indigo-200 shadow-md')
     else
       image_tag('default_icon.jpg', width: "#{size}px",
                 id: "user#{user.id}-avatar", alt: 'user-avatar',
-                class: 'rounded-full')
+                class: 'hover:opacity-50 rounded-full')
     end
   end
 end

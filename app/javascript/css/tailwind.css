@@ -5,7 +5,6 @@
 .label {
   @apply inline-block;
 }
-
 .field {
   @apply block border w-full h-8 rounded;
 }
@@ -13,20 +12,17 @@
 .radio-inline__input {
   display: none;
 }
-
 .radio-inline__label {
   display: inline-block;
   margin-right: 18px;
   border-radius: 3px;
   transition: all .2s;
 }
-
 .radio-inline__input:checked + .radio-inline__label {
   background: #B54A4A;
   color: #fff;
   text-shadow: 0 0 1px rgba(0,0,0,.7);
 }
-
 .radio-inline__input:focus + .radio-inline__label {
   outline-color: #4D90FE;
   outline-offset: -2px;
@@ -37,15 +33,12 @@
 .alert {
   @apply text-center;
 }
-
 .alert-success{
   @apply mx-auto my-2 text-green-400;
 }
-
 .alert-info {
   @apply mx-auto my-2 text-gray-600 text-opacity-75;
 }
-
 .alert-danger {
   position: absolute;
   top: 10px;
@@ -53,7 +46,6 @@
   right: 0;
   @apply text-sm text-red-800 text-opacity-75;
 }
-
 .alert-warning {
   @apply my-2 text-sm text-red-800 text-opacity-75 whitespace-pre-line;
 }
@@ -61,11 +53,69 @@
 .btn {
   @apply text-center text-white bg-green-400 rounded-md;
 }
-
 .btn:hover {
   @apply text-gray-700 bg-green-500;
 }
-
 .btn:hover img {
   @apply  opacity-50;
+}
+
+/* モーダル操作 */
+@media screen and (min-width: 768px) {
+  .image-div {
+    min-width: 160px;
+  }
+}
+.grad-item {
+  overflow: hidden;
+  height: 0;
+}
+.grad-trigger {
+  display: none;
+}
+.grad-trigger:checked ~ .grad-btn > .grad-item {
+  height: auto;
+}
+.grad-trigger:checked ~ .grad-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(22, 22, 22, 0.8)
+}
+.grad-trigger:checked ~ .grad-btn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  max-height: 90%;
+  margin: 5px 0 5px 0;
+  overflow-y: scroll;
+  border-radius: 5px;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div {
+  justify-content: space-around;
+  border: 0;
+  box-shadow: none;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
+  max-width: 80vw;
+  height: 225px;
+  object-fit: contain;
+}
+@media screen and (min-width: 768px) {
+  .grad-trigger:checked ~ .grad-btn > .display-div > .image-div {
+    min-width: 300px;
+    min-height: 250px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
+    min-width: 300px;
+    min-height: 250px;
+  }
 }

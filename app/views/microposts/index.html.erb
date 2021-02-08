@@ -1,5 +1,6 @@
 <% provide(:title, "記事一覧") %>
 
+<div class="w-4/5 mx-auto">
 <h1>検索</h1>
 <%= form_with url: search_path, method: :get do |f| %>
   <%= link_to 'Clear', microposts_path %>
@@ -13,29 +14,53 @@
   <%# <legend>並び替え</legend> %>
 
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
-  <label id="latest-label" class="radio-inline__label" for="latest">
+  <label for="latest" id="latest-label" class="radio-inline__label">
       <%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="going" class="radio-inline__input" type="radio" name="accessible-radio"/>
-  <label id="going-label" class="radio-inline__label" for="going">
+  <label for="going" id="going-label" class="radio-inline__label">
       <%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-asc" class="radio-inline__input" type="radio" name="accessible-radio"/>
-  <label id="period-asc-label" class="radio-inline__label" for="period-asc">
+  <label for="period-asc" id="period-asc-label" class="radio-inline__label">
       <%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-desc" class="radio-inline__input" type="radio" name="accessible-radio"/>
-  <label id="period-desc-label" class="radio-inline__label" for="period-desc">
+  <label for="period-desc" id="period-desc-label" class="radio-inline__label">
       <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
   </label>
 
 </fieldset>
+</div>
 
 <p id="search-conditions"></p>
 <div id="link-to-map"></div>
 <div id="microposts">
   <%= render 'shared/microposts', microposts: @microposts %>
 </div>
+
+
+<script>
+// モーダル時の背景のスクロール設定
+const triggers = document.getElementsByClassName('grad-trigger');
+const body = document.getElementsByTagName('body');
+let checked;
+for (let i = 0; i < triggers.length; i++){
+  triggers[i].addEventListener('click', () => {
+    checked = triggers[i].checked;
+    if(checked){
+    let posi = window.pageYOffset;
+    body[0].style.position = 'fixed';
+    body[0].style.top = `${-1 * posi}` + "px";
+    triggers[i].dataset.num = posi;
+  }else{
+    body[0].style.position = 'static';
+    let position = triggers[i].dataset.num;
+    scrollTo(0, position);
+  }
+  });
+}
+</script>

@@ -11,7 +11,7 @@
     <%= render 'layouts/shim' %>
   </head>
 
-  <body class="text-gray-800">
+  <body class="overflow-y-auto text-gray-800">
 
     <%= render 'layouts/header' %>
 
@@ -19,7 +19,7 @@
 
       <%= render 'layouts/sidebar' %>
 
-      <div class="w-64 flex-grow relative">
+      <div class="flex-grow w-64">
         <main class="">
           <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>"><%= message %></div>

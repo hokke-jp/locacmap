@@ -1,27 +1,27 @@
 <!-- 非ログインユーザービュー -->
 <% if !logged_in? %>
 
-  <%= form_with(model: Going) do |f| %>
-    <div><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></div>
+  <%= form_with(model: Going, class: "inline") do |f| %>
+    <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
     <%= f.submit "行ってみたい!", class: "" %>
+    <%= micropost.goings.count %>
   <% end %>
-  <%= micropost.goings.count %>
 
 <!-- ログインユーザービュー -->
 <% elsif current_user.already_gone?(micropost) %>
 
-  <%= form_with(model: current_user.goings.find_by(micropost_id: micropost.id), html: { method: :delete }) do |f| %>
-    <div><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></div>
+  <%= form_with(model: current_user.goings.find_by(micropost_id: micropost.id), html: { method: :delete, class: "inline" }) do |f| %>
+    <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
     <%= f.submit "チェックを外す", class: "" %>
+    <%= micropost.goings.count %>
   <% end %>
-  <%= micropost.goings.count %>
 
 <% else %>
 
-  <%= form_with(model: current_user.goings.build) do |f| %>
-    <div><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></div>
+  <%= form_with(model: current_user.goings.build, class: "inline") do |f| %>
+    <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
     <%= f.submit "行ってみたい!", class: "" %>
+    <%= micropost.goings.count %>
   <% end %>
-  <%= micropost.goings.count %>
 
 <% end %>
