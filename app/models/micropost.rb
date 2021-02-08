@@ -10,7 +10,7 @@ class Micropost < ApplicationRecord
   validates :latlng, presence: { message: 'を立ててください' }
   validates :prefecture_id, presence: { message: 'を選択してください' }
   validates :period_id, presence: { message: 'を選択してください' }
-  validates :title, presence: true, length: { maximum: 30 }
+  validates :title, presence: true, length: { maximum: 40 }
   validates :content, presence: true, length: { maximum: 200 }
   validates :image,
             content_type: { in: %w[image/jpeg image/gif image/png], message: 'のフォーマットが正しくありません' },
@@ -23,10 +23,6 @@ class Micropost < ApplicationRecord
   scope :search_content, ->(keyword) { where('content LIKE ?', "%#{keyword}%") }
   scope :search_prefecture, ->(prefecture_id) { where(prefecture_id: prefecture_id) if prefecture_id.present? }
   scope :search_period, ->(period_id) { where(period_id: period_id) if period_id.present? }
-
-  def display_image
-    image.variant(resize_to_limit: [500, 240])
-  end
 
   def self.search(search_words, prefecture_id, period_id)
     microposts = Micropost.all

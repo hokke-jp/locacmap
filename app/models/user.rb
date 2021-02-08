@@ -44,7 +44,6 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
-
     BCrypt::Password.new(digest).is_password?(token)
   end
 
@@ -63,11 +62,6 @@ class User < ApplicationRecord
   def activate
     update_columns(activated: true, activated_at: Time.zone.now)
   end
-
-  # アイコン初期化
-  # def avatar_init
-  #   update_columns(image: )
-  # end
 
   # 有効化用のメールを送信する
   def send_activation_email
