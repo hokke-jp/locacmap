@@ -27,7 +27,7 @@ tyugoku = User.create!(name: '山陰山陽の虎',
                       activated: true,
                       activated_at: Time.zone.now)
 
-kinki = User.create!(name: '上方',
+kinki = User.create!(name: '平八郎',
                     email: 'kinki@example.com',
                     password: 'historymap',
                     password_confirmation: 'historymap',
