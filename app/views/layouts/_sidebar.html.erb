@@ -1,8 +1,10 @@
-<nav class="hidden lg:block sticky top-0 w-48">
-  <div class="sticky top-0">
-    <p><a href="/map">マップから探す</a></p>
-    <p><a href="/microposts">検索ページ</a></p>
-    <p>hello</p>
-    <p>こんにちは</p>
+<nav class="hidden lg:block sticky top-0 w-56">
+  <div style="top: 30px" class="sticky border-r-2 mt-10 text-xl">
+    <p class="w-10/12 mx-auto mb-16 border-b-2"><%= link_to "ホーム", root_path, {class: "block w-4/5 mx-auto"} %></p>
+    <p class="w-10/12 mx-auto mb-16 border-b-2"><%= link_to "マップ", map_path, {class: "block w-4/5 mx-auto"} %></p>
+    <p class="w-10/12 mx-auto mb-16 border-b-2"><%= link_to "検索ページ", microposts_path, {class: "block w-4/5 mx-auto"} %></p>
+    <% if logged_in? %>
+      <p class="w-10/12 mx-auto mb-16 border-b-2"><%= link_to "ユーザーページ", current_user, {class: "block w-4/5 mx-auto"} %></p>
+    <% end %>
   </div>
 </nav>
