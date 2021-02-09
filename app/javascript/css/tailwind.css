@@ -9,12 +9,12 @@
   @apply block border w-full h-8 rounded;
 }
 
+/* 並び替えボタン */
 .radio-inline__input {
   display: none;
 }
 .radio-inline__label {
   display: inline-block;
-  margin-right: 18px;
   border-radius: 3px;
   transition: all .2s;
 }
@@ -60,7 +60,7 @@
   @apply  opacity-50;
 }
 
-/* モーダル操作 */
+/* micropostをモーダル表示する操作 */
 @media screen and (min-width: 768px) {
   .image-div {
     min-width: 160px;
@@ -92,30 +92,39 @@
   z-index: 2;
   transform: translate(-50%, -50%);
   width: 80vw;
+  max-width: 850px;
   max-height: 90%;
-  margin: 5px 0 5px 0;
+  margin: 5px 0;
   overflow-y: scroll;
+  border: 2px solid #f09199;
   border-radius: 5px;
+  box-shadow: 0 0 5px 2px #fce2c4 inset;
 }
 .grad-trigger:checked ~ .grad-btn > .display-div {
   justify-content: space-around;
+  margin: 10px 10px 0 10px;
   border: 0;
   box-shadow: none;
 }
 .grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
-  max-width: 80vw;
-  height: 225px;
-  object-fit: contain;
+  object-fit: fill;
+  width: auto;
+  min-height: 225px;
+  margin: 40px auto 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%); */
 }
 @media screen and (min-width: 768px) {
   .grad-trigger:checked ~ .grad-btn > .display-div > .image-div {
     min-width: 300px;
     min-height: 250px;
+    margin-left: 20px;
   }
 }
 @media screen and (min-width: 768px) {
   .grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
-    min-width: 300px;
+    margin: 0 auto;
+    width: auto;
     min-height: 250px;
   }
 }
