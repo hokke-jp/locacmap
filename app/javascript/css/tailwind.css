@@ -2,11 +2,54 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* ラベル */
 .label {
   @apply inline-block;
 }
 .field {
   @apply block border w-full h-8 rounded;
+}
+
+/* 三角形 */
+.triangle{
+  display: inline-block;
+  /* margin: auto 0; */
+  border-top: 8px solid transparent;
+  /* border-right: 20.7846px solid #b2ce54; */
+  border-bottom: 8px solid transparent;
+  border-left: 13.8564px solid #2d3748;
+}
+
+/* アラート */
+.alert {
+  @apply text-center;
+}
+.alert-success{
+  @apply mx-auto my-2 text-green-400;
+}
+.alert-info {
+  @apply mx-auto my-2 text-gray-600 text-opacity-75;
+}
+.alert-danger {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  @apply text-sm text-red-800 text-opacity-75;
+}
+.alert-warning {
+  @apply my-2 text-sm text-red-800 text-opacity-75 whitespace-pre-line;
+}
+
+/* ボタン */
+.btn {
+  @apply text-center text-white bg-green-400 rounded-md;
+}
+.btn:hover {
+  @apply text-gray-700 bg-green-500;
+}
+.btn:hover img {
+  @apply  opacity-50;
 }
 
 /* 並び替えボタン */
@@ -33,36 +76,6 @@
   outline-offset: -2px;
   outline-style: auto;
   outline-width: 5px;
-}
-
-.alert {
-  @apply text-center;
-}
-.alert-success{
-  @apply mx-auto my-2 text-green-400;
-}
-.alert-info {
-  @apply mx-auto my-2 text-gray-600 text-opacity-75;
-}
-.alert-danger {
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  @apply text-sm text-red-800 text-opacity-75;
-}
-.alert-warning {
-  @apply my-2 text-sm text-red-800 text-opacity-75 whitespace-pre-line;
-}
-
-.btn {
-  @apply text-center text-white bg-green-400 rounded-md;
-}
-.btn:hover {
-  @apply text-gray-700 bg-green-500;
-}
-.btn:hover img {
-  @apply  opacity-50;
 }
 
 /* micropostをモーダル表示する操作 */

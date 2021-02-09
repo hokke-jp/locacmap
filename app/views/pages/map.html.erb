@@ -6,12 +6,13 @@
 <input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
 <div id="set-init" class="w-10 h-5 text-center bg-white cursor-pointer">全体</div>
 <div id="location-button" class="bg-white cursor-pointer">現在地</div>
-<%= @microposts_for_map.ids %>
-<%= @microposts_for_map.pluck(:id) %>
-<%= @microposts_for_map.pluck(:latlng) %>
 <div class="hidden">
-<%= render 'shared/microposts', microposts: @microposts_for_map %>
-</div>
+  <%= render 'shared/microposts', microposts: @microposts_for_map %>
+</div> 
+
+<%#= @microposts_for_map.ids %>
+<%#= @microposts_for_map.pluck(:id) %>
+<%#= @microposts_for_map.pluck(:latlng) %>
 
 
 <script>
@@ -48,8 +49,8 @@ function mainMap(){
     restriction: {
       latLngBounds: {
         north: 55.0,
-        south: 20.0,
-        west: 110.0,
+        south: 18.0,
+        west: 105.0,
         east: 170.0
       },
       strictBounds: false
@@ -77,6 +78,10 @@ function mainMap(){
       infoWindows[i].open(main_map, markers[i]);
     });
     markers[i].addListener('rightclick', ()=> {
+      main_map.panTo(latLngs[i]);
+      main_map.setZoom(10);
+    });
+    markers[i].addListener('dblclick', ()=> {
       main_map.panTo(latLngs[i]);
       main_map.setZoom(10);
     });
