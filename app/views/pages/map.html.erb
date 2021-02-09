@@ -4,15 +4,11 @@
 <div id="latlngs-data" data-latlngs="<%= @microposts_for_map.pluck(:latlng).to_json %>"></div>
 <div id="ids-data" data-ids="<%= @microposts_for_map.pluck(:id).to_json %>"></div>
 <input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
-<div id="set-init" class="w-10 h-5 text-center bg-white cursor-pointer">全体</div>
-<div id="location-button" class="bg-white cursor-pointer">現在地</div>
+<div id="set-init" class="map-btn">全体</div>
+<div id="location-button" class="map-btn">現在地</div>
 <div class="hidden">
   <%= render 'shared/microposts', microposts: @microposts_for_map %>
 </div> 
-
-<%#= @microposts_for_map.ids %>
-<%#= @microposts_for_map.pluck(:id) %>
-<%#= @microposts_for_map.pluck(:latlng) %>
 
 
 <script>
@@ -24,6 +20,7 @@ function mainMap(){
   const strLatlngsArray = JSON.parse(latlngs_data.getAttribute('data-latlngs'));
   const latlngsArray = [];
 
+
   // railsに保存してあるstring型のlatlngをNumber型の配列に変換
   function latlngToNumber(micropost_latlng) {
     const ll = micropost_latlng.replace(/\(/g, '').replace(/\)/g, '');
@@ -33,6 +30,7 @@ function mainMap(){
   for( key in strLatlngsArray ) {
     latlngsArray.push( latlngToNumber(strLatlngsArray[key]) );
   }
+
 
   // マップ表示
   const target = document.getElementById('main-map');
@@ -56,6 +54,7 @@ function mainMap(){
       strictBounds: false
     },
   });
+
 
   // ピンとinfoWindow設定
   const latLngs = [];
@@ -92,6 +91,7 @@ function mainMap(){
     }
   });
 
+
   // 検索機能設定
   const input = document.getElementById("autocomplete");
   main_map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -115,6 +115,7 @@ function mainMap(){
     }
   }
 
+
   // 全体ボタン設定
   const set_init = document.getElementById('set-init');
   main_map.controls[google.maps.ControlPosition.BOTTOM].push(set_init);
@@ -122,6 +123,7 @@ function mainMap(){
     main_map.panTo(init_center);
     main_map.setZoom(5);
   });
+
 
   // 現在地ボタン設定
   const locationButton = document.getElementById('location-button');

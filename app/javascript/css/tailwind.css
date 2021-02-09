@@ -51,6 +51,9 @@
 .btn:hover img {
   @apply  opacity-50;
 }
+.map-btn {
+  @apply m-3 py-2 px-4 rounded-sm shadow bg-white text-lg;
+}
 
 /* 並び替えボタン */
 .radio-inline__input {
