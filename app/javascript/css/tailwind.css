@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* ラベル */
 .label {
   @apply inline-block;
 }
@@ -9,27 +10,17 @@
   @apply block border w-full h-8 rounded;
 }
 
-/* 並び替えボタン */
-.radio-inline__input {
-  display: none;
-}
-.radio-inline__label {
+/* 三角形 */
+.triangle{
   display: inline-block;
-  border-radius: 3px;
-  transition: all .2s;
-}
-.radio-inline__input:checked + .radio-inline__label {
-  background: #B54A4A;
-  color: #fff;
-  text-shadow: 0 0 1px rgba(0,0,0,.7);
-}
-.radio-inline__input:focus + .radio-inline__label {
-  outline-color: #4D90FE;
-  outline-offset: -2px;
-  outline-style: auto;
-  outline-width: 5px;
+  /* margin: auto 0; */
+  border-top: 8px solid transparent;
+  /* border-right: 20.7846px solid #b2ce54; */
+  border-bottom: 8px solid transparent;
+  border-left: 13.8564px solid #2d3748;
 }
 
+/* アラート */
 .alert {
   @apply text-center;
 }
@@ -50,6 +41,7 @@
   @apply my-2 text-sm text-red-800 text-opacity-75 whitespace-pre-line;
 }
 
+/* ボタン */
 .btn {
   @apply text-center text-white bg-green-400 rounded-md;
 }
@@ -58,6 +50,32 @@
 }
 .btn:hover img {
   @apply  opacity-50;
+}
+
+/* 並び替えボタン */
+.radio-inline__input {
+  display: none;
+}
+.radio-inline__label {
+  display: inline-block;
+  border-radius: 3px;
+  transition: all .2s;
+}
+@media screen and (min-width: 768px) {
+  .radio-inline__label {
+    margin: 0 30px;
+  }
+}
+.radio-inline__input:checked + .radio-inline__label {
+  background: #B54A4A;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0,0,0,.7);
+}
+.radio-inline__input:focus + .radio-inline__label {
+  outline-color: #4D90FE;
+  outline-offset: -2px;
+  outline-style: auto;
+  outline-width: 5px;
 }
 
 /* micropostをモーダル表示する操作 */
