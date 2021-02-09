@@ -1,27 +1,15 @@
-<% if params[:search].blank? && params[:prefecture_id].blank? && params[:period_id].blank? %>
-<% else %>
+<% unless params[:search].blank? && params[:prefecture_id].blank? && params[:period_id].blank? %>
 
   <% if params[:search].present? %>
-  "<%= params[:search] %>"
+  "<span class="font-thin"><%= params[:search] %></span>"
   <% end %>
 
   <% if params[:prefecture_id].present? %>
-  都道府県:<%= Prefecture.find(params[:prefecture_id]).name %>
+  "<%= Prefecture.find(params[:prefecture_id]).name %>"
   <% end %>
 
   <% if params[:period_id].present? %>
-  時代:<%= Period.find(params[:period_id]).name %>
-  <% end %>
-
-  <% case params[:sort] %>
-  <% when 'new' %>
-  最新順
-  <% when 'going' %>
-  行ってみたい!順
-  <% when 'period_asc' %>
-  時代昇順
-  <% when 'period_desc' %>
-  時代降順
+  "<%= Period.find(params[:period_id]).name %>"
   <% end %>
 
   の検索結果

@@ -1,18 +1,25 @@
-<% provide(:title, "記事一覧") %>
+<% provide(:title, "検索") %>
 
-<div class="w-4/5 mx-auto">
-<h1>検索</h1>
-<%= form_with url: search_path, method: :get do |f| %>
-  <%= link_to 'Clear', microposts_path %>
-  <%= f.search_field :search, class: "border", placeholder: "キーワード検索" %>
-  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, include_blank: '都道府県' %>
-  <%= f.collection_select :period_id, Period.all, :id, :name, include_blank: '時代' %>
-  <%= f.submit('検索') %>
-<% end %>
+<div class="w-11/12 mx-auto border-b-2 text-center">
+  <%= form_with url: search_path, class: "inline-block mx-auto p-8 rounded-md", method: :get do |f| %>
+    <div class="sm:flex">
+      <%= f.search_field :search, class: "block w-64 mx-auto sm:mr-10 mb-8 border border-gray-700 rounded leading-8", placeholder: "キーワード検索" %>
+      <div class="mx-auto text-center">
+        <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '都道府県'}, {class: "h-8 mr-4 mb-8 border border-gray-700 rounded-full"} %>
+        <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '時代'}, {class: "h-8 border border-gray-700 rounded-full"} %>
+      </div>
+    </div>
+    <div class="text-center">
+      <%= f.submit '検索', class: "" %>
+    </div>
+  <% end %>
 
-<fieldset>
+  <p id="search-conditions"></p>
+  <div id="link-to-map"></div>
+</div>
+
+<fieldset class="my-1 text-center">
   <%# <legend>並び替え</legend> %>
-
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label for="latest" id="latest-label" class="radio-inline__label">
       <%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
@@ -32,12 +39,10 @@
   <label for="period-desc" id="period-desc-label" class="radio-inline__label">
       <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
   </label>
-
 </fieldset>
-</div>
 
-<p id="search-conditions"></p>
-<div id="link-to-map"></div>
+
+
 <div id="microposts">
   <%= render 'shared/microposts', microposts: @microposts %>
 </div>
