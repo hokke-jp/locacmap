@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if current_user.admin?  # 管理ユーザーの場合
+    if current_user.admin? # 管理ユーザーの場合
       if current_user == @user # 自身を削除できない
         flash[:danger] = '管理ユーザーは削除できません'
       else # 他人のアカウントは削除できる

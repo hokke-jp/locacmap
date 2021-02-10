@@ -47,7 +47,7 @@
 
 <% if current_user == @user %>
 <div>
-  <ul class="text-gray-600">
+  <ul class="text-gray-600 divide-y-4 divide-blue-600 divide-solid ">
     <li><a href="#">いいねした記事</a></li>
     <li><%= link_to "アカウント編集", edit_user_path(current_user) %></li>
     <li><%= link_to "ログアウト", logout_path, method: :delete %></li>

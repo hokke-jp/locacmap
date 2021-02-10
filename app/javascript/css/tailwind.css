@@ -13,9 +13,7 @@
 /* 三角形 */
 .triangle{
   display: inline-block;
-  /* margin: auto 0; */
   border-top: 8px solid transparent;
-  /* border-right: 20.7846px solid #b2ce54; */
   border-bottom: 8px solid transparent;
   border-left: 13.8564px solid #2d3748;
 }
@@ -42,23 +40,47 @@
 }
 
 /* ボタン */
-/* .btn-blue {
-  @apply py-1 px-4 border border-purple-500 rounded-full bg-white text-purple-500 text-md font-semibold leading-normal;
+.btn-blue {
+  @apply py-1 px-4 border border-purple-500 rounded-full bg-white text-purple-500 font-semibold text-base;
 }
 .btn-blue:hover {
   @apply bg-purple-500 text-white;
-} */
+}
+.btn-red {
+  @apply py-3 px-5 border border-red-500 rounded-full bg-red-500 text-white font-medium text-base;
+}
+.btn-red:hover {
+  @apply bg-white text-red-500;
+}
+.btn-green {
+  @apply py-1 px-4 border-2 border-green-400 bg-white rounded-full text-green-400 font-semibold text-xl;
+}
+.btn-green:hover {
+  @apply bg-green-400 text-white;
+}
+.btn-signup {
+  margin-top: 3px;
+  @apply block border bg-green-400 rounded-lg bg-green-400 text-white font-semibold leading-8 text-center;
+}
+.btn-signup:hover {
+  @apply bg-white text-green-400;
+}
 .btn {
   @apply text-center text-white bg-green-400 rounded-md;
 }
 .btn:hover {
-  @apply text-gray-700 bg-green-500;
+  @apply bg-green-500 text-gray-700;
 }
 .btn:hover img {
   @apply  opacity-50;
 }
 .map-btn {
-  @apply m-3 py-2 px-4 rounded-sm shadow bg-white text-lg;
+  @apply m-3 py-2 px-4 rounded-sm shadow bg-white text-lg cursor-pointer;
+}
+
+/* タグ */
+.tag {
+  @apply h-8 mb-8 border border-gray-700 rounded;
 }
 
 /* 並び替えボタン */

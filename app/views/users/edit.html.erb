@@ -1,20 +1,22 @@
 <% provide(:title, 'アカウント編集') %>
 <% provide(:button_text, '更新') %>
 
+<h1 class="border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl ">アカウント編集</h1>
 <div class="w-4/5 mx-auto my-10">
+
+  <div class="mb-5">
+    <%= form_with model: @user, url: update_avatar_user_path(@user), id: :avatar_form, class: "text-center" do |f| %>
+      <%= f.label :avatar, content_tag(:div, avatar_for(@user, size: 100), id: "update_avatar_wrapper"), class: "inline-block ursor-pointer" %>
+      <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png", class: "hidden" %>
+    <% end %>
+  </div>
+
   <div class="max-w-sm mx-auto">
-    <div class="mb-5 text-center">
-      <h1 class="text-2xl text-center mr-3 inline-block align-middle">アカウント編集</h1>
-
-      <%= form_with model: @user, url: update_avatar_user_path(@user), id: :avatar_form do |f| %>
-        <%= f.label :avatar, content_tag(:div, avatar_for(@user, size: 80), id: "update_avatar_wrapper"), class: "cursor-pointer" %>
-        <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png", class: "hidden" %>
-      <% end %>
-
-    </div>
     <%= render 'edit_form' %>
+  </div>
+  <div class="max-w-sm mx-auto text-center">
     <% unless @user.admin? %>
-    <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' } %>
+      <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block w-40 h-12 mt-20" %>
     <% end %>
   </div>
 </div>

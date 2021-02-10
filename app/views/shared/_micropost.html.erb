@@ -36,11 +36,11 @@
         <span class=""><%= micropost.content %></span>
       </div>
       <%= render 'shared/minimap', micropost: micropost %>
-      <span class="">
-        <% if current_user == micropost.user %>
-          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' } %>
-        <% end %>
-      </span>
+      <% if current_user == micropost.user %>
+        <div class="my-8 text-center">
+          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' }, class: "btn-red" %>
+        </div>
+      <% end %>
     </div>
 
   </label>

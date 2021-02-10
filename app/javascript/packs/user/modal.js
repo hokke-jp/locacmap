@@ -12,7 +12,7 @@ function modal() {
   
       // iframe読み込みをクリック時のみに設定
       let iframe = triggers[i].nextElementSibling.nextElementSibling.getElementsByTagName('iframe');
-      if (iframe[0].src === "http://localhost:3000/microposts" || iframe[0].src === "http://localhost:3000/") {
+      if (iframe[0].src === "about:blank") {
         iframe[0].setAttribute("src", iframe[0].dataset.src);
       }
     } else {
