@@ -20,9 +20,9 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
-                                    message: 'のフォーマットが正しくありません' },
-                      size: { less_than: 2.megabytes,
-                              message: 'のサイズは2MB以下にしてください' }
+                                     message: 'のフォーマットが正しくありません' },
+                     size: { less_than: 2.megabytes,
+                             message: 'のサイズは2MB以下にしてください' }
 
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -44,6 +44,7 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 

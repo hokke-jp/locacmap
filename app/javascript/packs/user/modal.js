@@ -1,6 +1,4 @@
-document.getElementById('microposts').innerHTML = `<%= render 'shared/microposts', microposts: @microposts %>`
-document.getElementById('period-asc').checked = true;
-
+// モーダル時の背景のスクロール固定設定
 function modal() {
   let triggers = document.getElementsByClassName('grad-trigger');
   let body = document.getElementsByTagName('body');
@@ -25,4 +23,6 @@ function modal() {
     });
   }
 }
-modal();
+document.addEventListener("turbolinks:load", () => {
+  modal();
+})

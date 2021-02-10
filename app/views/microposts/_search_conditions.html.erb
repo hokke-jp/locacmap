@@ -1,15 +1,15 @@
 <% unless params[:search].blank? && params[:prefecture_id].blank? && params[:period_id].blank? %>
 
   <% if params[:search].present? %>
-  "<span class="font-thin"><%= params[:search] %></span>"
+  <span class="text-lg">"<%= params[:search] %>"</span>
   <% end %>
 
   <% if params[:prefecture_id].present? %>
-  "<%= Prefecture.find(params[:prefecture_id]).name %>"
+  <span class="text-lg">"<%= Prefecture.find(params[:prefecture_id]).name %>"</span>
   <% end %>
 
   <% if params[:period_id].present? %>
-  "<%= Period.find(params[:period_id]).name %>"
+  <span class="text-lg">"<%= Period.find(params[:period_id]).name %>"</span>
   <% end %>
 
   の検索結果

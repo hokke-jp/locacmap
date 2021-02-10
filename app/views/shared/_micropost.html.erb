@@ -2,7 +2,7 @@
 
   <input id="trigger-<%= micropost.id %>" class="grad-trigger" type="checkbox">
   <label class="grad-background" for="trigger-<%= micropost.id %>"></label>
-  <label class="grad-btn bg-white" for="trigger-<%= micropost.id %>">
+  <label class="grad-btn" for="trigger-<%= micropost.id %>">
 
     <div class="display-div p-2 border shadow-md rounded-lg md:flex md:justify-between">
       <div class="md:flex md:flex-col md:justify-around">
@@ -36,11 +36,11 @@
         <span class=""><%= micropost.content %></span>
       </div>
       <%= render 'shared/minimap', micropost: micropost %>
-      <span class="">
-        <% if current_user == micropost.user %>
-          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' } %>
-        <% end %>
-      </span>
+      <% if current_user == micropost.user %>
+        <div class="my-8 text-center">
+          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' }, class: "btn-red" %>
+        </div>
+      <% end %>
     </div>
 
   </label>
