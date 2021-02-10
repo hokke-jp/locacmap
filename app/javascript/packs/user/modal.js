@@ -1,6 +1,4 @@
-document.getElementById('trend').innerHTML = `<%= render 'shared/microposts', microposts: @trend_all %>`
-document.getElementById('period-all').checked = true;
-
+// モーダル時の背景のスクロール固定設定
 function modal() {
   let triggers = document.getElementsByClassName('grad-trigger');
   let body = document.getElementsByTagName('body');
@@ -14,7 +12,7 @@ function modal() {
   
       // iframe読み込みをクリック時のみに設定
       let iframe = triggers[i].nextElementSibling.nextElementSibling.getElementsByTagName('iframe');
-      if (iframe[0].src === "<%= microposts_url %>" || iframe[0].src === "<%= root_url %>") {
+      if (iframe[0].src === "http://localhost:3000/microposts" || iframe[0].src === "http://localhost:3000/") {
         iframe[0].setAttribute("src", iframe[0].dataset.src);
       }
     } else {
@@ -25,4 +23,6 @@ function modal() {
     });
   }
 }
-modal();
+document.addEventListener("turbolinks:load", () => {
+  modal();
+})
