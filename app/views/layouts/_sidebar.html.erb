@@ -1,8 +1,38 @@
-<nav class="hidden lg:block sticky top-0 w-48">
-  <div class="sticky top-0">
-    <p><a href="/map">マップから探す</a></p>
-    <p><a href="/microposts">検索ページ</a></p>
-    <p>hello</p>
-    <p>こんにちは</p>
+<nav class="hidden lg:block sticky top-0 w-56">
+  <div style="top: 30px" class="sticky border-r-2 mt-10 text-xl">
+
+    <p class="w-10/12 mx-auto mb-16 border-b-2">
+      <span class="block w-4/5 mx-auto">
+        <span class="triangle"></span>
+        <%= link_to "ホーム", root_path, {class: ""} %>
+      </span>
+    </p>
+    <p class="w-10/12 mx-auto mb-16 border-b-2">
+        <span class="block w-4/5 mx-auto">
+        <span class="triangle"></span>
+        <%= link_to "マップ", map_path, {class: ""} %>
+        </span>
+    </p>
+    <p class="w-10/12 mx-auto mb-16 border-b-2">
+        <span class="block w-4/5 mx-auto">
+        <span class="triangle"></span>
+        <%= link_to "検索ページ", microposts_path, {class: ""} %>
+        </span>
+    </p>
+    <% if logged_in? %>
+      <p class="w-10/12 mx-auto mb-16 border-b-2">
+        <span class="block w-4/5 mx-auto">
+          <span class="triangle"></span>
+          <%= link_to "ユーザー", current_user, {class: ""} %>
+        </span>
+      </p>
+    <% end %>
+
+  <% if current_page?(map_path) %>
+    <div class="w-10/12 mt-20 mx-auto p-6 rounded bg-gray-200 text-lg">
+      <p>ダブルクリックか</br>右クリックで拡大</p>
+    </div>
+  <% end %>
+
   </div>
 </nav>

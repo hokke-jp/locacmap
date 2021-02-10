@@ -5,8 +5,7 @@ class UsersController < ApplicationController
   protect_from_forgery except: :destroy
 
   def index
-    @users = User.where(activated: true).paginate(page: params[:page],
-                                                  per_page: 10)
+    @users = User.page(params[:page]).per(10).where(activated: true)
   end
 
   def show
@@ -31,7 +30,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params)
+    if @user.update(user_params) && @user.avatar.attach(params[:user][:avatar])
       flash[:success] = '更新しました'
       redirect_to @user
     else
@@ -39,9 +38,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_avatar
+    # byebug
+    @user = User.find(params[:id])
+    @user.avatar.attach(params[:user][:avatar])
+    respond_to do |format|
+      format.html { redirect_to edit_user_path(@user) }
+      format.js
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
-    if current_user.admin?  # 管理ユーザーの場合
+    if current_user.admin? # 管理ユーザーの場合
       if current_user == @user # 自身を削除できない
         flash[:danger] = '管理ユーザーは削除できません'
       else # 他人のアカウントは削除できる
@@ -60,21 +69,21 @@ class UsersController < ApplicationController
   def following
     @title = 'Following'
     @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following
     render 'show_follow'
   end
 
   def followers
     @title = 'Followers'
     @user  = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers
     render 'show_follow'
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
 
   # beforeアクション

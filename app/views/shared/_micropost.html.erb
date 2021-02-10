@@ -1,0 +1,48 @@
+<li id="micropost-<%= micropost.id %>" class="w-4/5 mx-auto mb-8 md:mb-12 max-w-2xl">
+
+  <input id="trigger-<%= micropost.id %>" class="grad-trigger" type="checkbox">
+  <label class="grad-background" for="trigger-<%= micropost.id %>"></label>
+  <label class="grad-btn" for="trigger-<%= micropost.id %>">
+
+    <div class="display-div p-2 border shadow-md rounded-lg md:flex md:justify-between">
+      <div class="md:flex md:flex-col md:justify-around">
+        <div>
+          <div class="inline-block px-3 mb-2 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white mr-2"><%= micropost.prefecture.name %></div>
+          <div class="inline-block px-3 mb-2 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white"><%= micropost.period.name %></div>
+        </div>
+        <div class="mb-2 text-lg md:text-xl leading-5"><%= micropost.title %></div>
+        <div class="flex items-center mb-2">
+          <%= link_to avatar_for(micropost.user, size: 50), micropost.user, class: "mr-3" %>
+          <div class="">
+            <div class=""><%= link_to micropost.user.name, micropost.user %></div>
+            <div class="text-sm">
+              <span class="mr-5">
+                <%= time_ago_in_words(micropost.created_at) %>前
+              </span>
+              <span id="micropost-<%= micropost.id %>-going">
+                <%= render 'microposts/going', micropost: micropost %>
+              </span>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="image-div">
+        <%= image_for(micropost) %>
+      </div>
+    </div>
+
+    <div class="grad-item">
+      <div class="mx-10 my-10 p-6 leading-4 bg-gray-200">
+        <span class=""><%= micropost.content %></span>
+      </div>
+      <%= render 'shared/minimap', micropost: micropost %>
+      <% if current_user == micropost.user %>
+        <div class="my-8 text-center">
+          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' }, class: "btn-red" %>
+        </div>
+      <% end %>
+    </div>
+
+  </label>
+
+</li>

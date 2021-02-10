@@ -1,11 +1,11 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: %i[new create destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :correct_user, only: :destroy
   protect_from_forgery except: :destroy
 
   def index
-    # @microposts = Micropost.paginate(page: params[:page], per_page: 10).search(params[:search])
-    @microposts = Micropost.paginate(page: params[:page], per_page: 10).search(params[:search], params[:prefecture_id], params[:period_id])
+    @microposts = Micropost.page(params[:page]).per(10).all
+    # byebug
   end
 
   # def index
@@ -13,7 +13,7 @@ class MicropostsController < ApplicationController
   # end
 
   def show
-    @microposts = User.find(params[:id]).microposts.paginate(page: params[:page], per_page: 10)
+    @microposts = User.find(params[:id]).microposts.page(params[:page]).per(10)
   end
 
   def new
@@ -23,11 +23,12 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.image.attach(params[:micropost][:image])
+    # byebug
     if @micropost.save
       flash[:success] = '投稿しました'
       redirect_to microposts_url
     else
-      render 'microposts/new'
+      render 'new'
     end
   end
 

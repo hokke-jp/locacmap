@@ -1,8 +1,8 @@
 <% provide(:title, "ログイン") %>
 
+<h1 class="border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl">ログイン</h1>
 <div class="w-4/5 mx-auto my-10">
   <div class="max-w-sm mx-auto">
-    <h1 class="text-2xl text-center mb-5">ログイン</h1>
     <%= form_with(url: login_path, scope: :session, local: true, class: "flex flex-col") do |f| %>
 
       <div class="mb-5">
@@ -22,7 +22,7 @@
         <% end %>
       </div>
 
-      <%= f.submit "ログイン", id: "login_btn", class: "h-10 mb-8 btn" %>
+      <%= f.submit "ログイン", id: "login_btn", class: "btn-green w-40 h-10 mx-auto mb-8" %>
     <% end %>
 
     <p class="text-sm"><%= link_to "パスワードをお忘れの方", new_password_reset_path, {class: "text-blue-500 hover:text-gray-700 hover:underline"} %></p>

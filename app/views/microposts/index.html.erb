@@ -1,22 +1,54 @@
-<% provide(:title, "記事一覧") %>
+<% provide(:title, "検索") %>
 
-<h2>検索</h2>
-<%= form_with url: microposts_path, method: :get, local: true do |f| %>
-  <%= link_to 'Clear', microposts_path %>
-  <%#= f.text_field :search %>
-  <%= f.search_field :search, class: "border", placeholder: "キーワード検索" %>
-  <%= f.submit('検索') %>
-  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, include_blank: '都道府県' %>
-  <%= f.collection_select :period_id, Period.all, :id, :name, include_blank: '時代' %>
-<% end %>
+<h1 class="border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl">検索</h1>
 
-<% if @microposts.any? %>
-  <h3>検索結果：<%= @microposts.count %>件</h3>
-  <ol class="microposts">
-    <%= render @microposts %>
-  </ol>
-  <%= will_paginate @microposts %>
-<% else %>
-  <a href="/">home</a>
-  <p>検索結果なし。</p>
-<% end %>
+<div class="w-11/12 mx-auto border-b-2 text-center">
+  <%= form_with url: search_path, class: "inline-block max-w-xl md:w-4/5 mt-8 mb-8 pt-10 px-10 pb-5 rounded bg-gray-200", method: :get do |f| %>
+    <div class="md:flex md:justify-between">
+      <%= f.search_field :search, class: "block w-64 mx-auto mb-8 border border-gray-700 rounded leading-8", placeholder: "キーワード検索" %>
+      <div class="">
+        <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '都道府県'}, {class: "tag mr-4"} %>
+        <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '時代'}, {class: "tag"} %>
+      </div>
+    </div>
+    <div class="mb-5 text-center">
+      <%= f.submit 'Search', class: "btn-blue" %>
+    </div>
+
+    <div class="text-left">
+      <p id="search-conditions"></p>
+      <div id="link-to-map"></div>
+    </div>
+  <% end %>
+
+</div>
+
+<fieldset class="my-1 text-center">
+  <%# <legend>並び替え</legend> %>
+  <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
+  <label for="latest" id="latest-label" class="radio-inline__label">
+      <%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+  <input id="going" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label for="going" id="going-label" class="radio-inline__label">
+      <%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+  <input id="period-asc" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label for="period-asc" id="period-asc-label" class="radio-inline__label">
+      <%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+
+  <input id="period-desc" class="radio-inline__input" type="radio" name="accessible-radio"/>
+  <label for="period-desc" id="period-desc-label" class="radio-inline__label">
+      <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+  </label>
+</fieldset>
+
+
+
+<div id="microposts">
+  <%= render 'shared/microposts', microposts: @microposts %>
+</div>
+

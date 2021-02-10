@@ -1,14 +1,13 @@
 <%= form_with(model: @user, local: true, url: edit_user_path(current_user), class: "flex flex-col" ) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-
   <div class="mb-5">
-    <%= f.label :name, "ユーザー名", class: "label" %>
+    <%= f.label :name, "ユーザー名（他のユーザーに公開されます）", class: "label" %>
     <%= f.text_field :name, class: "field" %>
   </div>
 
   <div class="mb-5">
-    <%= f.label :email, "メールアドレス", class: "label" %>
+    <%= f.label :email, "メールアドレス（非公開）", class: "label" %>
     <%= f.email_field :email, class: "field" %>
   </div>
 
@@ -22,5 +21,5 @@
     <%= f.password_field :password_confirmation, class: "field" %>
   </div>
 
-  <%= f.submit yield(:button_text), class: "h-10 btn" %>
+  <%= f.submit yield(:button_text), class: "btn-green w-32 h-10 mx-auto" %>
 <% end %>

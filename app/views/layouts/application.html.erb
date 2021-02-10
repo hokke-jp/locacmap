@@ -9,19 +9,9 @@
     <%= stylesheet_pack_tag 'application', media: 'all','data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= render 'layouts/shim' %>
-    <style>
-    #post_map {
-      height: 100%;
-      width: 100%;
-    }
-    #map {
-      height: 400px;
-      width: 600px;
-    }
-    </style>
   </head>
 
-  <body class="text-gray-800">
+  <body class="overflow-y-auto text-gray-800">
 
     <%= render 'layouts/header' %>
 
@@ -29,7 +19,7 @@
 
       <%= render 'layouts/sidebar' %>
 
-      <div class="w-64 flex-grow relative">
+      <div class="flex-grow w-64">
         <main class="">
           <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>"><%= message %></div>
@@ -40,7 +30,7 @@
 
     </div>
 
-    <%= debug(params) if Rails.env.development? %>
+    <%#= debug(params) if Rails.env.development? %>
 
     <%= render 'layouts/footer' %>
   </body>

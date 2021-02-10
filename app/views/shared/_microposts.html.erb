@@ -1,0 +1,12 @@
+<% if microposts.present? %>
+  <ol id="microposts" class="microposts">
+    <%= render partial: 'shared/micropost', collection: microposts %>
+  </ol>
+  <% if microposts.page(2).present? %>
+    <%= paginate microposts, remote: true %>
+  <% end %>
+<% else %>
+  <a href="/">home</a>
+  <p>検索結果なし。</p>
+<% end %>
+<%= javascript_pack_tag 'user/application' %>

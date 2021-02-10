@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
 
+  has_one_attached :avatar
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
@@ -13,11 +14,15 @@ class User < ApplicationRecord
   has_many :goings, dependent: :destroy
   has_many :gone_microposts, through: :goings, source: :micropost
 
-  validates :name,  presence: true, length: { maximum: 20 }
+  validates :name,  presence: true, length: { maximum: 20 }, uniqueness: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
+                                     message: 'のフォーマットが正しくありません' },
+                     size: { less_than: 2.megabytes,
+                             message: 'のサイズは2MB以下にしてください' }
 
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -95,10 +100,11 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # 既に「行ってみたい」ボタンを押していればtrue
   def already_gone?(micropost)
     goings.where(micropost_id: micropost.id).exists?
-    # self.goings.exists?(micropost_id: micropost.id)
   end
+
   private
 
   # メールアドレスをすべて小文字にする

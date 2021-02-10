@@ -1,4 +1,4 @@
-<header class="py-2 px-5 h-14 shadow-md">
+<header id="header" class="py-2 px-5 h-14 shadow-md">
 
   <div class="lg:max-w-5xl mx-auto flex justify-between">
 
@@ -20,7 +20,7 @@
         </li>
 
         <li class="">
-          <%= link_to gravatar_for(current_user, size: "36"), current_user, {class: ""} %>
+        <%= link_to avatar_for(current_user), current_user %>
         </li>
       </ul>
     </nav>
@@ -28,17 +28,17 @@
     <% else %>
 
     <nav>
-      <ul class="list-none w-56 text-xs flex justify-between">
+      <ul class="flex justify-between list-none w-56 text-xs">
         <li class="w-20 text-center text-green-600 hover:text-green-900 hover:underline">
-          <%= link_to "簡単ログイン", easylogin_path, {class: "leading-10 block"} %>
+          <%= link_to "簡単ログイン", easylogin_path, {class: "block leading-10"} %>
         </li>
 
         <li class="w-16 text-center text-green-600 hover:text-green-900 hover:underline">
-          <%= link_to "ログイン", login_path, {class: "leading-10 block"} %>
+          <%= link_to "ログイン", login_path, {class: "block leading-10"} %>
         </li>
         
-        <li class="w-16 btn">
-          <%= link_to "新規登録", signup_path, {class: "leading-10 block"} %>
+        <li class="w-20">
+          <%= link_to "新規登録", signup_path, {class: "btn-signup"} %>
         </li>
       </ul>
     </nav>
