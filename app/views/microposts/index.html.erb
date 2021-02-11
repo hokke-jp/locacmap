@@ -23,8 +23,7 @@
 
 </div>
 
-<fieldset class="my-1 text-center">
-  <%# <legend>並び替え</legend> %>
+<fieldset id="fieldset" class="my-1 text-center">
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label for="latest" id="latest-label" class="radio-inline__label">
       <%= link_to "最新", sort_latest_path(microposts_ids: @microposts_ids), {remote: true, class: "block p-3"} %>

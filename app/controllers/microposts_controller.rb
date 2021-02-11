@@ -4,9 +4,9 @@ class MicropostsController < ApplicationController
   protect_from_forgery except: :destroy
 
   def index
-    @microposts = Micropost.page(params[:page]).per(10).all
-    # @microposts_ids = @microposts.ids
-    @microposts_ids = Micropost.all.ids
+    microposts = Micropost.all
+    @microposts = microposts.page(params[:page]).per(10)
+    @microposts_ids = microposts.ids
     # byebug
   end
 

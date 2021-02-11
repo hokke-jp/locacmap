@@ -42,7 +42,8 @@ class Micropost < ApplicationRecord
   end
 
   def self.sort_by_going(microposts_ids)
-    Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').where(id: microposts_ids)
+    # Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').where(id: microposts_ids)
+    Micropost.includes(:gone_users).sort {|a,b| b.gone_users.size <=> a.gone_users.size}
   end
 
   def self.sort_by_period_asc(microposts_ids)

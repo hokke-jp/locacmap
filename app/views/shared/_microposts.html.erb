@@ -1,12 +1,14 @@
 <% if microposts.present? %>
-  <ol id="microposts" class="microposts">
+  <ol id="" class="microposts">
     <%= render partial: 'shared/micropost', collection: microposts %>
   </ol>
   <% if microposts.page(2).present? %>
+    <%#= paginate microposts, :params => {:controller => :microposts, :action => :index}, remote: true %>
     <%= paginate microposts, remote: true %>
   <% end %>
 <% else %>
-  <a href="/">home</a>
-  <p>検索結果なし。</p>
+  <div class="w-4/5 mt-10 mx-auto mb-10">
+    <p>検索結果なし</p>
+  </div>
 <% end %>
 <%= javascript_pack_tag 'user/application' %>
