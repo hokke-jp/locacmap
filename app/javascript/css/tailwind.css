@@ -46,7 +46,7 @@
 
 /* ボタン */
 .btn-blue {
-  @apply py-1 px-4 border border-purple-500 rounded-full bg-white text-purple-500 font-semibold text-base;
+  @apply py-1 px-4 border border-purple-500 rounded-full bg-white text-purple-500 text-base;
 }
 .btn-blue:hover {
   @apply bg-purple-500 text-white;

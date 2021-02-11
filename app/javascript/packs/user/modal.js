@@ -23,6 +23,4 @@ function modal() {
     });
   }
 }
-document.addEventListener("turbolinks:load", () => {
-  modal();
-})
+modal();

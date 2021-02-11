@@ -12,12 +12,12 @@
       </div>
     </div>
     <div class="mb-5 text-center">
-      <%= f.submit 'Search', class: "btn-blue" %>
+      <%= f.submit 'Search', class: "btn-blue font-semibold" %>
     </div>
 
-    <div class="text-left">
-      <p id="search-conditions"></p>
-      <div id="link-to-map"></div>
+    <div class="md:flex md:justify-around text-center">
+      <div id="search-conditions"></div>
+      <div id="link-to-map" class=""></div>
     </div>
   <% end %>
 
@@ -27,22 +27,22 @@
   <%# <legend>並び替え</legend> %>
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label for="latest" id="latest-label" class="radio-inline__label">
-      <%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+      <%= link_to "最新", sort_latest_path(microposts_ids: @microposts_ids), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="going" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="going" id="going-label" class="radio-inline__label">
-      <%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+      <%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts_ids), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-asc" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="period-asc" id="period-asc-label" class="radio-inline__label">
-      <%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+      <%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts_ids), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-desc" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="period-desc" id="period-desc-label" class="radio-inline__label">
-      <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+      <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts_ids), {remote: true, class: "block p-3"} %>
   </label>
 </fieldset>
 

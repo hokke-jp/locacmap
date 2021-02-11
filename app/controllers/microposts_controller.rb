@@ -5,6 +5,8 @@ class MicropostsController < ApplicationController
 
   def index
     @microposts = Micropost.page(params[:page]).per(10).all
+    # @microposts_ids = @microposts.ids
+    @microposts_ids = Micropost.all.ids
     # byebug
   end
 
