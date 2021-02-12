@@ -4,7 +4,11 @@ class MicropostsController < ApplicationController
   protect_from_forgery except: :destroy
 
   def index
-    @microposts = Micropost.page(params[:page]).per(10).all
+    @pagination = params[:pagination]
+    @sort = 'latest'
+    microposts = Micropost.all
+    @microposts = microposts.page(params[:page])
+    @microposts_ids = microposts.ids
     # byebug
   end
 
@@ -13,7 +17,7 @@ class MicropostsController < ApplicationController
   # end
 
   def show
-    @microposts = User.find(params[:id]).microposts.page(params[:page]).per(10)
+    @microposts = User.find(params[:id]).microposts.page(params[:page])
   end
 
   def new
@@ -41,7 +45,8 @@ class MicropostsController < ApplicationController
   private
 
   def micropost_params
-    params.require(:micropost).permit(:title, :content, :image, :period_id, :prefecture_id, :latlng)
+    params.require(:micropost)
+          .permit(:title, :content, :image, :period_id, :prefecture_id, :latlng)
   end
 
   def correct_user
