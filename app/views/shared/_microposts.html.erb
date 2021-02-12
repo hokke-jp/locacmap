@@ -1,14 +1,15 @@
-<% if microposts.present? %>
-  <ol id="" class="microposts">
-    <%= render partial: 'shared/micropost', collection: microposts %>
-  </ol>
-  <% if microposts.page(2).present? %>
+<div id="microposts-wrapper" data-sort=<%= @sort %> data-pagination=<%= @pagination %>>
+  <% if microposts.present? %>
+    <ol id="">
+      <%= render partial: 'shared/micropost', collection: microposts %>
+    </ol>
+    <%= paginate microposts, params: {:pagination => true}, remote: true %>
     <%#= paginate microposts, :params => {:controller => :microposts, :action => :index}, remote: true %>
-    <%= paginate microposts, remote: true %>
+    <%#= paginate microposts, remote: true %>
+  <% else %>
+    <div class="w-4/5 mt-10 mx-auto mb-10">
+      <p>検索結果なし</p>
+    </div>
   <% end %>
-<% else %>
-  <div class="w-4/5 mt-10 mx-auto mb-10">
-    <p>検索結果なし</p>
-  </div>
-<% end %>
+</div>
 <%= javascript_pack_tag 'user/application' %>

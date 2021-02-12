@@ -1,5 +1,5 @@
 // モーダル時の背景のスクロール固定設定
-function modal() {
+function setModal() {
   let triggers = document.getElementsByClassName('grad-trigger');
   let body = document.getElementsByTagName('body');
   for (let i = 0; i < triggers.length; i++){
@@ -24,4 +24,4 @@ function modal() {
     });
   }
 }
-modal();
+setModal();

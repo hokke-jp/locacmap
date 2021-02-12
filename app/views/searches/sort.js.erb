@@ -1,4 +1,4 @@
-document.getElementById('microposts').innerHTML = `<%= render 'shared/microposts', microposts: @microposts %>`
+document.getElementById('microposts').innerHTML = `<%= render 'shared/microposts', microposts: @microposts %>`;
 
 // ページネーションクリック時のスクロール設定
 function paginationScroll() {
@@ -9,27 +9,34 @@ function paginationScroll() {
 }
 paginationScroll();
 
+// 並び替えチェック変更
+function setSortCheck() {
+  const sort_by = document.getElementById('microposts-wrapper').dataset.sort;
+  document.getElementById(sort_by).checked = true;
+}
+setSortCheck();
+
 // モーダル時の背景のスクロール固定設定
 function setModal() {
-  let triggers = document.getElementsByClassName('grad-trigger');
-  let body = document.getElementsByTagName('body');
+  const triggers = document.getElementsByClassName('grad-trigger');
+  const body = document.getElementsByTagName('body');
   for (let i = 0; i < triggers.length; i++){
     triggers[i].addEventListener('click', () => {
       if (triggers[i].checked) {
-        let posi = window.pageYOffset;
+        const posi = window.pageYOffset;
         body[0].style.position = 'fixed';
         body[0].style.top = `${-1 * posi}` + "px";
         triggers[i].dataset.num = posi;
     
         // iframe読み込みをクリック時のみに設定
-        let iframe = triggers[i].nextElementSibling.nextElementSibling.getElementsByTagName('iframe');
+        const iframe = triggers[i].nextElementSibling.nextElementSibling.getElementsByTagName('iframe');
         if (iframe[0].src === "about:blank") {
           iframe[0].setAttribute("src", iframe[0].dataset.src);
         }
 
       } else {
         body[0].style.position = 'static';
-        let position = triggers[i].dataset.num;
+        const position = triggers[i].dataset.num;
         scrollTo(0, position);
       }
     });

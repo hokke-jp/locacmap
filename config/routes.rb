@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'password_resets/edit'
   get '/password_resets', to: 'password_resets#new'
   get 'search', to: 'searches#search'
+  get 'sort', to: 'searches#sort'
   get 'sort_latest', to: 'searches#sort_latest'
   get 'sort_going', to: 'searches#sort_going'
   get 'sort_period_asc', to: 'searches#sort_period_asc'

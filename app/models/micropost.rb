@@ -37,22 +37,39 @@ class Micropost < ApplicationRecord
     results.search_prefecture(prefecture_id).search_period(period_id)
   end
 
-  def self.sort_by_latest(microposts_ids)
-    Micropost.reorder(created_at: :desc).where(id: microposts_ids)
+  def self.sort_by(sort, microposts_ids)
+    case sort
+    when "latest"
+      sort_by = { :created_at => "desc" }
+    when "period-asc"
+      sort_by = { :period_id => "asc" }
+    when "period-desc"
+      sort_by = { :period_id => "desc" }
+    end
+    microposts = Micropost.where(id: microposts_ids).reorder(sort_by)
+    return microposts, microposts.ids
   end
 
   def self.sort_by_going(microposts_ids)
     # Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').where(id: microposts_ids)
-    Micropost.includes(:gone_users).sort {|a,b| b.gone_users.size <=> a.gone_users.size}
+    microposts = Micropost.where(id: microposts_ids).includes(:gone_users).sort { |a,b| b.gone_users.size <=> a.gone_users.size }
+    return microposts, microposts.map(&:id)
   end
 
-  def self.sort_by_period_asc(microposts_ids)
-    Micropost.reorder(period_id: :asc).where(id: microposts_ids)
-  end
+  # def self.sort_by_latest(microposts_ids)
+  #   microposts = Micropost.reorder(created_at: :desc).where(id: microposts_ids)
+  #   return microposts, microposts.ids
+  # end
 
-  def self.sort_by_period_desc(microposts_ids)
-    Micropost.reorder(period_id: :desc).where(id: microposts_ids)
-  end
+  # def self.sort_by_period_asc(microposts_ids)
+  #   microposts = Micropost.reorder(period_id: :asc).where(id: microposts_ids)
+  #   return microposts, microposts.ids
+  # end
+
+  # def self.sort_by_period_desc(microposts_ids)
+  #   microposts = Micropost.reorder(period_id: :desc).where(id: microposts_ids)
+  #   return microposts, microposts.ids
+  # end
 
   def self.period_all
     Micropost.joins(:goings).group('micropost_id').reorder('count(micropost_id) desc').limit(15)

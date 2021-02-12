@@ -7,8 +7,8 @@
     <div class="display-div">
       <div id="mini-info" class="md:flex md:flex-col md:justify-around md:mr-5">
         <div>
-          <div class="inline-block px-3 mb-2 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white mr-2"><%= micropost.prefecture.name %></div>
-          <div class="inline-block px-3 mb-2 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white"><%= micropost.period.name %></div>
+          <div class="inline-block mb-2 px-3 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white mr-2"><%= micropost.prefecture.name %></div>
+          <div class="inline-block mb-2 px-3 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white"><%= micropost.period.name %></div>
         </div>
         <div class="mb-2 text-xl leading-5"><%= micropost.title %></div>
         <div class="flex items-center mb-2">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="grad-item">
-      <div class="mx-10 my-10 p-6 leading-4 bg-gray-200">
+      <div class="m-10 p-6 bg-gray-200 leading-4">
         <span class=""><%= micropost.content %></span>
       </div>
       <%= render 'shared/minimap', micropost: micropost %>
