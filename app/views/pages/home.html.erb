@@ -14,21 +14,24 @@
 -->
 
 <h1 class="page-title">トレンド</h1>
-<fieldset class="my-1 text-center">
+
+<!-- 並び替え -->
+<fieldset id="fieldset" class="my-1 text-center">
   <input id="period-all" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label class="radio-inline__label" for="period-all">
-      <%= link_to "全期間", trend_all_path, {remote: true, class: "block p-3"} %>
+      <%= link_to "全期間", sort_path(sort: "period-all"), {remote: true, class: "block p-3"} %>
   </label>
   <input id="period-month" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label class="radio-inline__label" for="period-month">
-      <%= link_to "1ヶ月", trend_month_path, {remote: true, class: "block p-3"} %>
+      <%= link_to "1ヶ月", sort_path(sort: "period-month"), {remote: true, class: "block p-3"} %>
   </label>
   <input id="period-week" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label class="radio-inline__label" for="period-week">
-      <%= link_to "1週間", trend_week_path, {remote: true, class: "block p-3"} %>
+      <%= link_to "1週間", sort_path(sort: "period-week"), {remote: true, class: "block p-3"} %>
   </label>
 </fieldset>
 
-<div id="trend">
-<%= render 'shared/microposts', microposts: @trend_all %>
+<!-- micropost表示 -->
+<div id="microposts">
+<%= render 'shared/microposts', microposts: @microposts %>
 </div>
