@@ -1,4 +1,4 @@
-<div id="microposts-wrapper" data-sort=<%= @sort %> data-pagination=<%= @pagination %>>
+<div id="microposts-wrapper" data-sort=<%= @sort %> data-pagination=<%= @pagination %> data-search=<%= @search_by_tag %>>
   <% if microposts.present? %>
     <ol id="">
       <%= render partial: 'shared/micropost', collection: microposts %>
@@ -8,8 +8,7 @@
     <%#= paginate microposts, remote: true %>
   <% else %>
     <div class="w-4/5 mt-10 mx-auto mb-10">
-      <p>検索結果なし</p>
+      <p>該当する結果がありませんでした。</p>
     </div>
   <% end %>
 </div>
-<%= javascript_pack_tag 'user/application' %>

@@ -4,8 +4,11 @@ class MicropostsController < ApplicationController
   protect_from_forgery except: :destroy
 
   def index
-    @pagination = params[:pagination]
+    # ページネーションをクリックされたかどうかの情報をビューに渡す
+    @pagination = params[:pagination] ? params[:pagination] : 'nil'
+    # 並び替え初期値を最新順に設定
     @sort = 'latest'
+    # microposts初期設定
     microposts = Micropost.all
     @microposts = microposts.page(params[:page])
     @microposts_ids = microposts.ids

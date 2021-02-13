@@ -1,9 +1,8 @@
 // microostを更新
-document.getElementById('search-conditions').innerHTML = `<%= render 'microposts/search_conditions' %>`;
+document.getElementById('microposts').innerHTML = `<%= render 'shared/microposts', microposts: @microposts %>`;
 
 // 検索結果とマップリンクを表示
-document.getElementById('microposts').innerHTML = `<%= render 'shared/microposts', microposts: @microposts %>`;
-document.getElementById('link-to-map').innerHTML = `<%= link_to "検索結果を地図で見る", map_path(microposts_ids: @microposts_ids), class: "btn-blue inline-block" %>`;
+document.getElementById('search-results').innerHTML = `<%= render 'microposts/search_results' %>`;
 
 // 検索後、@miropostsを更新させる(しないと、並び替えをすると前の検索結果で並び替えられる)
 document.getElementById('latest').checked = true;
@@ -16,7 +15,7 @@ document.getElementById('period-desc-label').innerHTML = `<%= link_to "時代降
 function paginationScroll() {
   const pagination = document.getElementById('microposts-wrapper').dataset.pagination;
   if (pagination === "true") {
-    document.getElementById('fieldset').scrollIntoView();
+    document.getElementById('microposts').scrollIntoView();
   }
 }
 paginationScroll();

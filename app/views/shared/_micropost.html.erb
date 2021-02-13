@@ -7,8 +7,8 @@
     <div class="display-div">
       <div id="mini-info" class="md:flex md:flex-col md:justify-around md:mr-5">
         <div>
-          <div class="inline-block mb-2 px-3 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white mr-2"><%= micropost.prefecture.name %></div>
-          <div class="inline-block mb-2 px-3 border rounded-full bg-indigo-400 hover:bg-indigo-500 text-white"><%= micropost.period.name %></div>
+          <%= link_to micropost.prefecture.name, search_path(search: '', prefecture_id: micropost.prefecture.id, period_id: ''), class: "tag mr-2" %>
+          <%= link_to micropost.period.name, search_path(search: '', prefecture_id: '', period_id: micropost.period.id), class: "tag mr-2" %>
         </div>
         <div class="mb-2 text-xl leading-5"><%= micropost.title %></div>
         <div class="flex items-center mb-2">
@@ -38,7 +38,7 @@
       <%= render 'shared/minimap', micropost: micropost %>
       <% if current_user == micropost.user %>
         <div class="my-8 text-center">
-          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' }, class: "btn-red" %>
+          <%= link_to "この投稿を削除", micropost, method: :delete, data: { confirm: '削除を実行します' }, class: "btn-red py-3 px-5" %>
         </div>
       <% end %>
     </div>

@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
     @microposts = microposts.page(params[:page])
     @microposts_ids = microposts.ids
     respond_to do |format|
-      format.html { redirect_to microposts_url }
+      format.html { render 'microposts/index' }
       format.js
     end
   end
