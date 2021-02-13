@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params) && @user.avatar.attach(params[:user][:avatar])
+    if @user.update(user_params)
       flash[:success] = '更新しました'
       redirect_to @user
     else
@@ -50,44 +50,62 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if current_user.admin? # 管理ユーザーの場合
-      if current_user == @user # 自身を削除できない
+    if current_user.admin?
+      if current_user == @user
         flash[:danger] = '管理ユーザーは削除できません'
-      else # 他人のアカウントは削除できる
+      else
         # ポートフォリオ用の'簡単ログイン'で削除できないように
         # @user.destroy
         # flash[:info] = 'アカウントを削除しました'
         flash[:info] = '現在、管理ユーザーはアカウントを削除できない設定にしてあります'
       end
-    elsif current_user?(@user) # ユーザーは自分のアカウントを削除できる
+    elsif current_user?(@user)
       @user.destroy
       flash[:info] = 'アカウントを削除しました'
     end
-    redirect_to root_url # ユーザーは他人のアカウントを削除できない
+    redirect_to root_url
   end
 
   def following
-    @title = 'Following'
     @user  = User.find(params[:id])
     @users = @user.following
     render 'show_follow'
   end
 
   def followers
-    @title = 'Followers'
     @user  = User.find(params[:id])
     @users = @user.followers
     render 'show_follow'
   end
 
+  def related_info
+    @sort = 'nil'
+    @pagination = params[:pagination]
+    @info = params[:info]
+    @user = User.find(params[:id])
+    case params[:info]
+    when 'posted'
+      @microposts = Micropost.where(user_id: @user.id).page(params[:page])
+    when 'checked'
+      @microposts = @user.gone_microposts.page(params[:page])
+    when 'favorite'
+      @users = @user.following
+      # byebug
+    end
+    respond_to do |format|
+      format.html { redirect_to @user }
+      format.js
+    end
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation, :avatar)
   end
 
   # beforeアクション
-
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
