@@ -1,7 +1,8 @@
 class PasswordResetsController < ApplicationController
   before_action :getting_user,            only: %i[edit update]
-  before_action :valid_user,          only: %i[edit update]
-  before_action :check_expiration,    only: %i[edit update]
+  before_action :valid_user,              only: %i[edit update]
+  before_action :check_expiration,        only: %i[edit update]
+  before_action :already_authenticated?,  only: %i[edit update]
 
   def new; end
 
@@ -10,7 +11,7 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
-      flash[:info] = 'パスワード再発行用のメールを送信しました'
+      flash[:success] = 'パスワード再発行用のメールを送信しました'
       redirect_to root_url
     else
       flash.now[:danger] = 'メールアドレスは見つかりませんでした'
@@ -27,7 +28,7 @@ class PasswordResetsController < ApplicationController
     elsif @user.update(user_params)
       log_in @user
       @user.update_attribute(:reset_digest, nil)
-      flash[:success] = 'Password has been reset.'
+      flash[:success] = 'パスワードを変更しました'
       redirect_to @user
     else
       render 'edit'
@@ -57,7 +58,7 @@ class PasswordResetsController < ApplicationController
   def check_expiration
     return unless @user.password_reset_expired?
 
-    flash[:danger] = 'Password reset has expired.'
+    flash[:danger] = 'このリンクは期限切れです'
     redirect_to new_password_reset_url
   end
 end

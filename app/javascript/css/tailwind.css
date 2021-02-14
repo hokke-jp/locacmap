@@ -2,6 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 /* タイトル */
 .page-title {
   @apply border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl;
@@ -33,23 +37,41 @@
 
 /* アラート */
 .alert {
-  @apply text-center;
+  @apply fixed top-0 w-full px-4 mt-10 text-center opacity-0;
+	-webkit-animation: fadeout 5s linear 0s 1 forwards;
+}
+@media screen and (min-width: 1024px) {
+  .alert {
+    width: calc(100% - 224px);
+  }
+}
+@-webkit-keyframes fadeout {
+	0% {
+    height: auto;
+		opacity : 75%;
+	}
+	80%{
+    height: auto;
+    opacity: 50%;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.alert > div {
+  @apply inline-block py-3 px-16 mx-auto rounded-lg;
 }
 .alert-success{
-  @apply mx-auto my-2 text-green-400;
+  @apply bg-green-300 text-green-800;
 }
 .alert-info {
-  @apply mx-auto my-2 text-gray-600 text-opacity-75;
+  @apply bg-gray-300 text-gray-800;
 }
 .alert-danger {
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  @apply text-sm text-red-800 text-opacity-75;
+  @apply bg-red-300 text-red-800;
 }
 .alert-warning {
-  @apply my-2 text-sm text-red-800 text-opacity-75 whitespace-pre-line;
+  @apply bg-red-300 text-red-800 whitespace-pre-line;
 }
 
 /* ボタン */

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: %i[index edit update destroy
                                           following followers]
   before_action :correct_user,   only: %i[edit update]
+  before_action :already_authenticated?,   only: %i[new create]
   protect_from_forgery except: :destroy
 
   def index
@@ -41,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = '確認メールを送信しました'
+      flash[:success] = '確認メールを送信しました'
       redirect_to root_url
     else
       render 'new'
@@ -76,11 +77,11 @@ class UsersController < ApplicationController
         flash[:danger] = '管理ユーザーは削除できません'
       else
         @user.destroy
-        flash[:info] = 'アカウントを削除しました'
+        flash[:danger] = 'アカウントを削除しました'
       end
     elsif current_user?(@user)
       @user.destroy
-      flash[:info] = 'アカウントを削除しました'
+      flash[:danger] = 'アカウントを削除しました'
     end
     redirect_to root_url
   end

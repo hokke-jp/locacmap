@@ -29,6 +29,13 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def already_authenticated?
+    if logged_in?
+      flash[:info] = '既にログインしています'
+      redirect_back_or root_url
+    end
+  end
+
   def forget(user)
     user.forget
     cookies.delete(:user_id)

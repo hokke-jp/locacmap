@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   get 'password_resets/new'
   get 'password_resets/edit'
+  patch 'password_resets/:id/edit', to: 'password_resets#update'
   get 'password_resets', to: 'password_resets#new'
   get 'search', to: 'searches#search'
   get 'sort', to: 'searches#sort'

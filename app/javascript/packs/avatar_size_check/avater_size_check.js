@@ -7,7 +7,7 @@ function avatarSizeCheck() {
       alert("2MB以下のファイルを選択してください。");
       user_avatar.value = "";
     } else {
-      avatar_form.submit()
+      avatar_form.submit();
     }
   });
 }

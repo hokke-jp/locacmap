@@ -41,7 +41,7 @@
 <!-- ログインユーザーなら編集とログアウトリンク、他ユーザーならお気に入り登録ボタン -->
 <div class="w-11/12 mx-auto">
   <% if current_user?(@user) %>
-    <div>
+    <div class="max-w-xl mx-auto">
       <ul class="flex justify-around py-10">
         <li><%= link_to "アカウント編集", edit_user_path(current_user), {class: "btn-green py-2 px-4"} %></li>
         <li><%= link_to "ログアウト", logout_path, method: :delete, class: "btn-red py-2 px-4" %></li>
