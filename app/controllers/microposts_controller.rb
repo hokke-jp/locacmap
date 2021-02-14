@@ -5,7 +5,7 @@ class MicropostsController < ApplicationController
 
   def index
     # ページネーションをクリックされたかどうかの情報をビューに渡す
-    @pagination = params[:pagination] ? params[:pagination] : 'nil'
+    @pagination = params[:pagination] || 'nil'
     # 並び替え初期値を最新順に設定
     @sort = 'latest'
     # microposts初期設定
@@ -14,10 +14,6 @@ class MicropostsController < ApplicationController
     @microposts_ids = microposts.ids
     # byebug
   end
-
-  # def index
-  #   @feed_items = current_user.feed.paginate(page: params[:page], per_page: 10) if logged_in?
-  # end
 
   def show
     @microposts = User.find(params[:id]).microposts.page(params[:page])
