@@ -1,7 +1,10 @@
 <% if @users %>
-  <ul class="w-11/12 mx-auto pt-10 border-t-2">
-    <%= render @users %>
-  </ul>
+  <div class="w-11/12 mx-auto pt-10 border-t-2">
+    <ul>
+      <%= render @users %>
+    </ul>
+    <%= render 'shared/microposts', microposts: @feed_items %>
+  </div>
 <% else %>
   <div class="w-11/12 mx-auto pt-10 border-t-2">
     <%= render 'shared/microposts', microposts: @microposts %>

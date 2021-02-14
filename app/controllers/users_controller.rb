@@ -12,6 +12,27 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def related_info
+    @sort = 'nil'
+    @pagination = params[:pagination]
+    @info = params[:info]
+    @user = User.find(params[:id])
+    @feed_items = @user.feed.page(params[:page]).limit(10)
+    case params[:info]
+    when 'posted'
+      @microposts = Micropost.where(user_id: @user.id).page(params[:page])
+    when 'checked'
+      @microposts = @user.gone_microposts.page(params[:page])
+    when 'favorite'
+      @users = @user.following
+      # byebug
+    end
+    respond_to do |format|
+      format.html { redirect_to @user }
+      format.js
+    end
+  end
+
   def new
     @user = User.new
   end
@@ -54,48 +75,14 @@ class UsersController < ApplicationController
       if current_user == @user
         flash[:danger] = '管理ユーザーは削除できません'
       else
-        # ポートフォリオ用の'簡単ログイン'で削除できないように
-        # @user.destroy
-        # flash[:info] = 'アカウントを削除しました'
-        flash[:info] = '現在、管理ユーザーはアカウントを削除できない設定にしてあります'
+        @user.destroy
+        flash[:info] = 'アカウントを削除しました'
       end
     elsif current_user?(@user)
       @user.destroy
       flash[:info] = 'アカウントを削除しました'
     end
     redirect_to root_url
-  end
-
-  def following
-    @user  = User.find(params[:id])
-    @users = @user.following
-    render 'show_follow'
-  end
-
-  def followers
-    @user  = User.find(params[:id])
-    @users = @user.followers
-    render 'show_follow'
-  end
-
-  def related_info
-    @sort = 'nil'
-    @pagination = params[:pagination]
-    @info = params[:info]
-    @user = User.find(params[:id])
-    case params[:info]
-    when 'posted'
-      @microposts = Micropost.where(user_id: @user.id).page(params[:page])
-    when 'checked'
-      @microposts = @user.gone_microposts.page(params[:page])
-    when 'favorite'
-      @users = @user.following
-      # byebug
-    end
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
   end
 
   private
