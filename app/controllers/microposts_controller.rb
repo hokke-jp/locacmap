@@ -37,7 +37,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    flash[:info] = '投稿を削除しました'
+    flash[:danger] = '投稿を削除しました'
     redirect_back(fallback_location: root_url)
   end
 
