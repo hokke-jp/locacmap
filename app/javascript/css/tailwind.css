@@ -6,9 +6,20 @@
   box-sizing: inherit;
 }
 
-/* formエラー時に自動で追加されるクラスの影響をなくす */
+/* form入力エラー時に自動で追加されるクラスの影響をなくす */
 .field_with_errors {
   display: contents;
+}
+
+/* ぺーじネーション */
+.page {
+  @apply mx-1 text-xl;
+}
+.current {
+  @apply border-b border-black;
+}
+.prev {
+  @apply mx-1;
 }
 
 /* タイトル */

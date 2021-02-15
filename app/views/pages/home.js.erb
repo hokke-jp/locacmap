@@ -5,7 +5,9 @@ document.getElementById('microposts').innerHTML = `<%= render 'shared/microposts
 function paginationScroll() {
   const pagination = document.getElementById('microposts-wrapper').dataset.pagination;
   if (pagination === "true") {
-    document.getElementById('microposts').scrollIntoView();
+    document.getElementById('microposts').scrollIntoView({  
+      behavior: 'smooth'  
+    });
   }
 }
 paginationScroll();
