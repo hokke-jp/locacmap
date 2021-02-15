@@ -5,7 +5,7 @@
 <div class="w-11/12 mx-auto border-b-2 text-center">
 
   <!-- 検索フォーム -->
-  <%= form_with url: search_path, class: "inline-block max-w-xl md:w-4/5 mt-8 mb-8 pt-10 px-8 pb-5 rounded bg-gray-200", method: :get do |f| %>
+  <%= form_with url: search_path, class: "inline-block max-w-xl md:w-4/5 mt-8 mb-8 pt-10 px-8 pb-5 border border-gray-400 rounded bg-gray-200", method: :get do |f| %>
     <div class="md:flex md:justify-between">
       <%= f.search_field :search, class: "block w-64 mx-auto md:mr-6 mb-8 border border-gray-700 rounded leading-8", placeholder: "キーワード検索" %>
       <div class="mb-4 md:w-64">

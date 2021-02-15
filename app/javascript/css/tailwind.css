@@ -20,7 +20,8 @@
 }
 
 /* 三角形 */
-.triangle{
+.triangle:hover::before {
+  content: '';
   display: inline-block;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
@@ -38,7 +39,13 @@
 /* アラート */
 .alert {
   @apply fixed top-0 w-full px-4 mt-10 text-center opacity-0;
-	-webkit-animation: fadeout 5s linear 0s 1 forwards;
+  -moz-animation: fadeout 5s linear 0s forwards;
+  /* Firefox */
+  -webkit-animation: fadeout 5s linear 0s forwards;
+  /* Safari and Chrome */
+  -o-animation: fadeout 5s linear 0s forwards;
+  /* Opera */
+  animation: fadeout 5s linear 0s forwards;
 }
 @media screen and (min-width: 1024px) {
   .alert {
@@ -81,6 +88,9 @@
 .btn-blue:hover {
   @apply bg-purple-500 text-white;
 }
+.btn-blue:hover > img {
+  filter: brightness(0) invert(1);
+}
 .btn-red {
   @apply border border-red-500 rounded-full bg-red-500 text-white;
 }
@@ -101,16 +111,10 @@
   @apply bg-white text-green-400;
 }
 .btn-disabled {
-  @apply bg-green-400;
+  @apply border border-gray-400 rounded-full bg-gray-300;
 }
-.btn {
-  @apply text-center text-white bg-green-400 rounded-md;
-}
-.btn:hover {
-  @apply bg-green-500 text-gray-700;
-}
-.btn:hover img {
-  @apply  opacity-50;
+.btn-disabled:hover {
+  @apply bg-gray-400;
 }
 .map-btn {
   @apply m-3 py-2 px-4 rounded-sm shadow bg-white text-lg cursor-pointer;
