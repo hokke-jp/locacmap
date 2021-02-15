@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def easy
     log_in User.first
     flash[:info] = '管理ユーザーとしてログインしました'
-    redirect_back(fallback_location: root_url)
+    redirect_to root_url
   end
 
   def create

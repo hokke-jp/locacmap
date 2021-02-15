@@ -1,5 +1,8 @@
 module.exports = {
   theme: {
+    maxHeight: {
+      '504px': '504px'
+    },
     extend: {
       textColor: {
         'tw-gray': '#5b7083',
@@ -7,9 +10,10 @@ module.exports = {
         'yt-gray': 'rgba(17,17,17,0.6)'
       },
       height: {
-        'smartphone-screen': 'calc(100vh - 104px)',
-        'pc-screen': 'calc(100vh - 56px)'
-      }
+        'with-footer': 'calc(100vh - 104px)',
+        'without-footer': 'calc(100vh - 56px)',
+        '70vw': '70vw'
+      },
     }
   }
 }
