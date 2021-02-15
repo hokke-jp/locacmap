@@ -12,7 +12,7 @@
 
   <%= form_with(model: current_user.goings.find_by(micropost_id: micropost.id), html: { method: :delete, class: "inline" }) do |f| %>
     <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
-    <%= f.submit "チェックを外す", class: "px-2 border border-gray-300 rounded-full bg-gray-300 hover:bg-gray-400" %>
+    <%= f.submit "チェックを外す", class: "btn-disabled px-2" %>
     <span class=""><%= micropost.goings.count %></span>
   <% end %>
 
