@@ -27,7 +27,7 @@
 </div>
 
 <!-- 並び替え -->
-<fieldset id="fieldset" class="my-1 text-center">
+<fieldset id="fieldset" class="my-4 text-center">
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label for="latest" id="latest-label" class="radio-inline__label">
       <%= link_to "最新", sort_path(microposts_ids: @microposts_ids, sort: "latest"), {remote: true, class: "block p-3"} %>

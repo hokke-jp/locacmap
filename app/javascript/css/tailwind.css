@@ -11,6 +11,17 @@
   @apply border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl;
 }
 
+/* フッター */
+.footer_icon {
+  @apply block;
+}
+.footer_icon:hover {
+  color: #b2b2b2;
+}
+.footer_icon:hover > img {
+  filter: brightness(0%) invert(50%);
+}
+
 /* ラベル */
 .label {
   @apply inline-block;

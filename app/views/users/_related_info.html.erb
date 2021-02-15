@@ -1,9 +1,11 @@
 <% if @users %>
   <div class="w-11/12 mx-auto pt-10 border-t-2">
-    <ul>
+    <ul class="flex flex-wrap justify-items-start space-x-2 md:space-x-5 w-11/12 mx-auto mb-6">
       <%= render @users %>
     </ul>
-    <%= render 'shared/microposts', microposts: @feed_items %>
+    <div class="">
+      <%= render 'shared/microposts', microposts: @feed_items %>
+    </div>
   </div>
 <% else %>
   <div class="w-11/12 mx-auto pt-10 border-t-2">
