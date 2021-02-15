@@ -6,6 +6,11 @@
   box-sizing: inherit;
 }
 
+/* formエラー時に自動で追加されるクラスの影響をなくす */
+.field_with_errors {
+  display: contents;
+}
+
 /* タイトル */
 .page-title {
   @apply border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl;
@@ -128,7 +133,10 @@
   @apply bg-gray-400;
 }
 .map-btn {
-  @apply m-3 py-2 px-4 rounded-sm shadow bg-white text-lg cursor-pointer;
+  @apply py-2 px-4 rounded-sm shadow bg-white text-lg cursor-pointer;
+}
+.map-btn:hover {
+  @apply text-black;
 }
 
 /* タグ */

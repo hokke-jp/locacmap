@@ -1,15 +1,16 @@
 <% provide(:title, "投稿作成") %>
 
-<input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
-<div id="set-init" class="map-btn">全体</div>
-<div id="location-button" class="map-btn">現在地</div>
-<div class="max-w-5xl h-64">
+<!-- マップ描画 -->
+<div class="h-70vw max-h-504px max-w-4xl mt-10 mx-auto border border-gray-400">
   <div id="post_map" style="height: 100%; width: 100%"></div>
 </div>
-<div class="w-4/5 mx-auto my-10">
-  <div class="max-w-sm mx-auto">
-    <%= render 'shared/micropost_form' %>
-  </div>
+<!-- マップに入れるHTML -->
+<input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 rounded-sm shadow text-base" type="search" placeholder="検索" />
+<div id="init-position" class="map-btn m-6 sm:m-3">全体</div>
+<div id="location-button" class="map-btn m-3">現在地</div>
+<!-- 投稿記入フォーム -->
+<div class="mt-10 mb-40 px-3">
+  <%= render 'shared/micropost_form' %>
 </div>
 
 
@@ -18,7 +19,7 @@
 function postMap() {
   // マップ表示
   const target = document.getElementById('post_map');
-  const empire = {lat: 37, lng: 140};
+  const empire = {lat: 37, lng: 138};
   const map = new google.maps.Map(target, {
     center: empire,
     zoom: 5,
@@ -30,16 +31,14 @@ function postMap() {
     },
     restriction: {
       latLngBounds: {
-        north: 48.0,
-        south: 20.0,
-        west: 125.0,
-        east: 150.0
+        north: 57.0,
+        south: 18.0,
+        west: 100.0,
+        east: 180.0
       },
       strictBounds: false
     },
   });
-  console.log('Google Maps API version: ' + google.maps.version);
-
 
 
   // マップクリック時のアクション設定
@@ -107,7 +106,6 @@ function postMap() {
   });
 
 
-
   // 検索機能設定
   const input = document.getElementById("autocomplete");
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -133,15 +131,13 @@ function postMap() {
   }
 
 
-
   // 全体ボタン設定
-  const set_init = document.getElementById('set-init');
-  map.controls[google.maps.ControlPosition.BOTTOM].push(set_init);
-  google.maps.event.addDomListener(set_init, 'click', ()=> {
+  const init_position = document.getElementById('init-position');
+  map.controls[google.maps.ControlPosition.BOTTOM].push(init_position);
+  google.maps.event.addDomListener(init_position, 'click', ()=> {
     map.panTo(empire);
     map.setZoom(5);
   });
-
 
 
   // 現在地ボタン設定
@@ -201,7 +197,4 @@ function postMap() {
   }
 }
 </script> 
-
-
 <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&libraries=places&callback=postMap" async defer></script>
-

@@ -1,38 +1,37 @@
-<%= form_with(model: @micropost, local: true) do |f| %>
+<%= form_with(model: @micropost, local: true, html: {class: "sm:w-11/12 max-w-4xl mx-auto"}) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div>
-    <%= f.label :latlng, "緯度・経度", class: "label" %>
-    <%= f.text_field :latlng, class: "field" %>
+  <%= f.text_field :latlng, class: "hidden" %>
+  <div class="inline-block mb-4 px-2 border-b border-gray-700">
+    <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '都道府県'}, {class: 'inline-block px-2 border-l border-r border-gray-700'} %>
+    <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '時代'}, {class: 'inline-block px-2 border-r border-gray-700'} %>
   </div>
-  <div>
-    <%= f.label :prefecture_id, "都道府県", class: "label" %>
-    <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '選択してください' } %>
+  <div class="mb-4 pb-1 border-b border-gray-700">
+    <%= f.text_area :title, placeholder: "タイトル（40文字以内）", class: "block w-full h-6 resize-none" %>
   </div>
-  <div>
-    <%= f.label :period_id, "時代", class: "label" %>
-    <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '選択してください' } %>
+  <div class="mb-4 pb-1 border-b border-gray-700">
+    <%= f.label :title, "説明文", class: "block" %>
+    <div class="px-3">
+      <%= f.text_area :content, placeholder: "入力してください", class: "block w-full h-24 border border-gray-700 rounded-sm resize-none" %>
+    </div>
   </div>
-  <div class="">
-    <%= f.label :title, "タイトル", class: "label" %>
-    <%= f.text_area :title, placeholder: "40文字以内", class: "field" %>
-  </div>
-  <div class="">
-    <%= f.label :title, "説明文", class: "label" %>
-    <%= f.text_area :content, placeholder: "入力してください", class: "field" %>
-  </div>
-  <span class="">
+  <div class="mb-8 pb-1 border-b border-gray-700">
     <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
-  </span>
-  <%= f.submit "投稿", class: "" %>
+  </div>
+  <p class="text-center">
+    <%= f.submit "投稿", class: "btn-blue py-1 px-6 font-semibold text-xl" %>
+  </p>
 <% end %>
 
 <script type="text/javascript">
-  let micropost_image = document.getElementById("micropost_image")
+function imageSizeCheck() {
+  const micropost_image = document.getElementById("micropost_image")
   micropost_image.addEventListener("change", () => {
-    let size_in_megabytes = micropost_image.files[0].size/1024/1024;
+    const size_in_megabytes = micropost_image.files[0].size/1024/1024;
     if (size_in_megabytes > 5) {
       alert("5MB以下のファイルを選択してください。");
       micropost_image.value = "";
     }
   });
+}
+imageSizeCheck();
 </script>
