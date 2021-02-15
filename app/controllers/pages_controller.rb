@@ -7,12 +7,14 @@ class PagesController < ApplicationController
   end
 
   def map
-    @microposts_for_map = if params[:microposts_ids].present?
-                            Micropost.page(params[:page]).where(id: params[:microposts_ids]).limit(8)
-                          # byebug
-                          else
-                            Micropost.all.page(params[:page]).limit(8)
-                            # byebug
-                          end
+    @microposts = if params[:microposts_ids].present?
+                    Micropost.where(id: params[:microposts_ids]).limit(8)
+                    # byebug
+                  else
+                    Micropost.reorder("RAND()").limit(8).to_a
+                    # Micropost.where(id: [1,2,3,4,5,6,7]).limit(8)
+                    # Micropost.where(id: [8,9,10,11]).limit(8)
+                    # byebug
+                  end
   end
 end

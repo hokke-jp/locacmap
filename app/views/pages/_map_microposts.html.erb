@@ -1,0 +1,11 @@
+<div class="mb-10" id="microposts-wrapper">
+  <% if @microposts.present? %>
+    <ol id="">
+      <%= render partial: 'map_micropost', collection: @microposts, as: 'micropost' %>
+    </ol>
+  <% else %>
+    <div class="w-4/5 mt-10 mx-auto mb-10">
+      <p>該当する結果はありませんでした。</p>
+    </div>
+  <% end %>
+</div>

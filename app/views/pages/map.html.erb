@@ -1,34 +1,35 @@
 <div class="w-full h-with-footer lg:h-without-footer">
   <div id='main-map' style="height: 100%"></div>
 </div>
-<div id="latlngs-data" data-latlngs="<%= @microposts_for_map.pluck(:latlng).to_json %>"></div>
-<div id="ids-data" data-ids="<%= @microposts_for_map.pluck(:id).to_json %>"></div>
+<div id="latlngs-data" data-latlngs="<%= @microposts.pluck(:latlng).to_json %>"></div>
+<div id="ids-data" data-ids="<%= @microposts.pluck(:id).to_json %>"></div>
 <input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
 <div id="set-init" class="map-btn m-6 sm:m-3">全体</div>
 <div id="location-button" class="map-btn m-3">現在地</div>
 <div class="hidden">
-  <%= render 'shared/microposts', microposts: @microposts_for_map %>
-</div> 
+  <%= render 'map_microposts', microposts: @microposts %>
+</div>
 
 
 <script>
 function mainMap() {
   // ビューに書き込んだmicropost情報を取得
   const ids_data = document.getElementById('ids-data');
-  const idsArray = JSON.parse(ids_data.getAttribute('data-ids'));
+  const ids_array = JSON.parse(ids_data.getAttribute('data-ids'));
   const latlngs_data = document.getElementById('latlngs-data');
-  const strLatlngsArray = JSON.parse(latlngs_data.getAttribute('data-latlngs'));
-  const latlngsArray = [];
+  const str_latlngs_array = JSON.parse(latlngs_data.getAttribute('data-latlngs'));
+  const latlngs_array = [];
+  console.log(ids_array);
 
 
-  // railsに保存してあるstring型のlatlngをNumber型の配列に変換
+  // railsに保存してあるString型のlatlngをNumber型の配列に変換
   function latlngToNumber(micropost_latlng) {
     const ll = micropost_latlng.replace(/\(/g, '').replace(/\)/g, '');
     const latlng = [Number(ll.split(',')[0]), Number(ll.split(',')[1])];
     return latlng;
   }
-  for( key in strLatlngsArray ) {
-    latlngsArray.push( latlngToNumber(strLatlngsArray[key]) );
+  for( key in str_latlngs_array ) {
+    latlngs_array.push( latlngToNumber(str_latlngs_array[key]) );
   }
 
 
@@ -60,14 +61,14 @@ function mainMap() {
   const latLngs = [];
   const markers = [];
   const infoWindows = [];
-  latlngsArray.forEach( (latlng, i) => {
+  latlngs_array.forEach( (latlng, i) => {
     latLngs[i] = { lat: latlng[0], lng: latlng[1] }
     markers[i] = new google.maps.Marker({
       position: latLngs[i],
       map: main_map
     });
     infoWindows[i] = new google.maps.InfoWindow({
-      content: document.getElementById(`micropost-${idsArray[i]}`).innerHTML
+      content: document.getElementById(`micropost-${ids_array[i]}`).innerHTML
     });
     markers[i].addListener('click', ()=> {
       for ( infoWindow of infoWindows ) {
