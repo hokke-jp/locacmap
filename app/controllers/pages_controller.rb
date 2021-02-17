@@ -1,41 +1,20 @@
 class PagesController < ApplicationController
   def home
-    @trend_all = Micropost.page(params[:page]).period_all
+    @pagination = params[:pagination]
+    @sort = 'period-all'
+    @microposts = Micropost.trend_by('period-all').page(params[:page])
     # byebug
   end
 
-  def trend_all
-    @trend_all = Micropost.page(params[:page]).period_all
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js
-    end
-  end
-
-  def trend_month
-    @trend_month = Micropost.page(params[:page]).period_month
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js
-    end
-  end
-
-  def trend_week
-    @trend_week = Micropost.page(params[:page]).period_week
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js
-    end
-  end
-
   def map
-    @microposts_for_map = if params[:microposts_ids].present?
-                            Micropost.page(params[:page]).where(id: params[:microposts_ids]).limit(8)
-                          # byebug
-                          else
-                            # @microposts_for_map = Micropost.page(params[:page]).period_week.limit(8)
-                            Micropost.all.page(params[:page]).limit(8)
-                            # byebug
-                          end
+    @microposts = if params[:microposts_ids].present?
+                    Micropost.where(id: params[:microposts_ids]).limit(10)
+                    # byebug
+                  else
+                    Micropost.reorder("RAND()").limit(10).to_a
+                    # Micropost.where(id: [1,2,3,4,5,6,7]).limit(8)
+                    # Micropost.where(id: [8,9,10,11]).limit(8)
+                    # byebug
+                  end
   end
 end

@@ -1,9 +1,10 @@
 <% provide(:title, 'アカウント編集') %>
 <% provide(:button_text, '更新') %>
 
-<h1 class="border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl ">アカウント編集</h1>
+<h1 class="page-title ">アカウント編集</h1>
 <div class="w-4/5 mx-auto my-10">
 
+  <!-- ユーザーアバター表示と変更リンク -->
   <div class="mb-5">
     <%= form_with model: @user, url: update_avatar_user_path(@user), id: :avatar_form, class: "text-center" do |f| %>
       <%= f.label :avatar, content_tag(:div, avatar_for(@user, size: 100), id: "update_avatar_wrapper"), class: "inline-block ursor-pointer" %>
@@ -14,24 +15,13 @@
   <div class="max-w-sm mx-auto">
     <%= render 'edit_form' %>
   </div>
+
   <div class="max-w-sm mx-auto text-center">
     <% unless @user.admin? %>
-      <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block w-40 h-12 mt-20" %>
+      <%= link_to "アカウント削除", @user, method: :delete, data: { confirm: 'このアカウントを削除します。この操作は取り消せません。よろしいですか？' }, class: "btn-red inline-block py-2 px-4 mt-20" %>
     <% end %>
   </div>
 </div>
 
-
-<script type="text/javascript">
-  let user_avatar = document.getElementById("user_avatar")
-  let avatar_form = document.getElementById("avatar_form")
-  user_avatar.addEventListener("change", () => {
-    let size_in_megabytes = user_avatar.files[0].size/1024/1024;
-    if (size_in_megabytes > 2) {
-      alert("2MB以下のファイルを選択してください。");
-      user_avatar.value = "";
-    } else {
-      avatar_form.submit()
-    }
-  });
-</script>
+<!-- 画像サイズチェック -->
+<%= javascript_pack_tag 'avatar_size_check/application' %>

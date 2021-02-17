@@ -7,15 +7,14 @@
       <%= link_to image_tag("appname.svg", alt: "appname", width: "80px", height: "40px", class: "hidden sm:block"), root_path, {class: "ml-2 flex"} %>
     </div>
 
-
     <% if logged_in? %>
 
     <nav>
-      <ul class="list-none w-36 flex justify-between">
-        <li class="w-32">
-          <a href="/microposts/new" class="w-4/5 h-full btn flex justify-center items-center">
-              <%= image_tag("post.svg", alt: "post", width: "20px", class: "inline-block") %>
-              <p class="inline-block">投稿する</p>
+      <ul class="flex justify-between w-36 list-none">
+        <li class="mr-4">
+          <a href="/microposts/new" class="btn-blue inline-block py-2 px-5">
+              <%= image_tag("post.svg", alt: "post", width: "24px", class: "inline-block align-bottom") %>
+              <p class="inline-block font-semibold">投稿する</p>
           </a>
         </li>
 
@@ -38,7 +37,7 @@
         </li>
         
         <li class="w-20">
-          <%= link_to "新規登録", signup_path, {class: "btn-signup"} %>
+          <%= link_to "新規登録", signup_path, {class: "btn-regreen block px-2 py-2 rounded-lg font-semibold text-center"} %>
         </li>
       </ul>
     </nav>

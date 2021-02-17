@@ -1,0 +1,31 @@
+<% unless params[:search].blank? && params[:prefecture_id].blank? && params[:period_id].blank? %>
+
+  <div class="flex flex-col items-center">
+    <span style="margin-top: 4px;" class="inline-block">
+      <% if params[:search].present? %>
+        <span class="text-lg">"<%= params[:search] %>"</span>
+      <% end %>
+
+      <% if params[:prefecture_id].present? %>
+        <span class="text-lg">"<%= Prefecture.find(params[:prefecture_id]).name %>"</span>
+      <% end %>
+
+      <% if params[:period_id].present? %>
+        <span class="text-lg">"<%= Period.find(params[:period_id]).name %>"</span>
+      <% end %>
+
+      の検索結果
+    </span>
+    <div class="flex flex-col md:flex-row md:justify-around md:w-11/12">
+
+      <%= link_to "検索結果を地図で見る", map_path(microposts_ids: @microposts_ids), class: "btn-blue inline-block w-48 mt-2 md:mt-4" %>
+
+      <%= link_to "Clear", microposts_path, class: "inline-block mt-4 hover:underline" %>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+

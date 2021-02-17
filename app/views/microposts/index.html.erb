@@ -1,54 +1,62 @@
 <% provide(:title, "検索") %>
 
-<h1 class="border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl">検索</h1>
+<h1 class="page-title">検索</h1>
 
 <div class="w-11/12 mx-auto border-b-2 text-center">
-  <%= form_with url: search_path, class: "inline-block max-w-xl md:w-4/5 mt-8 mb-8 pt-10 px-10 pb-5 rounded bg-gray-200", method: :get do |f| %>
+
+  <!-- 検索フォーム -->
+  <%= form_with url: search_path, class: "inline-block md:w-4/5 max-w-xl mt-8 mb-8 pt-10 px-8 pb-5 border border-gray-400 rounded bg-gray-200", method: :get do |f| %>
     <div class="md:flex md:justify-between">
-      <%= f.search_field :search, class: "block w-64 mx-auto mb-8 border border-gray-700 rounded leading-8", placeholder: "キーワード検索" %>
-      <div class="">
-        <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '都道府県'}, {class: "tag mr-4"} %>
-        <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '時代'}, {class: "tag"} %>
+      <%= f.search_field :search, class: "block w-64 mx-auto md:mr-6 mb-8 border border-gray-700 rounded leading-8", placeholder: "キーワード検索" %>
+      <div class="mb-4 md:w-64">
+        <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: '都道府県'}, {class: "tag md:mt-1 mr-4 md:mr-2 py-1"} %>
+        <%= f.collection_select :period_id, Period.all, :id, :name, {include_blank: '時代'}, {class: "tag py-1"} %>
       </div>
     </div>
     <div class="mb-5 text-center">
-      <%= f.submit 'Search', class: "btn-blue" %>
+      <%= f.submit 'Search', class: "btn-blue py-1 px-4 text-base font-semibold" %>
     </div>
 
-    <div class="text-left">
-      <p id="search-conditions"></p>
-      <div id="link-to-map"></div>
+    <!-- 検索結果とマップリンク表示 -->
+    <div class="text-center">
+      <div id="search-results"></div>
     </div>
+
   <% end %>
 
 </div>
 
-<fieldset class="my-1 text-center">
-  <%# <legend>並び替え</legend> %>
+<!-- 並び替え -->
+<fieldset id="fieldset" class="my-4 text-center">
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label for="latest" id="latest-label" class="radio-inline__label">
-      <%= link_to "最新", sort_latest_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+    <%= link_to "最新", sort_path(microposts_ids: @microposts_ids, sort: "latest"), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="going" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="going" id="going-label" class="radio-inline__label">
-      <%= link_to "行ってみたい!", sort_going_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+    <%= link_to "行ってみたい!", sort_path(microposts_ids: @microposts_ids, sort: "going"), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-asc" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="period-asc" id="period-asc-label" class="radio-inline__label">
-      <%= link_to "時代昇順", sort_period_asc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+    <%= link_to "時代昇順", sort_path(microposts_ids: @microposts_ids, sort: "period-asc"), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-desc" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="period-desc" id="period-desc-label" class="radio-inline__label">
-      <%= link_to "時代降順", sort_period_desc_path(microposts_ids: @microposts.ids), {remote: true, class: "block p-3"} %>
+    <%= link_to "時代降順", sort_path(microposts_ids: @microposts_ids, sort: "period-desc"), {remote: true, class: "block p-3"} %>
   </label>
 </fieldset>
 
-
-
+<!-- micropost表示 -->
 <div id="microposts">
   <%= render 'shared/microposts', microposts: @microposts %>
 </div>
 
+<!-- 最初の読み込み時のみ必要 -->
+<%= javascript_pack_tag 'modal/application' %>
+<script>
+// 検索結果とマップリンクを表示
+document.getElementById('search-results').innerHTML = `<%= render 'microposts/search_results' %>`;
+</script>

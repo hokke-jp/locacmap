@@ -2,6 +2,42 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* form入力エラー時に自動で追加されるクラスの影響をなくす */
+.field_with_errors {
+  display: contents;
+}
+
+/* ページネーション */
+.page {
+  @apply mx-1 text-xl;
+}
+.current {
+  @apply border-b border-black;
+}
+.prev {
+  @apply mx-1;
+}
+
+/* タイトル */
+.page-title {
+  @apply border-b-2 w-11/12 mt-12 mx-auto pl-10 text-2xl;
+}
+
+/* フッター */
+.footer_icon {
+  @apply block;
+}
+.footer_icon:hover {
+  color: #b2b2b2;
+}
+.footer_icon:hover > img {
+  filter: brightness(0%) invert(50%);
+}
+
 /* ラベル */
 .label {
   @apply inline-block;
@@ -11,76 +47,119 @@
 }
 
 /* 三角形 */
-.triangle{
+.triangle:hover::before {
+  content: '';
   display: inline-block;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 13.8564px solid #2d3748;
 }
 
+/* 数字 */
+.number {
+  @apply p-1 rounded-md text-indigo-500 text-2xl;
+}
+.number:hover {
+  @apply bg-indigo-300 text-white;
+}
+
 /* アラート */
 .alert {
-  @apply text-center;
+  @apply fixed top-0 w-full px-4 text-center opacity-0;
+  margin-top: 61px;
+  -moz-animation: fadeout 5s linear 0s forwards;
+  /* Firefox */
+  -webkit-animation: fadeout 5s linear 0s forwards;
+  /* Safari and Chrome */
+  -o-animation: fadeout 5s linear 0s forwards;
+  /* Opera */
+  animation: fadeout 5s linear 0s forwards;
+}
+@media screen and (min-width: 1024px) {
+  .alert {
+    width: calc(100% - 224px);
+  }
+}
+@-webkit-keyframes fadeout {
+	0% {
+    height: auto;
+		opacity : 75%;
+	}
+	80%{
+    height: auto;
+    opacity: 50%;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.alert > div {
+  @apply inline-block py-3 px-16 mx-auto rounded-lg;
 }
 .alert-success{
-  @apply mx-auto my-2 text-green-400;
+  @apply bg-green-300 text-green-800;
 }
 .alert-info {
-  @apply mx-auto my-2 text-gray-600 text-opacity-75;
+  @apply bg-gray-300 text-gray-800;
 }
 .alert-danger {
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  @apply text-sm text-red-800 text-opacity-75;
+  @apply bg-red-300 text-red-800;
 }
 .alert-warning {
-  @apply my-2 text-sm text-red-800 text-opacity-75 whitespace-pre-line;
+  @apply bg-red-300 text-red-800 whitespace-pre-line;
 }
 
 /* ボタン */
 .btn-blue {
-  @apply py-1 px-4 border border-purple-500 rounded-full bg-white text-purple-500 font-semibold text-base;
+  @apply border border-purple-500 rounded-full bg-white text-purple-500;
 }
 .btn-blue:hover {
   @apply bg-purple-500 text-white;
 }
+.btn-blue:hover > img {
+  filter: brightness(0) invert(1);
+}
+.margin-bottom-2px {
+  margin-bottom: 2px;
+}
 .btn-red {
-  @apply py-3 px-5 border border-red-500 rounded-full bg-red-500 text-white font-medium text-base;
+  @apply border border-red-500 rounded-full bg-red-500 text-white;
 }
 .btn-red:hover {
   @apply bg-white text-red-500;
 }
 .btn-green {
-  @apply py-1 px-4 border-2 border-green-400 bg-white rounded-full text-green-400 font-semibold text-xl;
+  @apply border border-green-400 bg-white rounded-full text-green-400;
 }
 .btn-green:hover {
   @apply bg-green-400 text-white;
 }
-.btn-signup {
-  margin-top: 3px;
-  @apply block border bg-green-400 rounded-lg bg-green-400 text-white font-semibold leading-8 text-center;
+.btn-regreen {
+  margin-top: 1px;
+  @apply border-2 border-green-400 bg-green-400 text-white;
 }
-.btn-signup:hover {
+.btn-regreen:hover {
   @apply bg-white text-green-400;
 }
-.btn {
-  @apply text-center text-white bg-green-400 rounded-md;
+.btn-disabled {
+  @apply border border-gray-400 rounded-full bg-gray-300;
 }
-.btn:hover {
-  @apply bg-green-500 text-gray-700;
-}
-.btn:hover img {
-  @apply  opacity-50;
+.btn-disabled:hover {
+  @apply bg-gray-400;
 }
 .map-btn {
-  @apply m-3 py-2 px-4 rounded-sm shadow bg-white text-lg cursor-pointer;
+  @apply py-2 px-4 rounded-sm shadow bg-white cursor-pointer;
+}
+.map-btn:hover {
+  @apply text-black;
 }
 
 /* タグ */
 .tag {
-  @apply h-8 mb-8 border border-gray-700 rounded;
+  @apply inline-block mb-2 px-3 border rounded-full bg-indigo-400 text-white;
+}
+.tag:hover {
+  @apply  bg-indigo-500;
 }
 
 /* 並び替えボタン */
@@ -92,7 +171,10 @@
   border-radius: 3px;
   transition: all .2s;
 }
-@media screen and (min-width: 768px) {
+.radio-inline__label:hover {
+  @apply underline;
+}
+@media screen and (min-width: 640px) {
   .radio-inline__label {
     margin: 0 30px;
   }
@@ -110,11 +192,6 @@
 }
 
 /* micropostをモーダル表示する操作 */
-@media screen and (min-width: 768px) {
-  .image-div {
-    min-width: 160px;
-  }
-}
 .grad-item {
   overflow: hidden;
   height: 0;
@@ -126,8 +203,28 @@
   background-color: white;
   cursor: pointer;
 }
-.grad-trigger:checked ~ .grad-btn > .grad-item {
-  height: auto;
+.display-div {
+  @apply p-2 border shadow-md rounded-lg;
+}
+.image-div > img{
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+@media screen and (min-width: 768px) {
+  .display-div {
+    @apply flex justify-between;
+  }
+}
+@media screen and (min-width: 768px) {
+  .image-div {
+    min-width: 200px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .image-div > img {
+    width: 200px;
+  }
 }
 .grad-trigger:checked ~ .grad-background {
   position: fixed;
@@ -153,31 +250,27 @@
   border-radius: 5px;
   box-shadow: 0 0 5px 2px #fce2c4 inset;
 }
+.grad-trigger:checked ~ .grad-btn > .grad-item {
+  height: auto;
+}
 .grad-trigger:checked ~ .grad-btn > .display-div {
   justify-content: space-around;
   margin: 10px 10px 0 10px;
   border: 0;
   box-shadow: none;
 }
+.grad-trigger:checked ~ .grad-btn > .display-div > #mini-info > div {
+  margin-bottom: 15px;
+}
 .grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
-  object-fit: fill;
-  width: auto;
-  min-height: 225px;
-  margin: 40px auto 0 auto;
+  width: 100%;
+  height: auto;
+  margin-top: 40px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
-  /* box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%); */
+  object-fit: fill;
 }
 @media screen and (min-width: 768px) {
-  .grad-trigger:checked ~ .grad-btn > .display-div > .image-div {
-    min-width: 300px;
-    min-height: 250px;
-    margin-left: 20px;
-  }
-}
-@media screen and (min-width: 768px) {
-  .grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
-    margin: 0 auto;
-    width: auto;
-    min-height: 250px;
+  .grad-trigger:checked ~ .grad-btn > .display-div {
+    display: block;
   }
 }

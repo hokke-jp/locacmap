@@ -1,0 +1,25 @@
+<% if @users %>
+  <div class="w-11/12 mx-auto pt-10 border-b-2">
+    <ul class="flex flex-wrap justify-items-start space-x-2 md:space-x-5 w-11/12 mx-auto mb-6">
+      <%= render @users %>
+    </ul>
+    <% if @feed_items.present? %>
+      <div class="text-center mb-6">
+        <%= link_to "地図で見る", map_path(microposts_ids: @feed_items.ids), class: "btn-blue inline-block py-2 px-8 mx-auto font-semibold text-lg text-center" %>
+      </div>
+    <% end %>
+    <div class="">
+      <%= render 'shared/microposts', microposts: @feed_items %>
+    </div>
+  </div>
+
+<% else %>
+  <div class="w-11/12 mx-auto pt-10 border-b-2">
+    <% if @microposts.present? %>
+      <div class="text-center mb-6">
+      <%= link_to "地図で見る", map_path(microposts_ids: @microposts.ids), class: "btn-blue inline-block py-2 px-8 mx-auto font-semibold text-lg text-center" %>
+      </div>
+    <% end %>
+    <%= render 'shared/microposts', microposts: @microposts %>
+  </div>
+<% end %>

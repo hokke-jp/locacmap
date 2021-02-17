@@ -1,15 +1,17 @@
 <% provide(:title, "投稿作成") %>
 
-<input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
-<div id="set-init" class="map-btn">全体</div>
-<div id="location-button" class="map-btn">現在地</div>
-<div class="max-w-5xl h-64">
+<!-- マップ描画 -->
+<div class="h-70vw max-h-504px max-w-4xl mt-10 mx-auto border border-gray-400">
   <div id="post_map" style="height: 100%; width: 100%"></div>
+  <div class="text-sm text-right">※ピンをダブルクリックか右クリックで拡大</div>
 </div>
-<div class="w-4/5 mx-auto my-10">
-  <div class="max-w-sm mx-auto">
-    <%= render 'shared/micropost_form' %>
-  </div>
+<!-- マップに入れるHTML -->
+<input id="autocomplete" size="23" class="mt-3 ml-3 h-6 rounded-sm shadow text-base" type="search" placeholder="検索（候補をクリック）" />
+<div id="init-position" class="map-btn mt-3 mb-1 ml-3 text-lg">全体</div>
+<div id="location-button" class="map-btn m-3 text-lg">現在地</div>
+<!-- 投稿記入フォーム -->
+<div class="mt-10 mb-40 px-3">
+  <%= render 'shared/micropost_form' %>
 </div>
 
 
@@ -18,9 +20,9 @@
 function postMap() {
   // マップ表示
   const target = document.getElementById('post_map');
-  const empire = {lat: 37, lng: 140};
+  const init_center = {lat: 38, lng: 138};
   const map = new google.maps.Map(target, {
-    center: empire,
+    center: init_center,
     zoom: 5,
     zoomControl: false,
     mapTypeControl: false,
@@ -30,16 +32,14 @@ function postMap() {
     },
     restriction: {
       latLngBounds: {
-        north: 48.0,
-        south: 20.0,
-        west: 125.0,
-        east: 150.0
+        north: 57.0,
+        south: 18.0,
+        west: 100.0,
+        east: 180.0
       },
       strictBounds: false
     },
   });
-  console.log('Google Maps API version: ' + google.maps.version);
-
 
 
   // マップクリック時のアクション設定
@@ -66,24 +66,30 @@ function postMap() {
           title: formatted_address,
           animation: google.maps.Animation.DROP
         });
-        
         // 情報ウィンドウの生成
         infoWindow = new google.maps.InfoWindow({
           content: formatted_address
         });
-
         // マーカーにリスナーを設定
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
+          map.panTo(e.latLng);
         });
-        
+        // ピンをダブルクリック右クリックで拡大
+        marker.addListener('rightclick', ()=> {
+          map.panTo(e.latLng);
+          map.setZoom(10);
+        });
+        marker.addListener('dblclick', ()=> {
+          map.panTo(e.latLng);
+          map.setZoom(10);
+        });
         // 情報ウィンドウリスナーを設定
         infoWindow.addListener('closeclick', function(){
           marker.setMap(null);
         });
-
+        // 隠しタグに座標を入力
         document.getElementById( "micropost_latlng" ).value = String(e.latLng);
-
         // クリック地点の都道府県をセレクトボックスに入力
         function change_pulldown(){
           pulldown_option = document.getElementById("micropost_prefecture_id").getElementsByTagName('option');
@@ -105,7 +111,6 @@ function postMap() {
       }
     });
   });
-
 
 
   // 検索機能設定
@@ -133,15 +138,29 @@ function postMap() {
   }
 
 
-
   // 全体ボタン設定
-  const set_init = document.getElementById('set-init');
-  map.controls[google.maps.ControlPosition.BOTTOM].push(set_init);
-  google.maps.event.addDomListener(set_init, 'click', ()=> {
-    map.panTo(empire);
-    map.setZoom(5);
-  });
-
+  // 宣言
+  function initPosition(pushIntoMap, position) {
+    const init_position = document.getElementById('init-position');
+    pushIntoMap(position, init_position);
+    google.maps.event.addDomListener(init_position, 'click', ()=> {
+      map.panTo(init_center);
+      map.setZoom(5);
+    });
+  }
+  const pushIntoMap = function(position, init_position) {
+    if (position === 'left') {
+      map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(init_position);
+    } else if (position === 'top') {
+      map.controls[google.maps.ControlPosition.TOP].push(init_position);
+    }
+  }
+  // 実行
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    initPosition(pushIntoMap, 'left');
+  } else if (window.matchMedia('(min-width:768px)').matches) {
+    initPosition(pushIntoMap, 'top');
+  }
 
 
   // 現在地ボタン設定
@@ -201,7 +220,4 @@ function postMap() {
   }
 }
 </script> 
-
-
 <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyCIX7ci0yBU4r9axzQEvNd5nefZiifw1bM&libraries=places&callback=postMap" async defer></script>
-
