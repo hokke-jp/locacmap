@@ -6,9 +6,9 @@
     <!-- ログインユーザーなら編集ページへのリンク表示 -->
     <div class="inline-block text-center">
       <% if current_user?(@user) %>
-        <%= link_to avatar_for(@user, size: 100), edit_user_path(@user) %>
+        <%= link_to avatar_for(@user, size: 150), edit_user_path(@user) %>
       <% else %>
-        <%= link_to avatar_for(@user, size: 100), @user %>
+        <%= link_to avatar_for(@user, size: 150), @user %>
       <% end %>
     </div>
     <p class="mt-2 text-xl"><%= @user.name %></p>
@@ -21,7 +21,9 @@
     </div>
     <div class="w-32 text-center">
       <%= link_to @user.goings.count, related_info_user_path(@user, info: "checked"), {remote: true, class: "number"} %>
-      <p class="bg-tw-gray text-gray-600 text-sm">チェック記事</p>
+      <p class="bg-tw-gray text-gray-600 text-sm">
+        <%= image_tag("pin_red.svg", alt: "pin", width: "18px", class: "margin-bottom-2px inline-block") %>チェック記事
+      </p>
     </div>
     <div class="w-32 text-center">
       <%= link_to @user.following.count, related_info_user_path(@user, info: "favorite"), {remote: true, class: "number"} %>
@@ -38,20 +40,22 @@
 
 </div>
 
+
+<!-- Ajax用 -->
+<div id="related-info">
+</div>
+
+
 <!-- ログインユーザーなら編集とログアウトリンク、他ユーザーならお気に入り登録ボタン -->
 <div class="w-11/12 mx-auto">
   <% if current_user?(@user) %>
     <div class="max-w-xl mx-auto">
-      <ul class="flex justify-around py-10">
-        <li><%= link_to "アカウント編集", edit_user_path(current_user), {class: "btn-green py-2 px-4"} %></li>
-        <li><%= link_to "ログアウト", logout_path, method: :delete, class: "btn-red py-2 px-4" %></li>
+      <ul class="flex flex-col items-center sm:flex-row sm:justify-around py-10">
+        <li><%= link_to "アカウント編集", edit_user_path(current_user), {class: "btn-green inline-block py-2 px-6 mb-4 sm:mb-0 text-xl"} %></li>
+        <li><%= link_to "ログアウト", logout_path, method: :delete, class: "btn-red inline-block py-2 px-6 text-xl" %></li>
       </ul>
     </div>
   <% else %>
     <%= render 'follow_form' %>
   <% end %>
-</div>
-
-<!-- Ajax用 -->
-<div id="related-info">
 </div>

@@ -11,15 +11,15 @@
           <%= link_to micropost.period.name, search_path(search: '', prefecture_id: '', period_id: micropost.period.id), class: "tag mr-2" %>
         </div>
         <div class="mb-2 text-xl leading-5"><%= micropost.title %></div>
-        <div class="flex items-center mb-2">
+        <div class="flex items-center justify-center sm:justify-start mb-2">
           <%= link_to avatar_for(micropost.user, size: 50), micropost.user, class: "mr-3" %>
-          <div class="">
+          <div class="text-center sm:text-left">
             <div class=""><%= link_to micropost.user.name, micropost.user %></div>
-            <div class="text-sm">
-              <span class="mr-5">
+            <div class="flex flex-col sm:block">
+              <span class="sm:mr-5 text-sm">
                 <%= time_ago_in_words(micropost.created_at) %>前
               </span>
-              <span id="micropost-<%= micropost.id %>-going">
+              <span id="micropost-<%= micropost.id %>-going" class="">
                 <%= render 'microposts/going', micropost: micropost %>
               </span>
             </div>
@@ -33,7 +33,7 @@
 
     <div class="grad-item">
       <div class="m-10 p-6 bg-gray-200 leading-4">
-        <span class=""><%= micropost.content %></span>
+        <span class=""><%= safe_join(micropost.content.split("\n"),tag(:br)) %></span>
       </div>
       <%= render 'shared/minimap', micropost: micropost %>
       <% if current_user == micropost.user %>

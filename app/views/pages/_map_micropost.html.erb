@@ -1,4 +1,4 @@
-<li id="micropost-<%= micropost.id %>" class="w-4/5 mx-auto mb-8 md:mb-12 max-w-2xl">
+<li id="micropost-<%= micropost.id %>" class="mx-auto mb-8 md:mb-12 max-w-2xl">
 
   <div class="">
     <div id="mini-info" class="md:flex md:flex-col md:justify-around md:mr-5">
@@ -10,7 +10,7 @@
       <div class="flex items-center mb-2">
         <%= link_to avatar_for(micropost.user, size: 50), micropost.user, class: "mr-3" %>
         <div class="">
-          <div class=""><%= link_to micropost.user.name, micropost.user %></div>
+          <div class="text-base"><%= link_to micropost.user.name, micropost.user %></div>
           <div class="text-sm">
             <span class="mr-5">
               <%= time_ago_in_words(micropost.created_at) %>前
@@ -28,8 +28,8 @@
   </div>
 
   <div class="">
-    <div class="mt-2 md:mt-5 md:mx-10 mb-3 p-6 bg-gray-200 leading-4">
-      <span class=""><%= micropost.content %></span>
+    <div class="mt-2 mb-3 p-6 bg-gray-200 leading-4">
+      <span class=""><%= safe_join(micropost.content.split("\n"),tag(:br)) %></span>
     </div>
   </div>
 

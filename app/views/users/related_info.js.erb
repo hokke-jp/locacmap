@@ -5,7 +5,9 @@ document.getElementById('related-info').innerHTML = `<%= render 'related_info' %
 function paginationScroll() {
   const pagination = document.getElementById('microposts-wrapper').dataset.pagination;
   if (pagination === "true") {
-    document.getElementById('related-info').scrollIntoView();
+    document.getElementById('related-info').scrollIntoView({  
+      behavior: 'smooth'  
+    });
   }
 }
 paginationScroll();
