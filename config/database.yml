@@ -31,3 +31,5 @@ test:
 production:
   <<: *default
   database: historymap_production
+  username: historymap
+  password: burihokke
