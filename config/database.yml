@@ -31,5 +31,3 @@ test:
 production:
   <<: *default
   database: historymap_production
-  adapter: postgresql
-  encoding: unicode
