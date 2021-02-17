@@ -5,7 +5,7 @@
 <div class="w-11/12 mx-auto border-b-2 text-center">
 
   <!-- 検索フォーム -->
-  <%= form_with url: search_path, class: "inline-block w-3/5 max-w-xl md:w-4/5 mt-8 mb-8 pt-10 px-8 pb-5 border border-gray-400 rounded bg-gray-200", method: :get do |f| %>
+  <%= form_with url: search_path, class: "inline-block md:w-4/5 max-w-xl mt-8 mb-8 pt-10 px-8 pb-5 border border-gray-400 rounded bg-gray-200", method: :get do |f| %>
     <div class="md:flex md:justify-between">
       <%= f.search_field :search, class: "block w-64 mx-auto md:mr-6 mb-8 border border-gray-700 rounded leading-8", placeholder: "キーワード検索" %>
       <div class="mb-4 md:w-64">
@@ -30,22 +30,22 @@
 <fieldset id="fieldset" class="my-4 text-center">
   <input id="latest" class="radio-inline__input" type="radio" name="accessible-radio" checked="checked"/>
   <label for="latest" id="latest-label" class="radio-inline__label">
-      <%= link_to "最新", sort_path(microposts_ids: @microposts_ids, sort: "latest"), {remote: true, class: "block p-3"} %>
+    <%= link_to "最新", sort_path(microposts_ids: @microposts_ids, sort: "latest"), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="going" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="going" id="going-label" class="radio-inline__label">
-      <%= link_to "行ってみたい!", sort_path(microposts_ids: @microposts_ids, sort: "going"), {remote: true, class: "block p-3"} %>
+    <%= link_to "行ってみたい!", sort_path(microposts_ids: @microposts_ids, sort: "going"), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-asc" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="period-asc" id="period-asc-label" class="radio-inline__label">
-      <%= link_to "時代昇順", sort_path(microposts_ids: @microposts_ids, sort: "period-asc"), {remote: true, class: "block p-3"} %>
+    <%= link_to "時代昇順", sort_path(microposts_ids: @microposts_ids, sort: "period-asc"), {remote: true, class: "block p-3"} %>
   </label>
 
   <input id="period-desc" class="radio-inline__input" type="radio" name="accessible-radio"/>
   <label for="period-desc" id="period-desc-label" class="radio-inline__label">
-      <%= link_to "時代降順", sort_path(microposts_ids: @microposts_ids, sort: "period-desc"), {remote: true, class: "block p-3"} %>
+    <%= link_to "時代降順", sort_path(microposts_ids: @microposts_ids, sort: "period-desc"), {remote: true, class: "block p-3"} %>
   </label>
 </fieldset>
 

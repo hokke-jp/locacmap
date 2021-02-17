@@ -11,8 +11,8 @@
 
     <nav>
       <ul class="flex justify-between w-36 list-none">
-        <li class="mr-4 pt-1">
-          <a href="/microposts/new" class="btn-blue inline-block py-1 px-6">
+        <li class="mr-4">
+          <a href="/microposts/new" class="btn-blue inline-block py-2 px-5">
               <%= image_tag("post.svg", alt: "post", width: "24px", class: "inline-block align-bottom") %>
               <p class="inline-block font-semibold">投稿する</p>
           </a>
@@ -37,7 +37,7 @@
         </li>
         
         <li class="w-20">
-          <%= link_to "新規登録", signup_path, {class: "btn-signup"} %>
+          <%= link_to "新規登録", signup_path, {class: "btn-regreen block px-2 py-2 rounded-lg font-semibold text-center"} %>
         </li>
       </ul>
     </nav>

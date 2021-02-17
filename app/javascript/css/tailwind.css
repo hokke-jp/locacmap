@@ -11,7 +11,7 @@
   display: contents;
 }
 
-/* ぺーじネーション */
+/* ページネーション */
 .page {
   @apply mx-1 text-xl;
 }
@@ -24,7 +24,7 @@
 
 /* タイトル */
 .page-title {
-  @apply border-b-2 w-11/12 mt-10 mx-auto pl-10 text-2xl;
+  @apply border-b-2 w-11/12 mt-12 mx-auto pl-10 text-2xl;
 }
 
 /* フッター */
@@ -65,7 +65,8 @@
 
 /* アラート */
 .alert {
-  @apply fixed top-0 w-full px-4 mt-10 text-center opacity-0;
+  @apply fixed top-0 w-full px-4 text-center opacity-0;
+  margin-top: 61px;
   -moz-animation: fadeout 5s linear 0s forwards;
   /* Firefox */
   -webkit-animation: fadeout 5s linear 0s forwards;
@@ -118,6 +119,9 @@
 .btn-blue:hover > img {
   filter: brightness(0) invert(1);
 }
+.margin-bottom-2px {
+  margin-bottom: 2px;
+}
 .btn-red {
   @apply border border-red-500 rounded-full bg-red-500 text-white;
 }
@@ -130,11 +134,11 @@
 .btn-green:hover {
   @apply bg-green-400 text-white;
 }
-.btn-signup {
-  margin-top: 3px;
-  @apply block border rounded-lg bg-green-400 text-white font-semibold leading-8 text-center;
+.btn-regreen {
+  margin-top: 1px;
+  @apply border-2 border-green-400 bg-green-400 text-white;
 }
-.btn-signup:hover {
+.btn-regreen:hover {
   @apply bg-white text-green-400;
 }
 .btn-disabled {
@@ -144,7 +148,7 @@
   @apply bg-gray-400;
 }
 .map-btn {
-  @apply py-2 px-4 rounded-sm shadow bg-white text-lg cursor-pointer;
+  @apply py-2 px-4 rounded-sm shadow bg-white cursor-pointer;
 }
 .map-btn:hover {
   @apply text-black;
@@ -170,7 +174,7 @@
 .radio-inline__label:hover {
   @apply underline;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 640px) {
   .radio-inline__label {
     margin: 0 30px;
   }

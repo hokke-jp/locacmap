@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @pagination = params[:pagination]
     @info = params[:info]
     @user = User.find(params[:id])
-    @feed_items = @user.feed.page(params[:page]).limit(10)
+    @feed_items = @user.feed.page(params[:page])
     case params[:info]
     when 'posted'
       @microposts = Micropost.where(user_id: @user.id).page(params[:page])

@@ -3,9 +3,9 @@
 </div>
 <div id="latlngs-data" data-latlngs="<%= @microposts.pluck(:latlng).to_json %>"></div>
 <div id="ids-data" data-ids="<%= @microposts.pluck(:id).to_json %>"></div>
-<input id="autocomplete" size="50" class="mt-4 ml-4 h-6 w-48 text-base rounded-sm shadow" type="search" placeholder="検索" />
-<div id="set-init" class="map-btn m-6 sm:m-3">全体</div>
-<div id="location-button" class="map-btn m-3">現在地</div>
+<div id="init-position" class="map-btn mt-3 mb-1 ml-3 text-lg">全体</div>
+<div id="location-button" class="map-btn m-3 text-lg">現在地</div>
+<a href="/map" id="reload-button" class="map-btn inline-block m-3 text-base">表示を切換える(ランダム)</a>
 <div class="hidden">
   <%= render 'map_microposts', microposts: @microposts %>
 </div>
@@ -19,7 +19,6 @@ function mainMap() {
   const latlngs_data = document.getElementById('latlngs-data');
   const str_latlngs_array = JSON.parse(latlngs_data.getAttribute('data-latlngs'));
   const latlngs_array = [];
-  console.log(ids_array);
 
 
   // railsに保存してあるString型のlatlngをNumber型の配列に変換
@@ -35,8 +34,8 @@ function mainMap() {
 
   // マップ表示
   const target = document.getElementById('main-map');
-  const init_center = {lat: 37, lng: 138};
-  const main_map = new google.maps.Map(target, {
+  const init_center = {lat: 38, lng: 138};
+  const map = new google.maps.Map(target, {
     center: init_center,
     zoom: 5,
     zoomControl: false,
@@ -47,7 +46,7 @@ function mainMap() {
     },
     restriction: {
       latLngBounds: {
-        north: 57.0,
+        north: 60.0,
         south: 18.0,
         west: 100.0,
         east: 180.0
@@ -65,71 +64,76 @@ function mainMap() {
     latLngs[i] = { lat: latlng[0], lng: latlng[1] }
     markers[i] = new google.maps.Marker({
       position: latLngs[i],
-      map: main_map
+      map: map
     });
     infoWindows[i] = new google.maps.InfoWindow({
-      content: document.getElementById(`micropost-${ids_array[i]}`).innerHTML
+      content: document.getElementById(`micropost-${ids_array[i]}`).innerHTML,
+      maxWidth: 330,
+      disableAutoPan: true
     });
     markers[i].addListener('click', ()=> {
       for ( infoWindow of infoWindows ) {
         infoWindow.close();
       }
-      main_map.panTo(latLngs[i]);
-      infoWindows[i].open(main_map, markers[i]);
+      map.panTo(latLngs[i]);
+      map.panBy(0, -280);
+      infoWindows[i].open(map, markers[i]);
     });
+    // ピンをダブルクリック右クリックで拡大
     markers[i].addListener('rightclick', ()=> {
-      main_map.panTo(latLngs[i]);
-      main_map.setZoom(10);
+      map.panTo(latLngs[i]);
+      map.setZoom(10);
     });
     markers[i].addListener('dblclick', ()=> {
-      main_map.panTo(latLngs[i]);
-      main_map.setZoom(10);
+      map.panTo(latLngs[i]);
+      map.setZoom(10);
     });
   });
-  main_map.addListener('click', ()=> {
+  map.addListener('click', ()=> {
     for ( infoWindow of infoWindows ) {
       infoWindow.close();
     }
   });
 
 
-  // 検索機能設定
-  const input = document.getElementById("autocomplete");
-  main_map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  const autocomplete = new google.maps.places.Autocomplete(
-    input,
-    {
-      // types: ['establishment'],
-      fields: ["geometry", "name"],
-      componentRestrictions: {country: 'jp'}
-    }
-  );
-  places = new google.maps.places.PlacesService(main_map);
-  autocomplete.addListener("place_changed", onPlaceChanged);
-  function onPlaceChanged() {
-    const place = autocomplete.getPlace();
-    if (place.geometry) {
-      main_map.panTo(place.geometry.location);
-      main_map.setZoom(15);
-    } else {
-      input.placeholder = "検索";
-    }
-  }
+  // リロードボタン設定
+  const reloadButton = document.getElementById('reload-button');
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(reloadButton);
 
 
   // 全体ボタン設定
-  const set_init = document.getElementById('set-init');
-  main_map.controls[google.maps.ControlPosition.BOTTOM].push(set_init);
-  google.maps.event.addDomListener(set_init, 'click', ()=> {
-    main_map.panTo(init_center);
-    main_map.setZoom(5);
-  });
+  // 宣言
+  function initPosition(pushIntoMap, position) {
+    const init_position = document.getElementById('init-position');
+    pushIntoMap(position, init_position);
+    google.maps.event.addDomListener(init_position, 'click', ()=> {
+      map.panTo(init_center);
+      map.setZoom(5);
+      for ( infoWindow of infoWindows ) {
+        infoWindow.close();
+      }
+    });
+  }
+  const pushIntoMap = function (position, init_position) {
+    if (position === 'left') {
+      map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(init_position);
+    } else if (position === 'top') {
+      map.controls[google.maps.ControlPosition.TOP].push(init_position);
+    }
+  }
+  // 実行
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    initPosition(pushIntoMap, 'left');
+  } else if (window.matchMedia('(min-width:768px)').matches) {
+    initPosition(pushIntoMap, 'top');
+  }
+
 
 
   // 現在地ボタン設定
   const locationButton = document.getElementById('location-button');
-  main_map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(locationButton);
-  new locationControl(locationButton, main_map);
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(locationButton);
+  new locationControl(locationButton, map);
 
   function locationControl(buttonDiv, map) {
     google.maps.event.addDomListener(buttonDiv, "click", function() {
