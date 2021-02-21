@@ -13,8 +13,8 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: historymap
-  password: burihokke
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
   host: localhost
   socket: /tmp/mysql.sock
 
@@ -30,6 +30,5 @@ test:
 
 production:
   <<: *default
-  database: historymap_production
-  username: historymap
-  password: burihokke
+  database: <%= ENV['DB_NAME'] %>
+  host: <%= ENV['DB_HOSTNAME'] %>
