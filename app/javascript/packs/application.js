@@ -13,5 +13,3 @@ import '../js/map'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-console.log('あるべきようは');

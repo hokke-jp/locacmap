@@ -46,7 +46,7 @@ function mainMap() {
     },
     restriction: {
       latLngBounds: {
-        north: 60.0,
+        north: 65.0,
         south: 18.0,
         west: 100.0,
         east: 180.0
@@ -60,6 +60,7 @@ function mainMap() {
   const latLngs = [];
   const markers = [];
   const infoWindows = [];
+  let bottom_size = 0;
   latlngs_array.forEach( (latlng, i) => {
     latLngs[i] = { lat: latlng[0], lng: latlng[1] }
     markers[i] = new google.maps.Marker({
@@ -76,7 +77,12 @@ function mainMap() {
         infoWindow.close();
       }
       map.panTo(latLngs[i]);
-      map.panBy(0, -280);
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        bottom_size = -250;
+      } else if (window.matchMedia('(min-width:768px)').matches) {
+        bottom_size = -300;
+      }
+      map.panBy(0, bottom_size);
       infoWindows[i].open(map, markers[i]);
     });
     // ピンをダブルクリック右クリックで拡大

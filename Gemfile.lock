@@ -279,7 +279,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
-    unicorn (5.8.0)
+    unicorn (5.4.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     web-console (4.1.0)
@@ -334,7 +334,7 @@ DEPENDENCIES
   spring
   turbolinks (~> 5)
   tzinfo-data
-  unicorn
+  unicorn (= 5.4.1)
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
