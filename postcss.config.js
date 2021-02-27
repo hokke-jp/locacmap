@@ -22,6 +22,7 @@ if (process.env.RAILS_ENV === "production") {
         './app/**/*.js.erb',
         './app/helpers/**/*.rb',
       ],
+      whitelist: ['img', 'video', ':root'],
       defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
     })
   )
