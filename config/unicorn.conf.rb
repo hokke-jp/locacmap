@@ -11,7 +11,7 @@ working_directory $app_dir
 stderr_path $std_log
 stdout_path $std_log
 timeout $timeout
-listen  3000
+listen  $listen
 pid $pid
 # loading booster
 preload_app true
