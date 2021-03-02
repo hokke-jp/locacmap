@@ -294,6 +294,18 @@ img {
   color: rgba(0, 0, 0, var(--text-opacity));
 }
 
+// マップの縦サイズをjsと合わせてスマホでも動かないように
+.map-height {
+  height: calc(100vh - 104px); /* 変数をサポートしていないブラウザのフォールバック */
+  height: calc(var(--vh, 1vh) * 100 - 104px);
+}
+@media screen and (min-width: 1024px) {
+  .map-height {
+    height: calc(100vh - 56px); /* 変数をサポートしていないブラウザのフォールバック */
+    height: calc(var(--vh, 1vh) * 100 - 56px);
+  }
+}
+
 /* タグ */
 .tag {
   display: inline-block;

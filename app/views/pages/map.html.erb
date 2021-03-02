@@ -1,5 +1,5 @@
 <!-- マップ描画 -->
-<div id="map-wrapper" class="w-full">
+<div id="map-wrapper" class="map-height w-full">
   <div id='main-map' style="height: 100%"></div>
 </div>
 
@@ -18,16 +18,14 @@
 
 
 <script>
+// フッターの有無(width:1024px)によって地図サイズ変更
+const map_wrapper = document.getElementById('map-wrapper');
+window.addEventListener('resize', () => {
+  let vh = window.innerHeight * 0.01;
+  map_wrapper.style.setProperty('--vh', `${vh}px`);
+});
+
 function mainMap() {
-  // フッターの有無(width:1024px)によって地図サイズ変更
-  const map_wrapper = document.getElementById('map-wrapper');
-  if (window.matchMedia('(max-width: 1023px)').matches) {
-    map_wrapper.style.height = "calc(100vh - 104px)";
-  } else if (window.matchMedia('(min-width:1024px)').matches) {
-    map_wrapper.style.height = "calc(100vh - 56px)";
-  }
-
-
   // ビューに書き込んだmicropost情報を取得
   const ids_data = document.getElementById('ids-data');
   const ids_array = JSON.parse(ids_data.getAttribute('data-ids'));
