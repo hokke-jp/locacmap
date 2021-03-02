@@ -24,12 +24,12 @@
 
 /* タイトル */
 .page-title {
-  @apply border-b-2 w-11/12 mt-12 mx-auto pl-10 text-2xl;./bin/rails tailwindcss:install
+  @apply border-b-2 w-11/12 mt-12 mx-auto pl-10 text-2xl;
 }
 
 /* フッター */
 .footer_icon {
-  @apply block;
+  @apply block text-center;
 }
 .footer_icon:hover {
   color: #b2b2b2;

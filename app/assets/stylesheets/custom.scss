@@ -1,3 +1,7 @@
+img {
+  vertical-align: middle;
+}
+
 // 子セレクタ">"が本番環境で動作しなかったため急遽移動
 .footer_icon:hover > img {
   filter: brightness(0%) invert(50%);
@@ -61,10 +65,12 @@
 .grad-trigger:checked ~ .grad-btn > .display-div > #mini-info > div {
   margin-bottom: 15px;
 }
+.grad-trigger:checked ~ .grad-btn > .display-div > .image-div {
+  margin-top: 40px;
+}
 .grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
   width: 100%;
   height: auto;
-  margin-top: 40px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
   object-fit: fill;
 }
