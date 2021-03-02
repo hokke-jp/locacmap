@@ -2,17 +2,17 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-*, *::before, *::after {
+/* *, *::before, *::after {
   box-sizing: inherit;
-}
+} */
 
 /* form入力エラー時に自動で追加されるクラスの影響をなくす */
-.field_with_errors {
+/* .field_with_errors {
   display: contents;
-}
+} */
 
 /* ページネーション */
-.page {
+/* .page {
   @apply mx-1 text-xl;
 }
 .current {
@@ -20,56 +20,56 @@
 }
 .prev {
   @apply mx-1;
-}
+} */
 
 /* タイトル */
-.page-title {
+/* .page-title {
   @apply border-b-2 w-11/12 mt-12 mx-auto pl-10 text-2xl;
-}
+} */
 
 /* フッター */
-.footer_icon {
-  @apply block text-center;
+/* .footer_icon {
+  @apply block;
 }
 .footer_icon:hover {
   color: #b2b2b2;
 }
+.footer_icon:hover > img {
+  filter: brightness(0%) invert(50%);
+} */
 
 /* ラベル */
-.label {
+/* .label {
   @apply inline-block;
 }
 .field {
   @apply block border w-full h-8 rounded;
-}
+} */
 
 /* 三角形 */
-.triangle:hover::before {
+/* .triangle:hover::before {
   content: '';
   display: inline-block;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 13.8564px solid #2d3748;
-}
+} */
 
 /* 数字 */
-.number {
+/* .number {
   @apply p-1 rounded-md text-indigo-500 text-2xl;
 }
 .number:hover {
   @apply bg-indigo-300 text-white;
-}
+} */
 
 /* アラート */
-.alert {
+/* .alert {
   @apply fixed top-0 w-full px-4 text-center opacity-0;
   margin-top: 61px;
   -moz-animation: fadeout 5s linear 0s forwards;
-  /* Firefox */
   -webkit-animation: fadeout 5s linear 0s forwards;
-  /* Safari and Chrome */
   -o-animation: fadeout 5s linear 0s forwards;
-  /* Opera */
   animation: fadeout 5s linear 0s forwards;
 }
 @media screen and (min-width: 1024px) {
@@ -90,6 +90,9 @@
 		opacity: 0;
 	}
 }
+.alert > div {
+  @apply inline-block py-3 px-16 mx-auto rounded-lg;
+}
 .alert-success{
   @apply bg-green-300 text-green-800;
 }
@@ -101,14 +104,17 @@
 }
 .alert-warning {
   @apply bg-red-300 text-red-800 whitespace-pre-line;
-}
+} */
 
 /* ボタン */
-.btn-blue {
+/* .btn-blue {
   @apply border border-purple-500 rounded-full bg-white text-purple-500;
 }
 .btn-blue:hover {
   @apply bg-purple-500 text-white;
+}
+.btn-blue:hover > img {
+  filter: brightness(0) invert(1);
 }
 .margin-bottom-2px {
   margin-bottom: 2px;
@@ -143,18 +149,18 @@
 }
 .map-btn:hover {
   @apply text-black;
-}
+} */
 
 /* タグ */
-.tag {
+/* .tag {
   @apply inline-block mb-2 px-3 border rounded-full bg-indigo-400 text-white;
 }
 .tag:hover {
   @apply  bg-indigo-500;
-}
+} */
 
 /* 並び替えボタン */
-.radio-inline__input {
+/* .radio-inline__input {
   display: none;
 }
 .radio-inline__label {
@@ -180,10 +186,10 @@
   outline-offset: -2px;
   outline-style: auto;
   outline-width: 5px;
-}
+} */
 
 /* micropostをモーダル表示する操作 */
-.grad-item {
+/* .grad-item {
   overflow: hidden;
   height: 0;
 }
@@ -197,6 +203,11 @@
 .display-div {
   @apply p-2 border shadow-md rounded-lg;
 }
+.image-div > img{
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
 @media screen and (min-width: 768px) {
   .display-div {
     @apply flex justify-between;
@@ -207,3 +218,56 @@
     min-width: 200px;
   }
 }
+@media screen and (min-width: 768px) {
+  .image-div > img {
+    width: 200px;
+  }
+}
+.grad-trigger:checked ~ .grad-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(22, 22, 22, 0.8)
+}
+.grad-trigger:checked ~ .grad-btn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  max-width: 850px;
+  max-height: 90%;
+  margin: 5px 0;
+  overflow-y: scroll;
+  border: 2px solid #f09199;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px #fce2c4 inset;
+}
+.grad-trigger:checked ~ .grad-btn > .grad-item {
+  height: auto;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div {
+  justify-content: space-around;
+  margin: 10px 10px 0 10px;
+  border: 0;
+  box-shadow: none;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div > #mini-info > div {
+  margin-bottom: 15px;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
+  width: 100%;
+  height: auto;
+  margin-top: 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
+  object-fit: fill;
+}
+@media screen and (min-width: 768px) {
+  .grad-trigger:checked ~ .grad-btn > .display-div {
+    display: block;
+  }
+} */

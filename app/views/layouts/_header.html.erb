@@ -1,16 +1,16 @@
-<header id="header" class="py-2 px-5 h-14 shadow-md">
+<header id="header" class="py-2 px-5 shadow-md">
 
   <div class="lg:max-w-5xl mx-auto flex justify-between">
 
     <div class="flex">
-      <%= link_to image_tag("applogo.png", alt: "applogo", width: "40px", class: "rounded-lg"), root_path %>
-      <%= link_to image_tag("appname.svg", alt: "appname", width: "80px", height: "40px", class: "hidden sm:block"), root_path, {class: "ml-2 flex"} %>
+      <%= link_to image_tag("applogo.png", alt: "applogo", width: "42px", class: "rounded-lg"), root_path %>
+      <%= link_to image_tag("appname.svg", alt: "appname", width: "80px", height: "42px", class: "hidden sm:block"), root_path, {class: "ml-2 flex"} %>
     </div>
 
     <% if logged_in? %>
 
     <nav>
-      <ul class="flex justify-between w-36 list-none">
+      <ul class="flex justify-between list-none">
         <li class="mr-4">
           <a href="/microposts/new" class="btn-blue inline-block py-2 px-5">
               <%= image_tag("post.svg", alt: "post", width: "24px", class: "inline-block align-bottom") %>
