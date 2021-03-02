@@ -1,8 +1,9 @@
-<div class="w-full h-with-footer lg:h-without-footer">
+<!-- マップ描画 -->
+<div id="map-wrapper" class="w-full">
   <div id='main-map' style="height: 100%"></div>
 </div>
-<div id="latlngs-data" data-latlngs="<%= @microposts.pluck(:latlng).to_json %>"></div>
-<div id="ids-data" data-ids="<%= @microposts.pluck(:id).to_json %>"></div>
+
+<!-- マップに入れるHTML -->
 <div id="init-position" class="map-btn mt-3 mb-1 ml-3 text-lg">全体</div>
 <div id="location-button" class="map-btn m-3 text-lg">現在地</div>
 <a href="/map" id="reload-button" class="map-btn inline-block m-3 text-base">表示を切換える(ランダム)</a>
@@ -10,9 +11,23 @@
   <%= render 'map_microposts', microposts: @microposts %>
 </div>
 
+<!-- データ（非表示） -->
+<div id="latlngs-data" data-latlngs="<%= @microposts.pluck(:latlng).to_json %>"></div>
+<div id="ids-data" data-ids="<%= @microposts.pluck(:id).to_json %>"></div>
+
+
 
 <script>
 function mainMap() {
+  // フッターの有無(width:1024px)によって地図サイズ変更
+  const map_wrapper = document.getElementById('map-wrapper');
+  if (window.matchMedia('(max-width: 1023px)').matches) {
+    map_wrapper.style.height = "calc(100vh - 104px)";
+  } else if (window.matchMedia('(min-width:1024px)').matches) {
+    map_wrapper.style.height = "calc(100vh - 56px)";
+  }
+
+
   // ビューに書き込んだmicropost情報を取得
   const ids_data = document.getElementById('ids-data');
   const ids_array = JSON.parse(ids_data.getAttribute('data-ids'));
