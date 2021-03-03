@@ -3,9 +3,9 @@
     <%= link_to avatar_for(user, size: 70), user, class: 'inline-block mb-2' %>
   </div>
   <div class="">
-    <%= link_to user.name, user, class: 'inline-block h-12 overflow-y-scroll' %>
+    <%= link_to user.name, user, class: 'inline-block h-6 w-20 md:w-24 align-middle truncate' %>
   </div>
-  <% if current_user.admin? && !current_user?(user) %>
+  <% if logged_in? && current_user.admin? && !current_user?(user) %>
     <%= link_to "delete", user, method: :delete, data: { confirm: "削除を実行します" }, class: 'btn-red px-2' %>
   <% end %>
 </li>

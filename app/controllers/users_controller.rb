@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[index edit update destroy
-                                          following followers]
-  before_action :correct_user,   only: %i[edit update]
-  before_action :already_authenticated?,   only: %i[new create]
+  before_action :logged_in_user,          only: %i[index edit update destroy]
+  before_action :correct_user,            only: %i[edit update]
+  before_action :already_authenticated?,  only: %i[new create]
   protect_from_forgery except: :destroy
 
   def index

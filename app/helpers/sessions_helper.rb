@@ -30,10 +30,10 @@ module SessionsHelper
   end
 
   def already_authenticated?
-    if logged_in?
-      flash[:info] = '既にログインしています'
-      redirect_back_or root_url
-    end
+    return unless logged_in?
+
+    flash[:info] = '既にログインしています'
+    redirect_back_or root_url
   end
 
   def forget(user)

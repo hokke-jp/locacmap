@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :already_authenticated?,  only: %i[new create]
+  before_action :already_authenticated?, only: %i[new create]
 
   def new; end
 
