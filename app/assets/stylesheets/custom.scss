@@ -1,0 +1,443 @@
+// tailwindで自作した組み合わせクラスが本番環境で適用されないことが多かったの（特にセレクタを使用した箇所）で急遽移動
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* form入力エラー時に自動で追加されるクラスの影響をなくす */
+.field_with_errors {
+  display: contents;
+}
+
+/* ページネーション */
+.page {
+  margin-left: 0.25rem/* 4px */;
+  margin-right: 0.25rem/* 4px */;
+  font-size: 1.25rem/* 20px */; 
+}
+.current {
+  font-size: 1.5rem/* 24px */;
+  font-weight: 600;
+}
+.prev {
+  margin-left: 0.25rem/* 4px */;
+  margin-right: 0.25rem/* 4px */;
+}
+
+/* タイトル */
+.page-title {
+  width: 91.666667%;
+  margin-top: 3rem/* 48px */;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2.5rem/* 40px */;
+  border-bottom-width: 2px;
+  font-size: 1.5rem/* 24px */;
+}
+
+/* フッター */
+.footer_icon {
+  display: block;
+}
+.footer_icon:hover {
+  color: #b2b2b2;
+}
+.footer_icon:hover > img {
+  filter: brightness(0%) invert(50%);
+}
+
+/* ラベル */
+.label {
+  display: inline-block;
+}
+.field {
+  display: block;
+  width: 100%;
+  height: 2rem/* 32px */;
+  border-width: 1px;
+  border-radius: 0.25rem/* 4px */;
+}
+
+/* 三角形 */
+.triangle:hover::before {
+  content: '';
+  display: inline-block;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 13.8564px solid #2d3748;
+}
+
+/* 数字 */
+.number {
+  padding: 0.25rem/* 4px */;
+  border-radius: 0.375rem/* 6px */;
+  --text-opacity: 1;
+  color: #667eea;
+  color: rgba(102, 126, 234, var(--text-opacity));
+  font-size: 1.5rem/* 24px */;
+}
+.number:hover {
+  --bg-opacity: 1;
+  background-color: #a3bffa;
+  background-color: rgba(163, 191, 250, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+/* アラート */
+.alert {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-top: 61px;
+  padding-left: 1rem/* 16px */;
+  padding-right: 1rem/* 16px */;
+  text-align: center;
+  opacity: 0;
+  -moz-animation: fadeout 5s linear 0s forwards;
+  /* Firefox */
+  -webkit-animation: fadeout 5s linear 0s forwards;
+  /* Safari and Chrome */
+  -o-animation: fadeout 5s linear 0s forwards;
+  /* Opera */
+  animation: fadeout 5s linear 0s forwards;
+}
+@media screen and (min-width: 1024px) {
+  .alert {
+    width: calc(100% - 224px);
+  }
+}
+@-webkit-keyframes fadeout {
+	0% {
+    height: auto;
+		opacity : 75%;
+	}
+	80%{
+    height: auto;
+    opacity: 50%;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.alert > div {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0.75rem/* 12px */;
+  padding-bottom: 0.75rem/* 12px */;
+  padding-left: 4rem/* 64px */;
+  padding-right: 4rem/* 64px */;
+  border-radius: 0.5rem/* 8px */;
+}
+.alert-success{
+  --bg-opacity: 1;
+  background-color: #9ae6b4;
+  background-color: rgba(154, 230, 180, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #276749;
+  color: rgba(39, 103, 73, var(--text-opacity));
+}
+.alert-info {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+.alert-danger {
+  --bg-opacity: 1;
+  background-color: #feb2b2;
+  background-color: rgba(254, 178, 178, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #9b2c2c;
+  color: rgba(155, 44, 44, var(--text-opacity));
+}
+.alert-warning {
+  --bg-opacity: 1;
+  background-color: #feb2b2;
+  background-color: rgba(254, 178, 178, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #9b2c2c;
+  color: rgba(155, 44, 44, var(--text-opacity));
+  white-space: pre-line;
+}
+
+/* ボタン */
+.btn-blue {
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #9f7aea;
+  border-color: rgba(159, 122, 234, var(--border-opacity));
+  border-radius: 9999px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #9f7aea;
+  color: rgba(159, 122, 234, var(--text-opacity));
+}
+.btn-blue:hover {
+  --bg-opacity: 1;
+  background-color: #9f7aea;
+  background-color: rgba(159, 122, 234, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+.btn-blue:hover > img {
+  filter: brightness(0) invert(1);
+}
+.margin-bottom-2px {
+  margin-bottom: 2px;
+}
+.btn-red {
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #f56565;
+  border-color: rgba(245, 101, 101, var(--border-opacity));
+  border-radius: 9999px;
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+.btn-red:hover {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #f56565;
+  color: rgba(245, 101, 101, var(--text-opacity));
+}
+.btn-green {
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #68d391;
+  border-color: rgba(104, 211, 145, var(--border-opacity));
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 9999px;
+  --text-opacity: 1;
+  color: #68d391;
+  color: rgba(104, 211, 145, var(--text-opacity));
+}
+.btn-green:hover {
+  --bg-opacity: 1;
+  background-color: #68d391;
+  background-color: rgba(104, 211, 145, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+.btn-regreen {
+  margin-top: 1px;
+  border-width: 2px;
+  --border-opacity: 1;
+  border-color: #68d391;
+  border-color: rgba(104, 211, 145, var(--border-opacity));
+  --bg-opacity: 1;
+  background-color: #68d391;
+  background-color: rgba(104, 211, 145, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+.btn-regreen:hover {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #68d391;
+  color: rgba(104, 211, 145, var(--text-opacity));
+}
+.btn-disabled {
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  border-radius: 9999px;
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+.btn-disabled:hover {
+  --bg-opacity: 1;
+  background-color: #cbd5e0;
+  background-color: rgba(203, 213, 224, var(--bg-opacity));
+}
+.map-btn {
+  padding-top: 0.5rem/* 8px */;
+  padding-bottom: 0.5rem/* 8px */;
+  padding-left: 1rem/* 16px */;
+  padding-right: 1rem/* 16px */;
+  border-radius: 0.125rem/* 2px */;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  cursor: pointer;
+}
+.map-btn:hover {
+  --text-opacity: 1;
+  color: #000;
+  color: rgba(0, 0, 0, var(--text-opacity));
+}
+
+// マップの縦サイズをjsと合わせてスマホでも動かないように
+.map-height {
+  height: calc(100vh - 104px); /* 変数をサポートしていないブラウザのフォールバック */
+  height: calc(var(--vh, 1vh) * 100 - 104px);
+}
+@media screen and (min-width: 1024px) {
+  .map-height {
+    height: calc(100vh - 56px); /* 変数をサポートしていないブラウザのフォールバック */
+    height: calc(var(--vh, 1vh) * 100 - 56px);
+  }
+}
+
+/* タグ */
+.tag {
+  display: inline-block;
+  margin-bottom: 0.5rem/* 8px */;
+  padding-left: 0.75rem/* 12px */;
+  padding-right: 0.75rem/* 12px */;
+  border-width: 1px;
+  border-radius: 9999px;
+  --bg-opacity: 1;
+  background-color: #7f9cf5;
+  background-color: rgba(127, 156, 245, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+.tag:hover {
+  --bg-opacity: 1;
+  background-color: #667eea;
+  background-color: rgba(102, 126, 234, var(--bg-opacity));
+}
+
+/* 並び替えボタン */
+.radio-inline__input {
+  display: none;
+}
+.radio-inline__label {
+  display: inline-block;
+  border-radius: 3px;
+  transition: all .2s;
+}
+.radio-inline__label:hover {
+  text-decoration: underline;
+}
+@media screen and (min-width: 640px) {
+  .radio-inline__label {
+    margin: 0 30px;
+  }
+}
+.radio-inline__input:checked + .radio-inline__label {
+  background: #B54A4A;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0,0,0,.7);
+}
+.radio-inline__input:focus + .radio-inline__label {
+  outline-color: #4D90FE;
+  outline-offset: -2px;
+  outline-style: auto;
+  outline-width: 5px;
+}
+
+/* micropostをモーダル表示する操作 */
+.grad-item {
+  overflow: hidden;
+  height: 0;
+}
+.grad-trigger {
+  display: none;
+}
+.grad-btn {
+  background-color: white;
+  cursor: pointer;
+}
+.display-div {
+  padding: 0.5rem/* 8px */;
+  border-width: 1px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.5rem/* 8px */;
+}
+.image-div > img{
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+@media screen and (min-width: 768px) {
+  .display-div {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+@media screen and (min-width: 768px) {
+  .image-div {
+    min-width: 200px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .image-div > img {
+    width: 200px;
+  }
+}
+.grad-trigger:checked ~ .grad-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(22, 22, 22, 0.8)
+}
+.grad-trigger:checked ~ .grad-btn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  max-width: 850px;
+  max-height: 90%;
+  margin: 5px 0;
+  overflow-y: scroll;
+  border: 2px solid #f09199;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px #fce2c4 inset;
+}
+.grad-trigger:checked ~ .grad-btn > .grad-item {
+  height: auto;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div {
+  justify-content: space-around;
+  margin: 10px 10px 0 10px;
+  border: 0;
+  box-shadow: none;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div > #mini-info > div {
+  margin-bottom: 15px;
+}
+.grad-trigger:checked ~ .grad-btn > .display-div > .image-div > img {
+  width: 100%;
+  height: auto;
+  margin-top: 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.3);
+  object-fit: fill;
+}
+@media screen and (min-width: 768px) {
+  .grad-trigger:checked ~ .grad-btn > .display-div {
+    display: block;
+  }
+}
