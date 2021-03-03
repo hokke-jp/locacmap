@@ -14,14 +14,14 @@ describe MicropostsController, type: :system do
       end
     end
 
-    it '投稿が一つもないユーザーの場合の各項目チェック' do
+    it '投稿が一つもないユーザーの場合の項目チェック' do
       visit micropost_path(no_post_user)
       expect(page).to have_content('このユーザーの投稿はまだありません。')
       expect(page).to have_title("#{no_post_user.name}の投稿 | 歴史地図")
     end
 
     context '投稿があるユーザー' do
-      it '各項目チェック' do
+      it '項目チェック' do
         visit micropost_path(user)
         expect(page).to have_title("#{user.name}の投稿 | 歴史地図")
         expect(page).to have_content("投稿数：#{user.microposts.count}")
@@ -67,7 +67,7 @@ describe MicropostsController, type: :system do
       expect(page).to have_content('ログインしてください')
     end
 
-    it '投稿するページの各項目チェック' do
+    it '投稿するページの項目チェック' do
       log_in_as(user)
       visit new_micropost_path
       expect(page).to have_title('投稿する | 歴史地図')

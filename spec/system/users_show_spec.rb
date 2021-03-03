@@ -8,7 +8,7 @@ describe UsersController, type: :system do
       @micropost = user.microposts.create(content: 'Hello world!')
     end
 
-    it 'users#showページのユーザー情報の各項目チェック' do
+    it 'users#showページのユーザー情報の項目チェック' do
       visit user_path(user)
       expect(page).to have_title("#{user.name} | 歴史地図")
       expect(page).to have_selector('img[alt="gravatar_icon"]')
@@ -30,7 +30,7 @@ describe UsersController, type: :system do
         log_in_as(user)
       end
 
-      it 'ユーザー関連リンクの各項目チェック' do
+      it 'ユーザー関連リンクの項目チェック' do
         visit user_path(user)
         expect(page).to have_link 'いいねした記事'
         expect(page).to have_link 'アカウント編集'
