@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'password_resets', to: 'password_resets#new'
   get 'search', to: 'searches#search'
   get 'sort', to: 'searches#sort'
-  resources :users do
+  resources :users, only: %i[show new create edit update destroy] do
     member do
       patch 'update_avatar'
       get 'following'

@@ -8,7 +8,7 @@ class PagesController < ApplicationController
 
   def map
     @microposts = if params[:microposts_ids].present?
-                    Micropost.where(id: params[:microposts_ids]).limit(10)
+                    Micropost.where(id: params[:microposts_ids])
                     # byebug
                   else
                     Micropost.reorder('RAND()').limit(10).to_a
