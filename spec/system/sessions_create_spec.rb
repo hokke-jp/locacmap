@@ -49,7 +49,7 @@ describe SessionsController, type: :system do
       click_button 'ログイン'
       expect(page).to have_title('歴史地図')
       expect(page).to have_link '投稿する'
-      expect(page).to have_link 'gravatar_icon'
+      expect(page).to have_link 'user-avatar'
     end
   end
 end

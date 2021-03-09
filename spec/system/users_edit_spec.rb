@@ -5,22 +5,22 @@ describe UsersController, type: :system do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }
 
-    it 'ログイン時、"users#edit"に遷移できる' do
+    it 'ログイン時、編集ページに遷移できる' do
       log_in_as(user)
-      click_on 'gravatar_icon'
+      click_on 'user-avatar'
       click_on 'アカウント編集'
       expect(page).to have_title('アカウント編集 | 歴史地図')
       expect(page).to have_content('アカウント編集')
     end
 
-    it '非ログイン時、"users#edit"に遷移できない' do
+    it '非ログイン時、編集ページに遷移できない' do
       visit edit_user_path(user)
       expect(page).not_to have_title('アカウント編集 | 歴史地図')
       expect(page).to have_title('ログイン | 歴史地図')
       expect(page).to have_content('ログインしてください')
     end
 
-    it 'ログイン時でも、他のユーザーの"users#edit"には遷移できない' do
+    it 'ログイン時でも、他のユーザーの編集ページには遷移できない' do
       log_in_as(user)
       visit edit_user_path(other_user)
       expect(page).to have_title('歴史地図')
