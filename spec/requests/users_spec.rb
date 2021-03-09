@@ -47,30 +47,41 @@ describe UsersController, type: :request do
     let!(:alice) { create(:user) }
     let!(:bob) { create(:user) }
 
-    it '管理ユーザーは自身を削除できない' do
-      post login_path, params: { session: { email: admin_user.email, password: admin_user.password } }
+    it '非ログイン時、ユーザーの削除はできない' do
       expect { delete user_path(admin_user) }.not_to change(User, :count)
-      expect(response).to redirect_to root_url
+      expect(response).to redirect_to login_url
     end
 
-    it '管理ユーザーは他のユーザーを削除できる' do
-      post login_path, params: { session: { email: admin_user.email, password: admin_user.password } }
-      # ポートフォリオ用の'簡単ログイン'で削除できないように設定してあるので
-      # expect { delete user_path(user) }.to change { User.count }.by(-1)
-      expect { delete user_path(user) }.not_to change(User, :count)
-      expect(response).to redirect_to root_url
+    context '管理ユーザーとしてログイン時' do
+      before do
+        post login_path, params: { session: { email: admin_user.email, password: admin_user.password } }
+      end
+
+      it '管理ユーザーは自身を削除できない' do
+        expect { delete user_path(admin_user) }.not_to change(User, :count)
+        expect(response).to redirect_to root_url
+      end
+
+      it '管理ユーザーは他のユーザーを削除できる' do
+        expect { delete user_path(user) }.to change { User.count }.by(-1)
+        expect(response).to redirect_to root_url
+      end
     end
 
-    it 'ユーザーは自身を削除できる' do
-      post login_path, params: { session: { email: user.email, password: user.password } }
-      expect { delete user_path(user) }.to change { User.count }.by(-1)
-      expect(response).to redirect_to root_url
-    end
+    context '非管理ユーザーとしてログイン時' do
+      before do
+        post login_path, params: { session: { email: user.email, password: user.password } }
+      end
 
-    it 'ユーザーは他のユーザーを削除できない' do
-      post login_path, params: { session: { email: alice.email, password: alice.password } }
-      expect { delete user_path(bob) }.not_to change(User, :count)
-      expect(response).to redirect_to root_url
+      it 'ユーザーは自身を削除できる' do
+        expect { delete user_path(user) }.to change { User.count }.by(-1)
+        expect(response).to redirect_to root_url
+      end
+
+      it 'ユーザーは他のユーザーを削除できない' do
+        expect { delete user_path(bob) }.not_to change(User, :count)
+        expect(response).to redirect_to root_url
+      end
     end
   end
 end

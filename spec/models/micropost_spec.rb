@@ -1,46 +1,76 @@
 require 'rails_helper'
 
 describe Micropost do
-  let!(:user) { create(:user) }
-  before do
-    @micropost = user.microposts.build(title: '初めまして', content: 'よろしくお願いします。')
+  let!(:user) { create(:user)}
+  let!(:period) { create(:period) }
+  let!(:prefecture) { create(:prefecture) }
+  let(:micropost) do
+    build(:micropost, user_id: user.id,
+                      period_id: period.id,
+                      prefecture_id: prefecture.id)
   end
 
-  it '有効な入力だとOK' do
-    expect(@micropost).to be_valid
+  it '有効な入力ならOK' do
+    expect(micropost).to be_valid
   end
 
-  it 'ユーザーidが空だとNG' do
-    @micropost.user_id = nil
-    expect(@micropost).not_to be_valid
+  it 'タイトルが空ならNG' do
+    micropost.title = ' '
+    expect(micropost).not_to be_valid
   end
 
-  it 'コンテンツが空だとNG' do
-    @micropost.content = ' '
-    expect(@micropost).not_to be_valid
+  it 'タイトルが40文字以下ならOK' do
+    micropost.title = 'a' * 40
+    expect(micropost).to be_valid
   end
 
-  it 'コンテンツが141文字以上だとNG' do
-    @micropost.content = 'a' * 141
-    expect(@micropost).not_to be_valid
+  it 'タイトルが41文字以上ならNG' do
+    micropost.title = 'a' * 41
+    expect(micropost).not_to be_valid
   end
 
-  it 'コンテンツが140文字以下だとOK' do
-    @micropost.content = 'a' * 140
-    expect(@micropost).to be_valid
+  it '説明文が空ならNG' do
+    micropost.content = ' '
+    expect(micropost).not_to be_valid
   end
 
-  it '最も新しいマイクロポストを最初に表示する' do
-    alice = create(:user)
-    bob = create(:user)
-    alice.microposts.create(title: 'I am Alice.', content: 'Nice to meet you.')
-    bob_post = bob.microposts.create(title: 'I am Bob.', content: 'Nice to meet you.')
-    expect(Micropost.first).to eq bob_post
+  it '説明文が1000文字以下ならOK' do
+    micropost.content = 'a' * 1000
+    expect(micropost).to be_valid
   end
 
+  it '説明文が1001文字以上ならNG' do
+    micropost.content = 'a' * 1001
+    expect(micropost).not_to be_valid
+  end
+
+  it 'ユーザーidが空ならNG' do
+    micropost.user_id = nil
+    expect(micropost).not_to be_valid
+  end
+
+  it 'period_idが空ならNG' do
+    micropost.period_id = nil
+    expect(micropost).not_to be_valid
+  end
+
+  it 'prefecture_idが空ならNG' do
+    micropost.prefecture_id = nil
+    expect(micropost).not_to be_valid
+  end
+
+  it '5MB以下のファイルならOK' do
+    micropost.image.attach(io: File.open(Rails.root.join('spec/factories/images/less_than_5MB.jpg')), filename: 'less.jpg')
+    expect(micropost.save).to be true
+  end
+
+  it '5MB以上のファイルならNG' do
+    micropost.image.attach(io: File.open(Rails.root.join('spec/factories/images/larger_than_5MB.jpg')), filename: 'large.jpg')
+    expect(micropost.save).to be false
+  end
+  
   it 'ユーザーを削除するとマイクロポストも削除される' do
-    alice = create(:user)
-    alice.microposts.create!(title: 'I am Alice.', content: 'Nice to meet you.')
-    expect { alice.destroy }.to change { Micropost.count }.by(-1)
+    create(:micropost, user_id: user.id, period_id: period.id, prefecture_id: prefecture.id)
+    expect { user.destroy }.to change { Micropost.count }.by(-1)
   end
 end

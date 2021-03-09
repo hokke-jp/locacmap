@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :micropost do
-    content { 'Lorem ipsum' }
-    user_id { User.first.id }
+    sequence(:title) { |n| "第#{n}回タイトル" }
+    sequence(:content) { |n| "第#{n}回説明文" }
+    latlng { '(37, 137)' }
+    period
+    association :user
   end
 end

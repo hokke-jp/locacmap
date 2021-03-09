@@ -15,10 +15,6 @@ class MicropostsController < ApplicationController
     # byebug
   end
 
-  def show
-    @microposts = User.find(params[:id]).microposts.page(params[:page])
-  end
-
   def new
     @micropost = current_user.microposts.build
   end

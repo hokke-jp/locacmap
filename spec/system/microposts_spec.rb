@@ -1,77 +1,71 @@
 require 'rails_helper'
 
 describe MicropostsController, type: :system do
-  describe '#show, #destroy' do
-    let(:user) { create(:user) }
-    let(:ten_post_user) { create(:user) }
-    let!(:no_post_user) { create(:user) }
+  let!(:period) { create(:period) }
+  let!(:prefecture) { create(:prefecture) }
+
+  describe '#index' do
     before do
       (1..11).each do |i|
-        user.microposts.create(content: "これが#{i}回目の投稿です")
-      end
-      (1..10).each do |i|
-        ten_post_user.microposts.create(content: "これが#{i}回目の投稿です")
+        micropost = create(:micropost, period_id: period.id, prefecture_id: prefecture.id)
+        eval("@micropost_#{i} = micropost")
       end
     end
 
-    it '投稿が一つもないユーザーの場合の項目チェック' do
-      visit micropost_path(no_post_user)
-      expect(page).to have_content('このユーザーの投稿はまだありません。')
-      expect(page).to have_title("#{no_post_user.name}の投稿 | 歴史地図")
+    it '検索ページの項目チェック' do
+      visit microposts_path
+      expect(page).to have_title('検索 | 歴史地図')
+      expect(page).to have_button 'Search'
+      expect(find('#latest', visible: false)[:checked]).to eq 'true'
+      expect(page).to have_selector 'nav.pagination'
     end
 
-    context '投稿があるユーザー' do
-      it '項目チェック' do
-        visit micropost_path(user)
-        expect(page).to have_title("#{user.name}の投稿 | 歴史地図")
-        expect(page).to have_content("投稿数：#{user.microposts.count}")
-        expect(page).to have_content(user.name)
-        expect(page).to have_content(user.microposts.first.content)
-        expect(page).to have_content('1分未満前の投稿')
-      end
-
-      it '投稿数が10以下のユーザーの場合、ページネーションが表示されない' do
-        visit micropost_path(ten_post_user)
-        expect(page).not_to have_selector 'div.pagination'
-      end
-
-      it '投稿数が11以上のユーザーの場合、ページネーションが表示される' do
-        visit micropost_path(user)
-        expect(page).to have_selector 'div.pagination'
-        expect(page).not_to have_content(user.microposts.last.content)
-      end
-    end
-
-    context 'ログイン時' do
-      before do
-        log_in_as(user)
-      end
-
-      it 'ログインユーザー自身のページの場合、削除リンクがある' do
-        visit micropost_path(user)
-        expect(page).to have_link('この投稿を削除')
-      end
-
-      it 'ログインユーザーじゃないユーザーのページ場合、削除リンクがない' do
-        visit micropost_path(ten_post_user)
-        expect(page).not_to have_link('この投稿を削除')
-      end
+    it 'ページネーションの動作チェック' do
+      visit microposts_path
+      click_on '2'
+      expect(page).to have_content @micropost_1.title
     end
   end
 
-  describe '#new' do
-    let!(:user) { create(:user) }
-    it '非ログイン時、投稿するページに遷移できない' do
+  describe '#new,#create' do
+    let!(:micropost) { create(:micropost, period_id: period.id, prefecture_id: prefecture.id) }
+    it '非ログイン時、投稿ページに遷移できない' do
       visit new_micropost_path
       expect(page).to have_title('ログイン | 歴史地図')
       expect(page).to have_content('ログインしてください')
     end
 
-    it '投稿するページの項目チェック' do
-      log_in_as(user)
-      visit new_micropost_path
-      expect(page).to have_title('投稿する | 歴史地図')
-      expect(page).to have_button('投稿')
+    context 'ログイン時' do
+      before do
+        log_in_as(micropost.user)
+        visit new_micropost_path
+      end
+
+      it '投稿ページの項目チェック' do
+        expect(page).to have_title('投稿作成 | 歴史地図')
+        expect(page).to have_button('投稿')
+      end
+
+      it '無効な入力のならアラートが出る' do
+        click_on '投稿'
+        expect(page).to have_content '5つの入力エラー'
+        expect(page).to have_content '・ピンを立ててください'
+        expect(page).to have_content '・都道府県を選択してください'
+        expect(page).to have_content '・時代を選択してください'
+        expect(page).to have_content '・タイトルを入力してください'
+        expect(page).to have_content '・説明文を入力してください'
+      end
+
+      it 'ファイルサイズが5MB以上ならアラートが出る' do
+        page.dismiss_confirm('5MB以下のファイルを選択してください。') do
+          attach_file 'micropost_image', Rails.root.join('spec/factories/images/larger_than_5MB.jpg')
+        end
+      end
+
+      it 'ファイルサイズが5MB以下ならアラートが出ない' do
+        attach_file 'micropost_image', Rails.root.join('spec/factories/images/less_than_5MB.jpg')
+        expect(page).not_to have_content '5MB以下のファイルを選択してください。'
+      end
     end
   end
 end
