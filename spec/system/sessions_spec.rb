@@ -17,7 +17,7 @@ describe SessionsController, type: :system do
 
     it 'ログアウトを押すとログアウトする' do
       log_in_as(user)
-      click_on 'gravatar_icon'
+      click_on 'user-avatar'
       click_on 'ログアウト'
       expect(page).to have_title('歴史地図')
       expect(page).to have_link '簡単ログイン'
@@ -27,7 +27,7 @@ describe SessionsController, type: :system do
 
     it 'ログアウトした後はログアウトリンクが消える' do
       log_in_as(user)
-      click_on 'gravatar_icon'
+      click_on 'user-avatar'
       click_on 'ログアウト'
       visit user_path(user)
       expect(page).not_to have_link 'ログアウト'
