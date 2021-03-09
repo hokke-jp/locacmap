@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :prefecture do
-    name { 'MyString' }
+    sequence(:name) { |n| "#{n}県" }
   end
 end

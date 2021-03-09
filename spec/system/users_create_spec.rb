@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe UsersController, type: :system do
   describe '#create' do
-    let!(:user) { build(:user) }
+    let(:user) { build(:user) }
 
     context '無効な入力では' do
       before do

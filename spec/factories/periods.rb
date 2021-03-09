@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :period do
-    name { 'MyString' }
+    sequence(:name) { |n| "#{n}時代" }
   end
 end
