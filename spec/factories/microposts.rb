@@ -3,7 +3,6 @@ FactoryBot.define do
     sequence(:title) { |n| "第#{n}回タイトル" }
     sequence(:content) { |n| "第#{n}回説明文" }
     latlng { '(37, 137)' }
-    period
     association :user
   end
 end

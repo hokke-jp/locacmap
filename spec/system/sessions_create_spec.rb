@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe SessionsController, type: :system do
   describe '#create' do
-    it '無効な入力をすると警告が出る' do
+    let!(:user) { create(:user) }
+
+    it '無効な入力をするとalertが出る' do
       visit login_path
       fill_in 'メールアドレス',	with: ''
       fill_in 'パスワード',	with: ''
@@ -11,9 +13,7 @@ describe SessionsController, type: :system do
       expect(page).to have_content 'メールアドレスかパスワードが間違っています'
     end
 
-    let!(:user) { create(:user) }
-
-    it 'パスワードは正しいがメールアドレスが間違っている場合、警告が出る' do
+    it 'パスワードは正しいがメールアドレスが間違っている場合、alertが出る' do
       visit login_path
       fill_in 'メールアドレス',	with: ''
       fill_in 'パスワード',	with: user.password
@@ -22,7 +22,7 @@ describe SessionsController, type: :system do
       expect(page).to have_content 'メールアドレスかパスワードが間違っています'
     end
 
-    it 'メールアドレスは正しいがパスワードが間違っている場合、警告が出る' do
+    it 'メールアドレスは正しいがパスワードが間違っている場合、alertが出る' do
       visit login_path
       fill_in 'メールアドレス',	with: user.email
       fill_in 'パスワード',	with: ''

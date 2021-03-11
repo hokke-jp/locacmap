@@ -35,7 +35,7 @@ describe AccountActivationsController, type: :request do
         expect(response).to redirect_to user_path(@user)
       end
 
-      it '有効化されている' do
+      it 'ユーザーは有効化されている' do
         expect(@user.reload.activated?).to be true
       end
     end

@@ -6,10 +6,12 @@ describe MicropostsController, type: :system do
 
   describe '#index' do
     before do
-      (1..11).each do |i|
-        micropost = create(:micropost, period_id: period.id, prefecture_id: prefecture.id)
-        eval("@micropost_#{i} = micropost")
-      end
+      # (1..11).each do |i|
+      #   micropost = create(:micropost, period_id: period.id, prefecture_id: prefecture.id)
+      #   eval("@micropost_#{i} = micropost")
+      # end
+      @micropost = create(:micropost, period_id: period.id, prefecture_id: prefecture.id)
+      create_list(:micropost, 10, period_id: period.id, prefecture_id: prefecture.id)
     end
 
     it '検索ページの項目チェック' do
@@ -23,7 +25,7 @@ describe MicropostsController, type: :system do
     it 'ページネーションの動作チェック' do
       visit microposts_path
       click_on '2'
-      expect(page).to have_content @micropost_1.title
+      expect(page).to have_content @micropost.title
     end
   end
 
@@ -66,6 +68,25 @@ describe MicropostsController, type: :system do
         attach_file 'micropost_image', Rails.root.join('spec/factories/images/less_than_5MB.jpg')
         expect(page).not_to have_content '5MB以下のファイルを選択してください。'
       end
+
+      # context '有効な入力なら', js: true do
+      #   before do
+      #     # find('#micropost_latlng', visible: false).set(micropost.latlng)
+      #     # first('input#micropost_latlng', visible: false).set("(37, 137)")
+      #     # page.execute_script("$(`#micropost_latlng`).val(`(37, 137)`)")
+      #     page.driver.click(870, 1050)
+      #     select micropost.period.name, from: 'micropost[period_id]'
+      #     select micropost.prefecture.name, from: 'micropost[prefecture_id]'
+      #     fill_in 'micropost_title',	with: 'テスト投稿'
+      #     fill_in '説明文',	with: 'テスト投稿'
+      #     click_on '投稿'
+      #   end
+      #   it '検索ページにリダイレクトされる' do
+      #     expect(page).to have_title('検索 | 歴史地図')
+      #   end
+      #   it '成功アラートが出る'
+      #   it 'userの投稿が1つ増える'
+      # end
     end
   end
 end

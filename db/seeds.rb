@@ -200,11 +200,11 @@ followers.each { |follower| follower.follow(user) }
 
 # -----------------------------------------------------------------------------
 # 「行きたい！」初期設定
-(1..15).each { |n| admin.goings.create!(micropost_id: n) }
-(15..20).each { |n| kyusyu.goings.create!(micropost_id: n) }
-(4..6).each { |n| shikoku.goings.create!(micropost_id: n) }
-(2..5).each { |n| tyugoku.goings.create!(micropost_id: n) }
-(5..18).each { |n| kinki.goings.create!(micropost_id: n) }
-(4..9).each { |n| tyubu.goings.create!(micropost_id: n) }
-(3..5).each { |n| kanto.goings.create!(micropost_id: n) }
-(10..16).each { |n| tohoku.goings.create!(micropost_id: n) }
+(1..15).each    { |n| admin.goings.create!(micropost_id: n) }
+(15..20).each   { |n| kyusyu.goings.create!(micropost_id: n) }
+(4..6).each     { |n| shikoku.goings.create!(micropost_id: n) }
+(2..5).each     { |n| tyugoku.goings.create!(micropost_id: n) }
+(5..18).each    { |n| kinki.goings.create!(micropost_id: n) }
+(4..9).each     { |n| tyubu.goings.create!(micropost_id: n) }
+(3..5).each     { |n| kanto.goings.create!(micropost_id: n) }
+(10..16).each   { |n| tohoku.goings.create!(micropost_id: n) }

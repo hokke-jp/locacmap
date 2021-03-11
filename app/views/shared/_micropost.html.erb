@@ -6,11 +6,17 @@
 
     <div class="display-div">
       <div id="mini-info" class="md:flex md:flex-col md:justify-around md:mr-5">
+
+        <%# 時代、都道府県タグ %>
         <div>
           <%= link_to micropost.prefecture.name, search_path(search: '', prefecture_id: micropost.prefecture.id, period_id: ''), class: "tag mr-2" %>
           <%= link_to micropost.period.name, search_path(search: '', prefecture_id: '', period_id: micropost.period.id), class: "tag mr-2" %>
         </div>
+
+        <%# タイトル %>
         <div class="mb-2 text-xl leading-5"><%= micropost.title %></div>
+
+        <%# ユーザー情報、チェック数 %>
         <div class="flex items-center justify-center sm:justify-start mb-2">
           <%= link_to avatar_for(micropost.user, size: 50), micropost.user, class: "mr-3" %>
           <div class="text-center sm:text-left">
@@ -25,6 +31,7 @@
             </div>
           </div>
         </div>
+
       </div>
       <div class="image-div">
         <%= image_for(micropost) %>

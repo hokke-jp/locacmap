@@ -18,6 +18,7 @@ describe PagesController, type: :system do
       expect(page).to have_link 'ログイン'
       expect(page).to have_link '新規登録'
     end
+
     it 'ログイン時の項目チェック' do
       log_in_as(user)
       expect(page).to have_link 'applogo'

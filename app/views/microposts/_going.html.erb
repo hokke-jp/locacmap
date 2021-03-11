@@ -3,11 +3,11 @@
 
   <%= form_with(model: Going, class: "inline-block") do |f| %>
     <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
-    <%= button_tag type: :submit, class: "btn-blue inline-block pl-2 pr-3 align-middle" do %>
+    <%= button_tag type: :submit, class: "btn-blue inline-block pl-2 pr-3 text-sm align-middle going" do %>
       <%= image_tag("pin.svg", alt: "pin", width: "16px", class: "margin-bottom-2px inline-block align-middle leading-4") %>
-      <span class="inline-block text-sm">行ってみたい!</span>
+      行ってみたい!
     <% end %>
-    <span class="text-purple-500 align-middle leading-4"><%= micropost.goings.count %></span>
+    <span class="text-purple-500 align-middle leading-4 going-count"><%= micropost.goings.count %></span>
   <% end %>
 
 <!-- ログインユーザービュー -->
@@ -15,19 +15,21 @@
 
   <%= form_with(model: current_user.goings.find_by(micropost_id: micropost.id), html: { method: :delete, class: "inline" }) do |f| %>
     <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
-    <%= f.submit "チェックを外す", class: "btn-disabled px-2 text-sm" %>
-    <span class=""><%= micropost.goings.count %></span>
+    <%= button_tag type: :submit, class: "btn-disabled px-2 text-sm going" do %>
+      チェックを外す
+    <% end %>
+    <span class="going-count"><%= micropost.goings.count %></span>
   <% end %>
 
 <% else %>
 
   <%= form_with(model: current_user.goings.build, class: "inline-block") do |f| %>
     <span><%= hidden_field_tag :micropost_id, micropost.id, {id: "hidden_micropost#{micropost.id}"} %></span>
-    <%= button_tag type: :submit, class: "btn-blue inline-block pr-3 pl-2 align-middle" do %>
+    <%= button_tag type: :submit, class: "btn-blue inline-block pr-3 pl-2 text-sm align-middle going" do %>
       <%= image_tag("pin.svg", alt: "pin", width: "16px", class: "margin-bottom-2px inline-block align-middle leading-4") %>
-      <span class="inline-block text-sm">行ってみたい!</span>
+      行ってみたい!
     <% end %>
-    <span class="text-purple-500 align-middle leading-4"><%= micropost.goings.count %></span>
+    <span class="text-purple-500 align-middle leading-4 going-count"><%= micropost.goings.count %></span>
   <% end %>
 
 <% end %>
