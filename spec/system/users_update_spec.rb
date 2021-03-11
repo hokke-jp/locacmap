@@ -15,7 +15,7 @@ describe UsersController, type: :system do
       expect(page).to have_content('5つの入力エラー')
     end
 
-    it '無効な入力後、"users#edit"が表示される' do
+    it '無効な入力後、編集ページが表示される' do
       log_in_as(user)
       visit edit_user_path(user)
       fill_in 'ユーザー名',	with: ''
@@ -37,7 +37,7 @@ describe UsersController, type: :system do
       expect(User.find_by(email: 'alice@example.com').name).to eq 'Alice'
     end
 
-    it '有効な入力後、"users#show"に遷移し、alertが出る' do
+    it '有効な入力後は、ユーザーページに遷移し、alertが出る' do
       log_in_as(user)
       visit edit_user_path(user)
       fill_in 'ユーザー名',	with: 'Bob'

@@ -7,7 +7,7 @@ describe MicropostsController, type: :request do
   let!(:other_micropost) { create(:micropost, period_id: period.id, prefecture_id: prefecture.id) }
 
   describe '#create' do
-    it '非ログイン時、microposts#createはできない' do
+    it '非ログイン時、投稿はできない' do
       expect do
         post microposts_path,
              params: { micropost: { title: 'テスト投稿', content: 'テスト説明文', period_id: micropost.period_id, prefecture_id: micropost.prefecture_id,
@@ -21,14 +21,14 @@ describe MicropostsController, type: :request do
         post login_path, params: { session: { email: micropost.user.email, password: micropost.user.password } }
       end
 
-      it '無効な入力なら、microposts#createはできない' do
+      it '無効な入力なら、投稿はできない' do
         expect do
           post microposts_path, params: { micropost: { title: '', content: '', period_id: '', prefecture_id: '', latlng: '' } }
         end.not_to change(Micropost, :count)
         expect(response).to render_template('microposts/new')
       end
 
-      it '有効な入力なら、microposts#createはできる' do
+      it '有効な入力なら、投稿はできる' do
         expect do
           post microposts_path,
                params: { micropost: { title: 'テスト投稿', content: 'テスト説明文', period_id: micropost.period_id, prefecture_id: micropost.prefecture_id,

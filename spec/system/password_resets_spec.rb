@@ -4,7 +4,7 @@ describe PasswordResetsController, type: :system do
   let!(:user) { create(:user) }
 
   describe '#new' do
-    it '非ログイン時、"password_resets#new"に遷移できる' do
+    it '非ログイン時、パスワードを忘れたページに遷移できる' do
       visit login_path
       click_on 'パスワードをお忘れの方'
       expect(page).to have_title('パスワードを忘れた | 歴史地図')
@@ -17,7 +17,7 @@ describe PasswordResetsController, type: :system do
       visit new_password_reset_path
     end
 
-    it '無効な入力では警告が出る' do
+    it '無効な入力ではalertが出る' do
       fill_in 'メールアドレス',	with: ''
       click_on '送信'
       expect(page).to have_content('メールアドレスは見つかりませんでした')
